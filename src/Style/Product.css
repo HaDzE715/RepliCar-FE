@@ -1,0 +1,84 @@
+* {
+  font-family: "Roboto", sans-serif;
+}
+.product-card {
+  position: relative; /* Set position to relative */
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 270px;
+  min-width: 270px;
+  min-height: 300px; /* Increase the minimum height */
+}
+.product-item-container a {
+  text-decoration: none; /* Remove underline */
+}
+.product-image {
+  width: 100%;
+}
+.product-image img {
+  width: 100%;
+  height: auto;
+  max-height: 330px;
+}
+.product-details {
+  position: relative;
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-name {
+  margin: 0 0 10px 0;
+  font-size: 2em;
+  color: #333;
+}
+.product-price {
+  margin-top: 0; /* Remove top margin */
+  font-size: 1.1em;
+  color: #0faf44;
+  font-weight: 600;
+}
+.product-description {
+  margin-top: 20px; /* Adjust top margin */
+  margin-bottom: 45px;
+  font-size: 1em;
+  color: #666;
+  line-height: 1.4;
+}
+.button-container {
+  position: absolute;
+  bottom: 10px; /* Adjust bottom spacing as needed */
+  left: 50%;
+  transform: translateX(-50%);
+}
+.button-container button {
+  background-color: #333;
+}
+.button-container button:hover {
+  background-color: #000;
+}
+@media screen and (max-width: 768px) {
+  .product-card {
+    max-width: 200px; /* Decrease the maximum width */
+    min-height: 250px; /* Decrease the minimum height */
+  }
+
+  .product-details {
+    padding: 5px; /* Decrease the padding */
+  }
+
+  .product-description {
+    margin-top: 15px; /* Decrease the top margin */
+    margin-bottom: 45px; /* Decrease the bottom margin */
+  }
+
+  .button-container {
+    bottom: 7px; /* Decrease the bottom spacing */
+  }
+}

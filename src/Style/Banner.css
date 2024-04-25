@@ -1,0 +1,60 @@
+.banner-container {
+  background-color: black;
+  color: white;
+  height: 220px; /* Set the height of the banner */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the content horizontally and vertically */
+  padding: 0 10px; /* Add padding to the sides */
+  font-family: garamon;
+}
+
+.content {
+  display: flex; /* Arrange logo and description side by side */
+  align-items: center; /* Align items vertically */
+}
+
+.logo-animation {
+  animation: slide-in 1s ease forwards; /* Define the logo animation */
+}
+.logo-animation img {
+  width: 130px;
+}
+
+.brand-details-info {
+  margin-top: 10px;
+}
+
+.brand-info-item {
+  margin-bottom: 8px;
+  font-family: "Georgia", serif;
+}
+
+.icon {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.description-animation {
+  animation: slide-in 1s ease forwards 0.5s; /* Keep the animation */
+  opacity: 0; /* Initially hide the text */
+  position: relative; /* Set position to relative */
+  top: -5px; /* Adjust the vertical position */
+  left: 6px; /* Adjust the horizontal position */
+  font-family: Arial, sans-serif; /* Apply classic font */
+  font-size: 14px; /* Adjust font size */
+  color: white; /* Set text color */
+  border: 1px solid white; /* Add white border */
+  padding: 10px; /* Add padding inside the border */
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(-100%); /* Start position, move to the left */
+    opacity: 0; /* Start with opacity set to 0 */
+  }
+  100% {
+    transform: translateX(0); /* End position, move to the middle */
+    opacity: 1; /* Fade in the content */
+  }
+}
