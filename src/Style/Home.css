@@ -46,7 +46,7 @@ html {
 }
 
 .image {
-  width: 90%; /* adjust the size as needed */
+  width: 88%; /* adjust the size as needed */
   height: calc(100vh - 147px);
   margin: 0 10px; /* Add margin between the images */
   transition: filter 0.5s ease;
