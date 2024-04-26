@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/RepliCar-FE/static/css/main.9b384c12.css",
-    "main.js": "/RepliCar-FE/static/js/main.63577c38.js",
+    "main.js": "/RepliCar-FE/static/js/main.607700ec.js",
     "static/js/453.9661a947.chunk.js": "/RepliCar-FE/static/js/453.9661a947.chunk.js",
     "static/media/Group 5.png": "/RepliCar-FE/static/media/Group 5.c7723fde26b2cee68e17.png",
     "static/media/Group 6.png": "/RepliCar-FE/static/media/Group 6.10448c468f7505f44ca2.png",
@@ -14,11 +14,11 @@
     "static/media/logo.jpg": "/RepliCar-FE/static/media/logo.51a54b7385595c1ae2d9.jpg",
     "index.html": "/RepliCar-FE/index.html",
     "main.9b384c12.css.map": "/RepliCar-FE/static/css/main.9b384c12.css.map",
-    "main.63577c38.js.map": "/RepliCar-FE/static/js/main.63577c38.js.map",
+    "main.607700ec.js.map": "/RepliCar-FE/static/js/main.607700ec.js.map",
     "453.9661a947.chunk.js.map": "/RepliCar-FE/static/js/453.9661a947.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9b384c12.css",
-    "static/js/main.63577c38.js"
+    "static/js/main.607700ec.js"
   ]
 }
