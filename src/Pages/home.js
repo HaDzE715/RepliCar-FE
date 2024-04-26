@@ -14,6 +14,7 @@ function Home({ logosData }) {
   const previousSlide = () => {
     setSlide(slide === 0 ? logosData.slides.length - 1 : slide - 1);
   };
+  console.log("LOGOS: ", logosData);
   return (
     <>
       {/* Desktop version */}
