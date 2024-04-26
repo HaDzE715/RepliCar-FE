@@ -1,7 +1,7 @@
 // ProductDetailPage.js
 import React from "react";
-import ProductDetails from "../Components/ProductDetails";
-import OrderDetails from "../Components/OrderDetails";
+// import ProductDetails from "../Components/ProductDetails";
+// import OrderDetails from "../Components/OrderDetails";
 
 function ProductDetailPage() {
   return (
