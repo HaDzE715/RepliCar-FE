@@ -21,14 +21,20 @@ function Banner({ logo, brandDetails }) {
         <p className="brand-name">{BrandName}</p>
         <div className="brand-details-info">
           <p className="brand-info-item">
-            <span className="icon">Founder:</span> {BrandFounder}
+            <span className="icon">Founder:</span>{" "}
+            <span className="Details-Fonts">{BrandFounder}</span>
           </p>
           <p className="brand-info-item">
-            <span className="icon">HQ:</span> {BrandCity}, {BrandCountry}
+            <span className="icon">HQ:</span>{" "}
+            <span className="Details-Fonts">
+              {BrandCity}, {BrandCountry}
+            </span>
           </p>
           <p className="brand-info-item">
-            <span className="icon">Founded:</span> {BrandMonth} {BrandDay},{" "}
-            {BrandYear}
+            <span className="icon">Founded:</span>{" "}
+            <span className="Details-Fonts">
+              {BrandMonth} {BrandDay}, {BrandYear}
+            </span>
           </p>
         </div>
       </div>

@@ -1,6 +1,13 @@
+/* Hide scrollbar for Firefox */
 html {
-  overflow: hidden;
+  scrollbar-width: none;
 }
+
+/* Hide scrollbar for WebKit browsers like Chrome and Safari */
+body::-webkit-scrollbar {
+  display: none;
+}
+
 /* Fade-in animations */
 .fade-in-top {
   animation: fadeInTop 1s ease-in-out;
@@ -39,8 +46,8 @@ html {
   align-items: center;
   height: 100%;
   background-color: black;
+  scrollbar-width: none;
 }
-
 .image-container {
   margin: 10px;
 }

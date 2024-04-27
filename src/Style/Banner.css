@@ -1,12 +1,11 @@
 .banner-container {
   background-color: black;
   color: white;
-  height: 220px; /* Set the height of the banner */
+  height: 15%; /* Set the height of the banner */
   display: flex;
   align-items: center;
   justify-content: center; /* Center the content horizontally and vertically */
   padding: 0 10px; /* Add padding to the sides */
-  font-family: garamon;
 }
 
 .content {
@@ -18,7 +17,7 @@
   animation: slide-in 1s ease forwards; /* Define the logo animation */
 }
 .logo-animation img {
-  width: 130px;
+  width: 100%;
 }
 
 .brand-details-info {
@@ -34,6 +33,9 @@
   margin-right: 8px;
   font-size: 16px;
 }
+.Details-Fonts {
+  font-size: 14px;
+}
 
 .description-animation {
   animation: slide-in 1s ease forwards 0.5s; /* Keep the animation */
@@ -42,10 +44,10 @@
   top: -5px; /* Adjust the vertical position */
   left: 6px; /* Adjust the horizontal position */
   font-family: Arial, sans-serif; /* Apply classic font */
-  font-size: 14px; /* Adjust font size */
   color: white; /* Set text color */
   border: 1px solid white; /* Add white border */
   padding: 10px; /* Add padding inside the border */
+  width: 25%;
 }
 
 @keyframes slide-in {
@@ -56,5 +58,22 @@
   100% {
     transform: translateX(0); /* End position, move to the middle */
     opacity: 1; /* Fade in the content */
+  }
+}
+@media only screen and (max-width: 768px) {
+  /* Adjust styles for screens smaller than 768px (typical mobile devices) */
+  .banner-container {
+    height: auto; /* Auto height for mobile devices */
+    padding: 20px; /* Increase padding for better spacing on smaller screens */
+  }
+
+  .content {
+    flex-direction: column; /* Stack logo and description vertically on small screens */
+    text-align: center; /* Center-align content on small screens */
+  }
+
+  .description-animation {
+    width: 70%; /* Set width to 100% for full width on small screens */
+    margin-top: 20px; /* Add margin-top for better spacing */
   }
 }
