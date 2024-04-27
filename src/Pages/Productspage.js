@@ -1,33 +1,88 @@
 import React from "react";
 import Product from "../Components/Product";
+import AMG from "../Pictures/AMG.jpg";
+import Porsche from "../Pictures/Porsche/Black.png";
+import Ferrari from "../Pictures/Ferrari.jpg";
 import "../Style/Productspage.css";
-import { Link } from "react-router-dom";
 
-function ProductsPage({ productsData }) {
+const ProductsPage = () => {
+  // Dummy product data
+  const products = [
+    {
+      name: "Mercedes AMG Green Demon",
+      size: "Scale 1/24",
+      price: 199.99,
+      image: AMG,
+    },
+    {
+      name: "Porsche Carrera 911",
+      size: "Scale 1/24",
+      price: 199.99,
+      image: Porsche,
+    },
+    {
+      name: "Ferrari Portofino",
+      size: "Scale 1/24",
+      price: 199.99,
+      image: Ferrari,
+    },
+    {
+      name: "Ferrari Portofino",
+      size: "Scale 1/24",
+      price: 199.99,
+      image: Ferrari,
+    },
+    {
+      name: "Ferrari Portofino",
+      size: "Scale 1/24",
+      price: 199.99,
+      image: Ferrari,
+    },
+    {
+      name: "Ferrari Portofino",
+      size: "Scale 1/24",
+      price: 199.99,
+      image: Ferrari,
+    },
+    {
+      name: "Ferrari Portofino",
+      size: "Scale 1/24",
+      price: 199.99,
+      image: Ferrari,
+    },
+    {
+      name: "Ferrari Portofino",
+      size: "Scale 1/24",
+      price: 199.99,
+      image: Ferrari,
+    },
+    {
+      name: "Ferrari Portofino",
+      size: "Scale 1/24",
+      price: 199.99,
+      image: Ferrari,
+    },
+    // Add more product objects as needed
+  ];
+
   return (
     <div className="products-page">
-      <h1 className="page-title">מוצרים</h1>
-      <hr className="divider-top" />
-      <div className="products-container">
-        {productsData.map((product, index) => (
-          <div className="product-item-container">
-            <Link
-              to={`/product/${product.id}`}
+      <h1 className="page-title">Porsche Cars</h1>
+      <div className="products-wrapper">
+        <div className="products-container">
+          {products.map((product, index) => (
+            <Product
               key={index}
-              className="product-item-container"
-            >
-              <Product
-                name={product.name}
-                price={product.price}
-                description={product.description}
-                image={product.image}
-              />
-            </Link>
-          </div>
-        ))}
+              name={product.name}
+              size={product.size}
+              price={product.price}
+              image={product.image}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default ProductsPage;

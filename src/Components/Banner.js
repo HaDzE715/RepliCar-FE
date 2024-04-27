@@ -25,15 +25,15 @@ function Banner({ logo, brandDetails }) {
             <span className="Details-Fonts">{BrandFounder}</span>
           </p>
           <p className="brand-info-item">
-            <span className="icon">HQ:</span>{" "}
-            <span className="Details-Fonts">
-              {BrandCity}, {BrandCountry}
-            </span>
-          </p>
-          <p className="brand-info-item">
             <span className="icon">Founded:</span>{" "}
             <span className="Details-Fonts">
               {BrandMonth} {BrandDay}, {BrandYear}
+            </span>
+          </p>
+          <p className="brand-info-item">
+            <span className="icon">HQ:</span>{" "}
+            <span className="Details-Fonts">
+              {BrandCity}, {BrandCountry}
             </span>
           </p>
         </div>
