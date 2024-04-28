@@ -19,25 +19,30 @@ function Home({ logosData }) {
   };
 
   const handleTouchEnd = () => {
-    const diff = touchEndX - touchStartX;
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) {
-        previousSlide();
-      } else {
-        nextSlide();
+    if (touchEndX && touchStartX) {
+      const diff = touchEndX - touchStartX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) {
+          previousSlide();
+        } else {
+          nextSlide();
+        }
       }
     }
+    setTouchStartX(null); // Reset touch start and end values
+    setTouchEndX(null);
   };
 
   const nextSlide = () => {
-    setSlide(slide === logosData.slides.length - 1 ? 0 : slide + 1);
+    setSlide((slide + 1) % logosData.slides.length);
   };
+
   const previousSlide = () => {
-    setSlide(slide === 0 ? logosData.slides.length - 1 : slide - 1);
+    setSlide((slide - 1 + logosData.slides.length) % logosData.slides.length);
   };
+
   return (
     <>
-      {/* Desktop version */}
       <div className="home-desktop">
         <div className="fade-in-top image-container">
           <Link to="/porsche">
