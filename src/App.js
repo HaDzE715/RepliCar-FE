@@ -43,7 +43,7 @@ const productsData = [
     price: 399,
     description:
       "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Giftsasdasds sadasd asd asd asd sad asd as da sd",
-    image: Mustang,
+    image: OrangeP,
     additionalImages: [BlackP, RedP, OrangeP], // Initialized with additional images
     colors: ["Black", "Red", "Orange"],
   },
@@ -67,7 +67,7 @@ const productsData = [
     price: 399,
     description:
       "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Giftsasdasds sadasd asd asd asd sad asd as da sd",
-    image: Mustang,
+    image: Redl,
     additionalImages: [BlackP, RedP, OrangeP], // Initialized with additional images
     colors: ["Black", "Red", "Orange"],
   },
@@ -79,7 +79,7 @@ const productsData = [
     price: 399,
     description:
       "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Giftsasdasds sadasd asd asd asd sad asd as da sd",
-    image: Mustang,
+    image: BlackF,
     additionalImages: [BlackP, RedP, OrangeP], // Initialized with additional images
     colors: ["Black", "Red", "Orange"],
   },
@@ -91,7 +91,7 @@ const productsData = [
     price: 399,
     description:
       "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Giftsasdasds sadasd asd asd asd sad asd as da sd",
-    image: Mustang,
+    image: OrangeP,
     additionalImages: [BlackP, RedP, OrangeP], // Initialized with additional images
     colors: ["Black", "Red", "Orange"],
   },

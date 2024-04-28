@@ -65,3 +65,8 @@
     margin-bottom: -40px;
   }
 }
+@media screen and (max-width: 515px) {
+  .pagination {
+    margin-top: 40px;
+  }
+}

@@ -39,7 +39,7 @@
 @keyframes fadeInTop {
   from {
     opacity: 0;
-    transform: translateY(-50px);
+    transform: translateY(-350px);
   }
   to {
     opacity: 1;
@@ -50,7 +50,7 @@
 @keyframes fadeInBottom {
   from {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(350px);
   }
   to {
     opacity: 1;
@@ -65,6 +65,7 @@
   display: flex;
   justify-content: center;
   background-color: black;
+  overflow: hidden;
 }
 
 .image-container {
