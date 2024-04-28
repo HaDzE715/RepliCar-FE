@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 import Porsche from "../Pictures/Group 5.png";
 import Ferrari from "../Pictures/Group 4.png";
 import AMG from "../Pictures/Group 6.png";
@@ -8,6 +7,28 @@ import { Link } from "react-router-dom";
 
 function Home({ logosData }) {
   const [slide, setSlide] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(null);
+  const [touchEndX, setTouchEndX] = useState(null);
+
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEndX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    const diff = touchEndX - touchStartX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        previousSlide();
+      } else {
+        nextSlide();
+      }
+    }
+  };
+
   const nextSlide = () => {
     setSlide(slide === logosData.slides.length - 1 ? 0 : slide + 1);
   };
@@ -36,37 +57,32 @@ function Home({ logosData }) {
       </div>
 
       {/* Mobile version */}
-      <div className="home-mobile">
-        <div className="carousel">
-          <BsArrowLeftCircleFill
-            className="arrow arrow-left"
-            onClick={previousSlide}
-          />
-          {logosData.slides.map((item, idx) => (
-            <Link to={`/${item.alt.toLowerCase()}`} key={idx}>
-              <img
-                src={item.src}
-                alt={item.alt}
-                className={slide === idx ? "slide" : "slide-hidden"}
-              />
-            </Link>
+      <div
+        className="home-mobile"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        {logosData.slides.map((item, idx) => (
+          <Link to={`/${item.alt.toLowerCase()}`} key={idx}>
+            <img
+              src={item.src}
+              alt={item.alt}
+              className={slide === idx ? "slide fade-in" : "slide-hidden"}
+            />
+          </Link>
+        ))}
+        <span className="indicators">
+          {logosData.slides.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setSlide(idx)}
+              className={
+                slide === idx ? "indicator" : "indicator indicator-inactive"
+              }
+            ></button>
           ))}
-          <BsArrowRightCircleFill
-            className="arrow arrow-right"
-            onClick={nextSlide}
-          />
-          <span className="indicators">
-            {logosData.slides.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setSlide(idx)}
-                className={
-                  slide === idx ? "indicator" : "indicator indicator-inactive"
-                }
-              ></button>
-            ))}
-          </span>
-        </div>
+        </span>
       </div>
     </>
   );

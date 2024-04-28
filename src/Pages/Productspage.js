@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Product from "../Components/Product";
 import "../Style/Productspage.css";
 
 const ProductsPage = ({ products }) => {
-  const productsPerPage = 9; // Number of products per page
+  const [productsPerPage, setProductsPerPage] = useState(9); // Initial number of products per page
   const [currentPage, setCurrentPage] = useState(1);
 
   // Calculate total number of pages
@@ -15,6 +15,28 @@ const ProductsPage = ({ products }) => {
 
   // Get products for current page
   const currentProducts = products.slice(startIndex, endIndex);
+  useEffect(() => {
+    // Dynamically determine number of products per page based on screen size
+    const handleResize = () => {
+      const screenWidth = window.innerWidth;
+      if (screenWidth < 768) {
+        // For screens smaller than 768px, set 8 products per page
+        setProductsPerPage(8);
+      } else {
+        // For larger screens, set 9 products per page
+        setProductsPerPage(9);
+      }
+    };
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Call handleResize once to set initial products per page
+    handleResize();
+
+    // Remove event listener on component unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handlePrevPage = () => {
     setCurrentPage(currentPage - 1);
@@ -26,7 +48,7 @@ const ProductsPage = ({ products }) => {
 
   return (
     <div className="products-page">
-      <h1 className="page-title">Porsche Cars</h1>
+      <h1 className="page-title">{products[0].brand} Diecast Models</h1>
       <div className="products-wrapper">
         <div className="products-container">
           {currentProducts.map((product, index) => (

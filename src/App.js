@@ -14,6 +14,9 @@ import BlackP from "./Pictures/Porsche/Black.png";
 import OrangeP from "./Pictures/Porsche/Orange.png";
 import BMW from "./Pictures/Porsche/BMW.png";
 import Mustang from "./Pictures/Porsche/Mustang.png";
+import Redl from "./Pictures/Ferrari/Redl.png";
+import Red from "./Pictures/Ferrari/Red.png";
+import BlackF from "./Pictures/Ferrari/Black.png";
 
 const logosData = {
   slides: [
@@ -170,7 +173,39 @@ const productsData = [
     brand: "Ferrari",
     price: 1500,
     description: "Description of Product 2",
-    image: FerrariLogo,
+    image: BlackF,
+    additionalImages: ["product2_1.jpg", "product2_2.jpg"], // Initialized with additional images
+    colors: [],
+  },
+  {
+    id: 2,
+    name: "Product 2",
+    brand: "Ferrari",
+    price: 1500,
+    description: "Description of Product 2",
+    image: Red,
+    additionalImages: ["product2_1.jpg", "product2_2.jpg"], // Initialized with additional images
+    colors: [],
+  },
+  {
+    id: 2,
+    name: "Product 2",
+    brand: "Ferrari",
+    size: "Scale 1:24",
+    price: 349.99,
+    description: "Description of Product 2",
+    image: Redl,
+    additionalImages: ["product2_1.jpg", "product2_2.jpg"], // Initialized with additional images
+    colors: [],
+  },
+  {
+    id: 2,
+    name: "Ferrari Portofino",
+    brand: "Ferrari",
+    size: "Scale 1:24",
+    price: 299.99,
+    description: "Description of Product 2",
+    image: Mustang,
     additionalImages: ["product2_1.jpg", "product2_2.jpg"], // Initialized with additional images
     colors: [],
   },
