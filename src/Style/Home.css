@@ -50,7 +50,7 @@
 @keyframes fadeInBottom {
   from {
     opacity: 0;
-    transform: translateY(350px);
+    transform: translateY(150px);
   }
   to {
     opacity: 1;
