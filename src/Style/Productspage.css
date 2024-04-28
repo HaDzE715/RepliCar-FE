@@ -10,6 +10,38 @@
 .products-wrapper {
   display: flex;
   justify-content: center; /* Center the products horizontally */
+  margin-bottom: -40px;
 }
 
-/* You can keep the styles for the Product component as previously shown */
+.pagination {
+  margin-bottom: 20px; /* Add margin to the bottom for spacing */
+  justify-content: center; /* Center the pagination controls horizontally */
+  display: flex; /* Ensure the pagination controls are displayed as flex items */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.pagination-btn {
+  padding: 0px 20px; /* Add padding to the buttons */
+  background-color: #fff; /* Button background color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px; /* Add margin between buttons */
+  font-size: 16px;
+  color: black;
+  font-weight: 500;
+}
+
+.page-number {
+  padding: 8px 12px; /* Add padding to the page numbers */
+  background-color: #fff; /* Button background color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 3px; /* Add margin between page numbers */
+}
+
+.page-number.active {
+  background-color: #000000; /* Active page number background color */
+  color: #fff;
+}

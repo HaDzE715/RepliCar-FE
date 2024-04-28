@@ -1,76 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import Product from "../Components/Product";
-import AMG from "../Pictures/AMG.jpg";
-import Porsche from "../Pictures/Porsche/Black.png";
-import Ferrari from "../Pictures/Ferrari.jpg";
 import "../Style/Productspage.css";
 
-const ProductsPage = () => {
-  // Dummy product data
-  const products = [
-    {
-      name: "Mercedes AMG Green Demon",
-      size: "Scale 1/24",
-      price: 199.99,
-      image: AMG,
-    },
-    {
-      name: "Porsche Carrera 911",
-      size: "Scale 1/24",
-      price: 199.99,
-      image: Porsche,
-    },
-    {
-      name: "Ferrari Portofino",
-      size: "Scale 1/24",
-      price: 199.99,
-      image: Ferrari,
-    },
-    {
-      name: "Ferrari Portofino",
-      size: "Scale 1/24",
-      price: 199.99,
-      image: Ferrari,
-    },
-    {
-      name: "Ferrari Portofino",
-      size: "Scale 1/24",
-      price: 199.99,
-      image: Ferrari,
-    },
-    {
-      name: "Ferrari Portofino",
-      size: "Scale 1/24",
-      price: 199.99,
-      image: Ferrari,
-    },
-    {
-      name: "Ferrari Portofino",
-      size: "Scale 1/24",
-      price: 199.99,
-      image: Ferrari,
-    },
-    {
-      name: "Ferrari Portofino",
-      size: "Scale 1/24",
-      price: 199.99,
-      image: Ferrari,
-    },
-    {
-      name: "Ferrari Portofino",
-      size: "Scale 1/24",
-      price: 199.99,
-      image: Ferrari,
-    },
-    // Add more product objects as needed
-  ];
+const ProductsPage = ({ products }) => {
+  const productsPerPage = 9; // Number of products per page
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Calculate total number of pages
+  const totalPages = Math.ceil(products.length / productsPerPage);
+
+  // Calculate index range for current page
+  const startIndex = (currentPage - 1) * productsPerPage;
+  const endIndex = Math.min(startIndex + productsPerPage, products.length);
+
+  // Get products for current page
+  const currentProducts = products.slice(startIndex, endIndex);
+
+  const handlePrevPage = () => {
+    setCurrentPage(currentPage - 1);
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
 
   return (
     <div className="products-page">
       <h1 className="page-title">Porsche Cars</h1>
       <div className="products-wrapper">
         <div className="products-container">
-          {products.map((product, index) => (
+          {currentProducts.map((product, index) => (
             <Product
               key={index}
               name={product.name}
@@ -80,6 +39,34 @@ const ProductsPage = () => {
             />
           ))}
         </div>
+      </div>
+      {/* Pagination controls */}
+      <div className="pagination">
+        <button
+          className="pagination-btn"
+          onClick={handlePrevPage}
+          disabled={currentPage === 1}
+        >
+          &lt;
+        </button>
+        <span className="page-numbers">
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i}
+              className={`page-number ${currentPage === i + 1 ? "active" : ""}`}
+              onClick={() => setCurrentPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </span>
+        <button
+          className="pagination-btn"
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+        >
+          &gt;
+        </button>
       </div>
     </div>
   );

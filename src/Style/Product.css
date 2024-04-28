@@ -5,39 +5,34 @@
   margin-left: 3%;
   margin-bottom: 5%;
 }
-
 .product-card {
   width: 85%;
   margin-top: 5%;
   background-color: #fff;
   transition: transform 0.3s ease;
 }
-
 .product-card:hover {
-  transform: scale(1.02); /* Scale up on hover */
+  transform: scale(1.05); /* Scale up on hover */
 }
-
 .product-image-container {
   margin-top: 20px;
   width: 100%;
-  height: 200px;
+  height: 255px;
   overflow: hidden;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
-
 .product-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 100%; /* Set the width to 100% to fill the container */
+  height: 100%; /* Set the height to 100% to fill the container */
+  object-fit: cover; /* Ensure the image covers the container */
   border-radius: 10px;
+  border: 1px solid #ccc;
 }
-
 .product-details {
   margin-top: 20px;
   font-family: Arial, Helvetica, sans-serif;
 }
-
 .product-name {
   margin: 0 0 10px;
   font-size: 18px;
@@ -47,8 +42,48 @@
   font-size: 16px;
   color: #888; /* Adjust the color as needed */
 }
-
 .product-price {
   margin: 0;
   font-size: 14px;
+}
+@media screen and (max-width: 1000px) {
+  .products-container {
+    grid-template-columns: repeat(2, 1fr); /* Two columns per row for tablets */
+  }
+}
+
+/* Media query for mobile devices (480px) */
+@media screen and (max-width: 680px) {
+  .products-container {
+    display: flex; /* Change display to flex */
+    flex-direction: column; /* Stack items vertically */
+  }
+
+  .product-image {
+    width: 40%; /* Set width to 40% of the container */
+    height: auto; /* Let the height adjust automatically to maintain aspect ratio */
+    object-fit: contain; /* Ensure the image fits inside the container without stretching */
+    max-width: 100%; /* Ensure the image doesn't exceed the container's width */
+    max-height: 100%; /* Ensure the image doesn't exceed the container's height */
+  }
+
+  .product-card {
+    display: flex; /* Use flexbox for product card layout */
+    align-items: center; /* Align items vertically */
+    gap: 20px; /* Add some spacing between product image and details */
+  }
+
+  .product-image-container {
+    flex: 0 0 auto; /* Prevent image from growing */
+  }
+
+  .product-details {
+    flex: 1; /* Allow details to grow and fill remaining space */
+    margin-left: 20px; /* Add margin to the left side of the details */
+  }
+
+  .product-details h2,
+  .product-details p {
+    margin: 0; /* Remove default margins */
+  }
 }

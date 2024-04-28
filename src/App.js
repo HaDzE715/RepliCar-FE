@@ -12,6 +12,8 @@ import AMGLogo from "./Pictures/AMGLogo.png";
 import RedP from "./Pictures/Porsche/Red.png";
 import BlackP from "./Pictures/Porsche/Black.png";
 import OrangeP from "./Pictures/Porsche/Orange.png";
+import BMW from "./Pictures/Porsche/BMW.png";
+import Mustang from "./Pictures/Porsche/Mustang.png";
 
 const logosData = {
   slides: [
@@ -34,10 +36,131 @@ const productsData = [
     id: 1,
     name: "Porsche 911 Carrera Alloy",
     brand: "Porsche",
+    size: "Scale 1:24",
     price: 399,
     description:
       "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Giftsasdasds sadasd asd asd asd sad asd as da sd",
-    image: PorscheLogo,
+    image: Mustang,
+    additionalImages: [BlackP, RedP, OrangeP], // Initialized with additional images
+    colors: ["Black", "Red", "Orange"],
+  },
+  {
+    id: 1,
+    name: "Porsche 911 Carrera Alloy",
+    brand: "Porsche",
+    size: "Scale 1:24",
+    price: 399,
+    description:
+      "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Giftsasdasds sadasd asd asd asd sad asd as da sd",
+    image: Mustang,
+    additionalImages: [BlackP, RedP, OrangeP], // Initialized with additional images
+    colors: ["Black", "Red", "Orange"],
+  },
+  {
+    id: 1,
+    name: "Porsche 911 Carrera Alloy",
+    brand: "Porsche",
+    size: "Scale 1:24",
+    price: 399,
+    description:
+      "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Giftsasdasds sadasd asd asd asd sad asd as da sd",
+    image: Mustang,
+    additionalImages: [BlackP, RedP, OrangeP], // Initialized with additional images
+    colors: ["Black", "Red", "Orange"],
+  },
+  {
+    id: 1,
+    name: "Porsche 911 Carrera Alloy",
+    brand: "Porsche",
+    size: "Scale 1:24",
+    price: 399,
+    description:
+      "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Giftsasdasds sadasd asd asd asd sad asd as da sd",
+    image: Mustang,
+    additionalImages: [BlackP, RedP, OrangeP], // Initialized with additional images
+    colors: ["Black", "Red", "Orange"],
+  },
+  {
+    id: 1,
+    name: "Porsche 911 Carrera Alloy",
+    brand: "Porsche",
+    size: "Scale 1:24",
+    price: 399,
+    description:
+      "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Giftsasdasds sadasd asd asd asd sad asd as da sd",
+    image: Mustang,
+    additionalImages: [BlackP, RedP, OrangeP], // Initialized with additional images
+    colors: ["Black", "Red", "Orange"],
+  },
+  {
+    id: 1,
+    name: "Porsche 911 Carrera Alloy",
+    brand: "Porsche",
+    size: "Scale 1:24",
+    price: 399,
+    description:
+      "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Giftsasdasds sadasd asd asd asd sad asd as da sd",
+    image: Mustang,
+    additionalImages: [BlackP, RedP, OrangeP], // Initialized with additional images
+    colors: ["Black", "Red", "Orange"],
+  },
+  {
+    id: 1,
+    name: "Porsche 911 Carrera Alloy",
+    brand: "Porsche",
+    size: "Scale 1:24",
+    price: 399,
+    description:
+      "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Giftsasdasds sadasd asd asd asd sad asd as da sd",
+    image: BlackP,
+    additionalImages: [BlackP, RedP, OrangeP], // Initialized with additional images
+    colors: ["Black", "Red", "Orange"],
+  },
+  {
+    id: 1,
+    name: "Porsche 911 Carrera Alloy",
+    brand: "Porsche",
+    size: "Scale 1:24",
+    price: 399,
+    description:
+      "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Giftsasdasds sadasd asd asd asd sad asd as da sd",
+    image: RedP,
+    additionalImages: [BlackP, RedP, OrangeP], // Initialized with additional images
+    colors: ["Black", "Red", "Orange"],
+  },
+  {
+    id: 1,
+    name: "Porsche 911 Carrera Alloy",
+    brand: "Porsche",
+    size: "Scale 1:24",
+    price: 399,
+    description:
+      "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Giftsasdasds sadasd asd asd asd sad asd as da sd",
+    image: OrangeP,
+    additionalImages: [BlackP, RedP, OrangeP], // Initialized with additional images
+    colors: ["Black", "Red", "Orange"],
+  },
+  {
+    id: 1,
+    name: "Porsche 911 Carrera Alloy",
+    brand: "Porsche",
+    size: "Scale 1:24",
+    price: 399,
+    description:
+      "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Giftsasdasds sadasd asd asd asd sad asd as da sd",
+    image: BMW,
+    additionalImages: [BlackP, RedP, OrangeP], // Initialized with additional images
+    colors: ["Black", "Red", "Orange"],
+  },
+  {
+    id: 1,
+    name: "Porsche 911 Carrera Alloy",
+    brand: "Porsche",
+    size: "Scale 1:24",
+    price: 399,
+    description:
+      "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Giftsasdasds sadasd asd asd asd sad asd as da sd",
+    image: BMW,
     additionalImages: [BlackP, RedP, OrangeP], // Initialized with additional images
     colors: ["Black", "Red", "Orange"],
   },

@@ -70,9 +70,7 @@ function BrandPage({ productsData }) {
   return (
     <div>
       {logo && <Banner logo={logo} brandDetails={brandDetails} />}
-      {brandProducts.length > 0 && (
-        <ProductsPage productsData={brandProducts} />
-      )}
+      {brandProducts.length > 0 && <ProductsPage products={brandProducts} />}
     </div>
   );
 }
