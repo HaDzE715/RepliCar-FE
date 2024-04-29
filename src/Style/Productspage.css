@@ -14,6 +14,7 @@
 }
 
 .pagination {
+  margin-top: 80px;
   margin-bottom: 20px; /* Add margin to the bottom for spacing */
   justify-content: center; /* Center the pagination controls horizontally */
   display: flex; /* Ensure the pagination controls are displayed as flex items */

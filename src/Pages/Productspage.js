@@ -3,40 +3,25 @@ import Product from "../Components/Product";
 import "../Style/Productspage.css";
 
 const ProductsPage = ({ products }) => {
-  const [productsPerPage, setProductsPerPage] = useState(9); // Initial number of products per page
+  const [productsPerPage, setProductsPerPage] = useState(9);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Calculate total number of pages
-  const totalPages = Math.ceil(products.length / productsPerPage);
-
-  // Calculate index range for current page
-  const startIndex = (currentPage - 1) * productsPerPage;
-  const endIndex = Math.min(startIndex + productsPerPage, products.length);
-
-  // Get products for current page
-  const currentProducts = products.slice(startIndex, endIndex);
   useEffect(() => {
-    // Dynamically determine number of products per page based on screen size
     const handleResize = () => {
       const screenWidth = window.innerWidth;
-      if (screenWidth < 768) {
-        // For screens smaller than 768px, set 8 products per page
-        setProductsPerPage(8);
-      } else {
-        // For larger screens, set 9 products per page
-        setProductsPerPage(9);
-      }
+      setProductsPerPage(screenWidth < 768 ? 8 : 9);
     };
 
-    // Add event listener for window resize
     window.addEventListener("resize", handleResize);
-
-    // Call handleResize once to set initial products per page
     handleResize();
 
-    // Remove event listener on component unmount
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const totalPages = Math.ceil(products.length / productsPerPage);
+  const startIndex = (currentPage - 1) * productsPerPage;
+  const endIndex = Math.min(startIndex + productsPerPage, products.length);
+  const currentProducts = products.slice(startIndex, endIndex);
 
   const handlePrevPage = () => {
     setCurrentPage(currentPage - 1);
@@ -48,12 +33,15 @@ const ProductsPage = ({ products }) => {
 
   return (
     <div className="products-page">
-      <h1 className="page-title">{products[0].brand} Diecast Models</h1>
+      {products.length > 0 && (
+        <h1 className="page-title">{products[0].brand} Diecast Models</h1>
+      )}
       <div className="products-wrapper">
         <div className="products-container">
-          {currentProducts.map((product, index) => (
+          {currentProducts.map((product) => (
             <Product
-              key={index}
+              key={product.id} // Assuming each product has a unique ID
+              id={product.id}
               name={product.name}
               size={product.size}
               price={product.price}
@@ -62,7 +50,6 @@ const ProductsPage = ({ products }) => {
           ))}
         </div>
       </div>
-      {/* Pagination controls */}
       <div className="pagination">
         <button
           className="pagination-btn"

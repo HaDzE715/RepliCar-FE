@@ -4,7 +4,9 @@
   animation: fadeInAnimation 0.5s ease-in forwards;
   filter: blur(5px); /* Adjust the blur intensity as needed */
 }
-
+::-webkit-scrollbar {
+  display: none;
+}
 .fade-in::before {
   content: "";
   position: absolute;
@@ -39,7 +41,7 @@
 @keyframes fadeInTop {
   from {
     opacity: 0;
-    transform: translateY(-350px);
+    transform: translateY(-100px);
   }
   to {
     opacity: 1;
@@ -50,7 +52,7 @@
 @keyframes fadeInBottom {
   from {
     opacity: 0;
-    transform: translateY(150px);
+    transform: translateY(100px);
   }
   to {
     opacity: 1;
@@ -69,7 +71,7 @@
 }
 
 .image-container {
-  margin: 145px 10px;
+  margin: 205px 10px;
 }
 
 .image {

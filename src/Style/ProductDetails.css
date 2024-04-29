@@ -1,39 +1,12 @@
-.products-page {
-  text-align: center;
-  font-family: "Roboto", sans-serif; /* Applying Roboto font */
+.product-detail-page {
+  display: flex; /* Use flexbox to layout children */
 }
 
-.page-title {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  font-size: 40px;
+.product-details-column {
+  flex: 8; /* Make ProductOverview take up remaining space Change to 7 for 70%*/
+  padding-right: 20px; /* Add some space between columns */
 }
 
-.divider-container {
-  display: flex;
-  align-items: flex-start;
-}
-
-.products-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  gap: 50px;
-}
-
-.divider-top {
-  width: 80%;
-  margin: 20px auto;
-}
-.product-item-container {
-  display: flex;
-  flex-wrap: wrap; /* Allow items to wrap to the next line if necessary */
-  gap: 20px; /* Add space between items */
-}
-
-.product-item {
-  flex: 1; /* Distribute available space evenly among items */
-  max-width: 300px; /* Optional: Limit the width of each product item */
+.order-details-column {
+  flex: 3; /* Make OrderDetails take up remaining space */
 }

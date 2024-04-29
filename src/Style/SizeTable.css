@@ -1,0 +1,30 @@
+/* SizeTable.css */
+
+.size-table {
+  margin-top: 20px;
+}
+
+.size-table h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.size-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.size-table th,
+.size-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+.size-table th {
+  background-color: #f2f2f2;
+}
+
+.size-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}

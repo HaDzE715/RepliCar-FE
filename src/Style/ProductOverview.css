@@ -1,0 +1,197 @@
+.product-details {
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.brand-name {
+  font-size: 1.5em;
+}
+.product-details h2 {
+  font-size: 36px;
+}
+.units-sold {
+  margin-top: -10px;
+  font-size: 1em;
+  color: #888; /* Grey color */
+}
+.product-details p.price {
+  font-size: 36px; /* Set the font size for the price */
+  margin-top: 35px; /* Set the margin-top for the price */
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+.size-section {
+  display: flex;
+  align-items: center;
+}
+
+.size-section p {
+  margin-right: 230px;
+  font-size: 34px;
+  font-weight: 500;
+}
+.divider {
+  border-top: 1px solid black; /* Set the divider color to black */
+  width: 430px;
+}
+.color-section {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+.color-section p {
+  margin-right: 200px;
+  font-size: 34px;
+  font-weight: 500;
+}
+.container {
+  display: flex;
+}
+
+.main-image {
+  flex: 1;
+  padding: 10px;
+  margin-top: 2%;
+}
+.main-image img {
+  width: 100%;
+  height: 500px;
+  border-radius: 10px;
+}
+
+.additional-images {
+  width: 150px; /* Adjust the width of the additional images */
+  height: 470px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin-top: 3%;
+}
+
+.additional-images img {
+  display: block;
+  width: 80px; /* Adjust the width of the additional images */
+  height: 75px;
+  margin-bottom: 30px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: transform 0.3s ease; /* Add transition property for smooth transform */
+}
+.additional-images img:hover {
+  transform: scale(1.1); /* Optionally, you can add a hover effect */
+}
+.arrow-up {
+  position: absolute;
+  left: 45%;
+  transform: translateX(-50%);
+  top: -8%;
+}
+
+.arrow-down {
+  position: absolute;
+  bottom: 2%; /* Adjust the bottom position as needed */
+  left: 45%;
+  transform: translateX(-50%);
+}
+.arrow-up,
+.arrow-down {
+  margin: 10px auto;
+  cursor: pointer;
+}
+.quantity-section {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.quantity-section p {
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.quantity-input-container {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-input-container button {
+  border: none;
+  background-color: white;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-size: 26px;
+}
+
+.quantity-input-container input {
+  width: 60px; /* Adjust width as needed */
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 5px;
+  margin: 0 5px;
+  font-size: 20px; /* Adjust font size as needed */
+}
+.quantity-input-container input::-webkit-outer-spin-button,
+.quantity-input-container input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; /* Removes the margin */
+}
+
+.quantity-input-container input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+.button-group {
+  display: flex;
+}
+
+.buy-now-button,
+.add-to-cart-button {
+  margin-top: 10px !important;
+  flex: 1; /* Equal width for both buttons */
+  font-weight: 600 !important;
+  font-size: 16px !important;
+}
+
+.buy-now-button {
+  width: 250px !important;
+  margin-right: 30px !important;
+  background-color: black !important;
+}
+
+.add-to-cart-button {
+  background-color: white !important;
+  color: black !important;
+  border: 1px #000 solid !important;
+}
+.product-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-info > h3 {
+  margin-top: 20px;
+  margin-right: 50px;
+  margin-bottom: 10px;
+}
+
+.product-info > div {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+.section {
+  cursor: pointer;
+  padding: 10px;
+}
+
+.section:hover {
+  background-color: #f0f0f0;
+}
+
+.section.selected {
+  background-color: #ddd;
+}
