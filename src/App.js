@@ -40,7 +40,7 @@ const productsData = [
     description:
       "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Gift",
     image: OrangeP,
-    additionalImages: [BlackP, RedP, OrangeP, Redl, AMGLogo, BlackP, RedP], // Initialized with additional images
+    additionalImages: [BlackP, RedP, OrangeP, Redl, AMGLogo, BlackP, FerrariLogo], // Initialized with additional images
     colors: ["Black", "Red", "Orange"],
   },
   {

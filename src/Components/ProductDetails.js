@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import "../Style/ProductDetails.css"; // Import CSS for ProductDetailPage
-import ProductOverview from "./ProductOverview";
+import ProductOverview from "./ProductOverview.js";
 
 function ProductDetailPage({ productsData }) {
   const { id } = useParams();

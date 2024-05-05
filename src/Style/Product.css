@@ -8,6 +8,9 @@
 a:link {
   text-decoration: none !important;
 }
+a:visited {
+  color: black;
+}
 .product-card {
   width: 85%;
   margin-top: 5%;
