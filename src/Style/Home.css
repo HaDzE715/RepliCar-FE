@@ -63,11 +63,11 @@
 /* Desktop version */
 .home-desktop {
   align-items: center;
-  height: 87%;
+  height: 730px;
   display: flex;
   justify-content: center;
   background-color: black;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .image-container {
