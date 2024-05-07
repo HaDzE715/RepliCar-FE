@@ -63,11 +63,10 @@
 /* Desktop version */
 .home-desktop {
   align-items: center;
-  height: 730px;
+  /* height: 87vh; */
   display: flex;
   justify-content: center;
   background-color: black;
-  /* overflow: hidden; */
 }
 
 .image-container {
@@ -91,7 +90,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 87.1vh;
+  height: 88.801vh;
 }
 
 .logo-carousel {

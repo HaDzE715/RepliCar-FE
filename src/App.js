@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Navbar from "./Components/navbar";
-import Home from "./Pages/home";
+import Brands from "./Pages/Brands";
 import BrandPage from "./Pages/Brandpage";
 import ProductDetails from "./Components/ProductDetails";
 
@@ -44,6 +44,18 @@ const productsData = [
     colors: ["Black", "Red", "Orange"],
   },
   {
+    id: 1,
+    name: "Porsche 911 Carrera Alloy",
+    brand: "Porsche",
+    size: "Scale 1:24",
+    price: 399,
+    description:
+      "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Gift",
+    image: OrangeP,
+    additionalImages: [BlackP, RedP, OrangeP, Redl, AMGLogo, BlackP, FerrariLogo], // Initialized with additional images
+    colors: ["Black", "Red", "Orange"],
+  },
+  {
     id: 2,
     name: "Product 2",
     brand: "Ferrari",
@@ -72,8 +84,8 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home logosData={logosData} />} />
-          <Route path="/home" element={<Home logosData={logosData} />} />
+          {/* <Route path="/" element={<Brands logosData={logosData} />} /> */}
+          <Route path="/Brands" element={<Brands logosData={logosData} />} />
           <Route
             path="/product/:id"
             element={<ProductDetails productsData={productsData} />}

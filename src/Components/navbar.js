@@ -14,7 +14,11 @@ import MenuItem from "@mui/material/MenuItem";
 import logo from "../Pictures/logo.jpg";
 import { Link } from "react-router-dom";
 
-const pages = ["מוצרים", "קצת עלינו", "צור קשר"];
+const pages = [
+  { name: "מוצרים", link: "/brands" },
+  { name: "קצת עלינו", link: "/about" },
+  { name: "צור קשר", link: "/contact" },
+];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar() {
@@ -97,10 +101,12 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{}} textAlign="center">
-                    {page}
-                  </Typography>
+                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                  <Link to={page.link} style={{ textDecoration: "none" }}>
+                    <Typography sx={{}} textAlign="center">
+                      {page.name}
+                    </Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -111,8 +117,8 @@ function ResponsiveAppBar() {
                 src={logo}
                 alt="Logo"
                 style={{
-                  width: 130, // Adjust the width of the logo
-                  height: 80, // Adjust the height of the logo
+                  width: 100, // Adjust the width of the logo
+                  height: 60, // Adjust the height of the logo
                 }}
               />
             </Link>
@@ -120,16 +126,19 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.name}
+                component={Link}
+                to={page.link}
                 onClick={handleCloseNavMenu}
                 sx={{
                   my: 2,
                   color: "white",
                   display: "block",
-                  fontSize: "20px",
+                  fontSize: "24px",
+                  marginRight: "55px",
                 }}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>

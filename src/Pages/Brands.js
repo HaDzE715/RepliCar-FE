@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Porsche from "../Pictures/Group 5.png";
 import Ferrari from "../Pictures/Group 4.png";
 import AMG from "../Pictures/Group 6.png";
-import "../Style/Home.css";
+import "../Style/Brands.css";
 import { Link } from "react-router-dom";
+import Lines from "../Components/Animated/lines.js";
 
 function Home({ logosData }) {
   const [slide, setSlide] = useState(0);
@@ -43,7 +44,7 @@ function Home({ logosData }) {
 
   return (
     <>
-      <div className="home-desktop">
+      <div className="home-desktop" style={{ height: "91vh" }}>
         <div className="fade-in-top image-container">
           <Link to="/porsche">
             <img src={Porsche} alt="porsche" className="image grayscale" />
@@ -68,6 +69,7 @@ function Home({ logosData }) {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
+        <Lines />
         {logosData.slides.map((item, idx) => (
           <Link to={`/${item.alt.toLowerCase()}`} key={idx}>
             <img
