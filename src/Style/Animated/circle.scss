@@ -8,21 +8,21 @@
 }
 
 .gradient {
-  --size: 240px;
+  --size: 230px;
   --speed: 7s;
   --easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
 
   width: var(--size);
   height: var(--size);
   filter: blur(calc(var(--size) / 5));
-  background-image: linear-gradient(hsl(45, 80%, 47%), hsl(45, 66%, 63%));
+  background-image: linear-gradient(hsl(0, 0%, 100%), hsl(0, 0%, 100%));
   animation: rotate var(--speed) var(--easing) alternate infinite;
   border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
 
   /* Center the element */
   position: absolute;
-  top: 43%;
-  left: 25%;
+  top: 42.5%;
+  left: 23%;
   transform: translate(-50%, -50%);
 }
 

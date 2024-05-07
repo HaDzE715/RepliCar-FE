@@ -71,13 +71,15 @@ function Home({ logosData }) {
       >
         <Circle />
         {logosData.slides.map((item, idx) => (
-          <Link to={`/${item.alt.toLowerCase()}`} key={idx}>
-            <img
-              src={item.src}
-              alt={item.alt}
-              className={slide === idx ? "slide fade-in" : "slide-hidden"}
-            />
-          </Link>
+          <div key={idx}>
+            <Link to={`/${item.alt.toLowerCase()}`} key={idx}>
+              <img
+                src={item.src}
+                alt={item.alt}
+                className={slide === idx ? "slide fade-in" : "slide-hidden"}
+              />
+            </Link>
+          </div>
         ))}
         <span className="indicators">
           {logosData.slides.map((_, idx) => (

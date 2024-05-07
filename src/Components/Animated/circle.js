@@ -1,10 +1,12 @@
 import React from "react";
 import "../../Style/Animated/circle.scss";
 
-const lines = () => {
+const MovingCircle = () => {
   return (
-    <div class="gradient"></div>
+    <div
+      className="gradient"
+    ></div>
   );
 };
 
-export default lines;
+export default MovingCircle;
