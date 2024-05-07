@@ -4,7 +4,7 @@ import Ferrari from "../Pictures/Group 4.png";
 import AMG from "../Pictures/Group 6.png";
 import "../Style/Brands.css";
 import { Link } from "react-router-dom";
-import Lines from "../Components/Animated/lines.js";
+import Circle from "../Components/Animated/circle.js";
 
 function Home({ logosData }) {
   const [slide, setSlide] = useState(0);
@@ -69,7 +69,7 @@ function Home({ logosData }) {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        <Lines />
+        <Circle />
         {logosData.slides.map((item, idx) => (
           <Link to={`/${item.alt.toLowerCase()}`} key={idx}>
             <img
