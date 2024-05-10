@@ -8,7 +8,7 @@
 }
 
 .gradient {
-  --size: 230px;
+  --size: 235px;
   --speed: 7s;
   --easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
 
@@ -17,22 +17,11 @@
   filter: blur(calc(var(--size) / 5));
   background-image: linear-gradient(hsl(0, 0%, 100%), hsl(0, 0%, 100%));
   animation: rotate var(--speed) var(--easing) alternate infinite;
-  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  border-radius: 40% 70% 70% 40% / 40% 40% 70% 70%;
 
   /* Center the element */
-  position: absolute;
-  top: 42.5%;
-  left: 23%;
+  position: fixed;
+  top: calc(55% - var(--size) / 2);
+  left: calc(52% - var(--size) / 2);
   transform: translate(-50%, -50%);
-}
-
-@media (min-width: 720px) {
-  .gradient {
-    --size: 100px;
-  }
-}
-
-/* This is just to transition when you change the viewport size. */
-* {
-  transition: all 0.05s ease-out;
 }

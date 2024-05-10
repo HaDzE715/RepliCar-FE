@@ -5,6 +5,7 @@ import Navbar from "./Components/navbar";
 import Brands from "./Pages/Brands";
 import BrandPage from "./Pages/Brandpage";
 import ProductDetails from "./Components/ProductDetails";
+import HomePage from "./Pages/HomePage";
 
 import PorscheLogo from "./Pictures/PorscheLogo.png";
 import FerrariLogo from "./Pictures/FerrariLogo.png";
@@ -40,7 +41,15 @@ const productsData = [
     description:
       "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Gift",
     image: OrangeP,
-    additionalImages: [BlackP, RedP, OrangeP, Redl, AMGLogo, BlackP, FerrariLogo], // Initialized with additional images
+    additionalImages: [
+      BlackP,
+      RedP,
+      OrangeP,
+      Redl,
+      AMGLogo,
+      BlackP,
+      FerrariLogo,
+    ], // Initialized with additional images
     colors: ["Black", "Red", "Orange"],
   },
   {
@@ -52,7 +61,15 @@ const productsData = [
     description:
       "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Gift",
     image: OrangeP,
-    additionalImages: [BlackP, RedP, OrangeP, Redl, AMGLogo, BlackP, FerrariLogo], // Initialized with additional images
+    additionalImages: [
+      BlackP,
+      RedP,
+      OrangeP,
+      Redl,
+      AMGLogo,
+      BlackP,
+      FerrariLogo,
+    ], // Initialized with additional images
     colors: ["Black", "Red", "Orange"],
   },
   {
@@ -84,7 +101,7 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
-          {/* <Route path="/" element={<Brands logosData={logosData} />} /> */}
+          <Route path="/" element={<HomePage />} />
           <Route path="/Brands" element={<Brands logosData={logosData} />} />
           <Route
             path="/product/:id"
