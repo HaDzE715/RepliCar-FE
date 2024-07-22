@@ -135,6 +135,8 @@ const ProductOverview = ({ product }) => {
       <div className="container mobile-screen">
         <div className="main-image">
           <img src={currentImage} alt="Main Product" />
+          <h2 className="product-info">{product.name}</h2>
+          <h2 className="product-price">{product.price}₪</h2>
         </div>
         <div className="additional-images">
           {product.additionalImages

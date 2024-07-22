@@ -16,8 +16,11 @@
 .logo-animation {
   animation: slide-in 1s ease forwards; /* Define the logo animation */
 }
+
 .logo-animation img {
-  width: 100%;
+  width: 150px; /* Set a fixed width for the logo */
+  height: 150px; /* Set a fixed height for the logo */
+  object-fit: contain; /* Ensure the logo fits within the specified dimensions */
 }
 
 .brand-details-info {
@@ -34,6 +37,7 @@
   margin-right: 8px;
   font-size: 16px;
 }
+
 .Details-Fonts {
   font-size: 14px;
 }
@@ -61,6 +65,7 @@
     opacity: 1; /* Fade in the content */
   }
 }
+
 @media only screen and (max-width: 768px) {
   /* Adjust styles for screens smaller than 768px (typical mobile devices) */
   .banner-container {
@@ -74,7 +79,12 @@
   }
 
   .description-animation {
-    width: 70%; /* Set width to 100% for full width on small screens */
+    width: 70%; /* Set width to 70% for better spacing on small screens */
     margin-top: 20px; /* Add margin-top for better spacing */
+  }
+
+  .logo-animation img {
+    width: 120px; /* Adjust the width for smaller screens */
+    height: 120px; /* Adjust the height for smaller screens */
   }
 }

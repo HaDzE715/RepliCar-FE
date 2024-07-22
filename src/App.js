@@ -31,6 +31,7 @@ const logosData = {
     },
   ],
 };
+
 const productsData = [
   {
     id: 1,
@@ -53,7 +54,7 @@ const productsData = [
     colors: ["Black", "Red", "Orange"],
   },
   {
-    id: 1,
+    id: 2, // Updated to be unique
     name: "Porsche 911 Carrera Alloy",
     brand: "Porsche",
     size: "Scale 1:24",
@@ -73,7 +74,7 @@ const productsData = [
     colors: ["Black", "Red", "Orange"],
   },
   {
-    id: 2,
+    id: 3, // Updated to be unique
     name: "Product 2",
     brand: "Ferrari",
     price: 1500,
@@ -83,7 +84,7 @@ const productsData = [
     colors: [],
   },
   {
-    id: 3,
+    id: 4, // Updated to be unique
     name: "Product 3",
     brand: "Mercedes",
     price: 1200,
@@ -102,18 +103,19 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/Brands" element={<Brands logosData={logosData} />} />
+          <Route path="/brands" element={<Brands logosData={logosData} />} />
           <Route
             path="/product/:id"
             element={<ProductDetails productsData={productsData} />}
           />
           <Route
-            path="/:brandname"
+            path="/brand/:brandname"
             element={<BrandPage productsData={productsData} />}
-          />{" "}
+          />
         </Routes>
       </div>
     </Router>
   );
 }
+
 export default App;

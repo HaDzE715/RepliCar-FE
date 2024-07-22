@@ -16,6 +16,9 @@ a.product-link:visited {
   margin-top: 5%;
   background-color: #fff;
   transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .product-card:hover {
   transform: scale(1.05); /* Scale up on hover */
@@ -27,6 +30,9 @@ a.product-link:visited {
   overflow: hidden;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .product-image {
   width: 100%; /* Set the width to 100% to fill the container */
@@ -38,6 +44,8 @@ a.product-link:visited {
 .product-details {
   margin-top: 20px;
   font-family: Arial, Helvetica, sans-serif;
+  width: 100%; /* Ensure details take the full width of the card */
+  text-align: center;
 }
 .product-name {
   margin: 0 0 10px;
@@ -49,7 +57,7 @@ a.product-link:visited {
   color: #888; /* Adjust the color as needed */
 }
 .product-price {
-  margin: 0;
+  padding: 15px;
   font-size: 14px;
 }
 @media screen and (max-width: 1000px) {
@@ -61,12 +69,19 @@ a.product-link:visited {
 /* Media query for mobile devices (480px) */
 @media screen and (max-width: 680px) {
   .products-container {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(
+      1,
+      1fr
+    ); /* One column per row for small screens */
   }
 
   .product-image {
     width: 100%;
     height: 100%;
+  }
+  .product-price {
+    margin: 0;
+    font-size: 18px;
   }
 
   .product-details {
@@ -82,14 +97,15 @@ a.product-link:visited {
   }
 
   .product-image {
-    width: 90%;
+    width: 100%;
     height: 90%;
   }
 
   .product-details {
-    margin-top: -15px;
+    margin-top: 0px;
   }
   .product-image-container {
-    height: 200px;
+    height: 300px;
+    width: 150px;
   }
 }
