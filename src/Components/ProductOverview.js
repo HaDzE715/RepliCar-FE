@@ -6,6 +6,7 @@ import {
   faArrowLeft,
   faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
+import Skeleton from "@mui/material/Skeleton";
 import "../Style/ProductOverview.css";
 import SelectVariants from "./SelectVariants";
 import { Button } from "@mui/material";
@@ -15,9 +16,14 @@ const ProductOverview = ({ product }) => {
   const [currentImage, setCurrentImage] = useState(product.image);
   const [startIndex, setStartIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [mainImageLoaded, setMainImageLoaded] = useState(false);
+  const [additionalImagesLoaded, setAdditionalImagesLoaded] = useState(
+    new Array(product.additionalImages.length).fill(false)
+  );
 
   const handleClick = (image) => {
     setCurrentImage(image);
+    setMainImageLoaded(false);
   };
 
   const handlePrev = () => {
@@ -66,21 +72,49 @@ const ProductOverview = ({ product }) => {
           {product.additionalImages
             .slice(startIndex, startIndex + 4)
             .map((image, index) => (
-              <img
-                key={index}
-                src={image}
-                alt=""
-                className={index === 0 ? "show" : "hide"}
-                id={`image-${startIndex + index}`}
-                onClick={() => handleClick(image)}
-              />
+              <div key={index} className="additional-image-wrapper">
+                {!additionalImagesLoaded[startIndex + index] && (
+                  <Skeleton variant="rectangular" width="80px" height="75px" />
+                )}
+                <img
+                  src={image}
+                  alt=""
+                  className="additional-image"
+                  onClick={() => handleClick(image)}
+                  onLoad={() =>
+                    setAdditionalImagesLoaded((prevState) => {
+                      const newState = [...prevState];
+                      newState[startIndex + index] = true;
+                      return newState;
+                    })
+                  }
+                  style={{
+                    display: additionalImagesLoaded[startIndex + index]
+                      ? "block"
+                      : "none",
+                  }}
+                />
+              </div>
             ))}
           <div className="arrow-down" onClick={handleNext}>
             <FontAwesomeIcon icon={faArrowDown} />
           </div>
         </div>
         <div className="main-image">
-          <img src={currentImage} alt="Main Product" />
+          {!mainImageLoaded && (
+            <Skeleton
+              variant="rectangular"
+              width="100%"
+              height="450px"
+              animation="wave"
+            />
+          )}
+          <img
+            src={currentImage}
+            alt="Main Product"
+            onLoad={() => setMainImageLoaded(true)}
+            style={{ display: mainImageLoaded ? "block" : "none" }}
+          />
           <div className="product-info">
             <h3>Description:</h3>
             <p>{product.description}</p>
@@ -129,7 +163,20 @@ const ProductOverview = ({ product }) => {
       {/* Mobile screen version */}
       <div className="container mobile-screen">
         <div className="main-image">
-          <img src={currentImage} alt="Main Product" />
+          {!mainImageLoaded && (
+            <Skeleton
+              variant="rectangular"
+              width="100%"
+              height="450px"
+              animation="wave"
+            />
+          )}
+          <img
+            src={currentImage}
+            alt="Main Product"
+            onLoad={() => setMainImageLoaded(true)}
+            style={{ display: mainImageLoaded ? "block" : "none" }}
+          />
           <h2 className="product-info">{product.name}</h2>
           <h2 className="product-price">{product.size}</h2>
           <h2 className="product-price">{product.price}₪</h2>
@@ -138,12 +185,29 @@ const ProductOverview = ({ product }) => {
           {product.additionalImages
             .slice(startIndex, startIndex + 4)
             .map((image, index) => (
-              <img
-                key={index}
-                src={image}
-                alt=""
-                onClick={() => handleClick(image)}
-              />
+              <div key={index} className="additional-image-wrapper">
+                {!additionalImagesLoaded[startIndex + index] && (
+                  <Skeleton variant="rectangular" width="80px" height="75px" />
+                )}
+                <img
+                  src={image}
+                  alt=""
+                  className="additional-image"
+                  onClick={() => handleClick(image)}
+                  onLoad={() =>
+                    setAdditionalImagesLoaded((prevState) => {
+                      const newState = [...prevState];
+                      newState[startIndex + index] = true;
+                      return newState;
+                    })
+                  }
+                  style={{
+                    display: additionalImagesLoaded[startIndex + index]
+                      ? "block"
+                      : "none",
+                  }}
+                />
+              </div>
             ))}
         </div>
         <div className="ButtonsLR">
