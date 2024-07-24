@@ -34,6 +34,7 @@ a.product-link:visited {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 .product-image {
   width: 100%; /* Set the width to 100% to fill the container */
@@ -41,6 +42,13 @@ a.product-link:visited {
   object-fit: cover; /* Ensure the image covers the container */
   border-radius: 10px;
   border: 1px solid #ccc;
+  display: none;
+}
+.product-image.loaded {
+  display: block;
+}
+.image-skeleton {
+  border-radius: 10px;
 }
 .product-details {
   margin-top: 20px;
@@ -66,7 +74,6 @@ a.product-link:visited {
     grid-template-columns: repeat(2, 1fr); /* Two columns per row for tablets */
   }
 }
-
 /* Media query for mobile devices (480px) */
 @media screen and (max-width: 680px) {
   .products-container {
