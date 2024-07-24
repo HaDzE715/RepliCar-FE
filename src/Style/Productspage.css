@@ -7,10 +7,39 @@
   font-family: "Darker Grotesque", sans-serif;
   font-size: 36px;
 }
+
 .products-wrapper {
   display: flex;
   justify-content: center; /* Center the products horizontally */
   margin-bottom: -40px;
+  width: 100%; /* Ensure the wrapper takes the full width */
+}
+
+.products-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns per row */
+  width: 100%; /* Ensure the container takes the full width */
+}
+
+.product-card {
+  width: 100%;
+  background-color: #fff;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 10px;
+}
+
+.product-card:hover {
+  transform: scale(1.05); /* Scale up on hover */
+}
+
+.product-details {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
 }
 
 .pagination {
@@ -46,6 +75,7 @@
   background-color: #000000; /* Active page number background color */
   color: #fff;
 }
+
 @media screen and (max-width: 680px) {
   .page-title {
     justify-content: left;
@@ -65,7 +95,24 @@
     justify-content: left;
     margin-bottom: -40px;
   }
+  .products-container {
+    grid-template-columns: repeat(
+      2,
+      1fr
+    ); /* Two columns per row for smaller screens */
+  }
+  .product-card {
+    width: 100%;
+    background-color: #fff;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 0px;
+  }
 }
+
 @media screen and (max-width: 515px) {
   .pagination {
     margin-top: 40px;

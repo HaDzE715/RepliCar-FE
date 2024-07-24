@@ -117,3 +117,23 @@ a.product-link:visited {
     width: 150px;
   }
 }
+.product-card.sold-out {
+  position: relative;
+  opacity: 0.6; /* Make the card semi-transparent */
+}
+
+.sold-out-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: red;
+  color: white;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.product-card.sold-out .product-image {
+  filter: grayscale(100%); /* Make the image grayscale */
+}

@@ -6,23 +6,28 @@
   justify-content: flex-start;
   align-items: flex-start;
 }
+
 .brand-name {
   font-size: 1.5em;
 }
+
 .productpage-details h2 {
   font-size: 36px;
 }
+
 .units-sold {
   margin-top: -10px;
   font-size: 1em;
   color: #888; /* Grey color */
 }
+
 .productpage-details p.price {
   font-size: 36px; /* Set the font size for the price */
   margin-top: 35px; /* Set the margin-top for the price */
   font-weight: 500;
   margin-bottom: 30px;
 }
+
 .size-section {
   display: flex;
   align-items: center;
@@ -33,23 +38,28 @@
   font-size: 34px;
   font-weight: 500;
 }
+
 .divider {
   border-top: 1px solid black; /* Set the divider color to black */
   width: 430px;
 }
+
 .color-section {
   display: flex;
   align-items: center;
   margin-top: 20px;
 }
+
 .color-section p {
   margin-right: 200px;
   font-size: 34px;
   font-weight: 500;
 }
+
 .container {
   display: flex;
 }
+
 .container.mobile-screen {
   display: none;
 }
@@ -59,6 +69,7 @@
   padding: 10px;
   margin-top: 2%;
 }
+
 .main-image img {
   width: 100%;
   height: auto;
@@ -85,9 +96,11 @@
   border-radius: 10px;
   transition: transform 0.3s ease; /* Add transition property for smooth transform */
 }
+
 .additional-images img:hover {
   transform: scale(1.1); /* Optionally, you can add a hover effect */
 }
+
 .arrow-up {
   position: absolute;
   left: 45%;
@@ -101,11 +114,13 @@
   left: 45%;
   transform: translateX(-50%);
 }
+
 .arrow-up,
 .arrow-down {
   margin: 10px auto;
   cursor: pointer;
 }
+
 .quantity-section {
   margin-top: 18px;
   display: flex;
@@ -139,6 +154,7 @@
   margin: 0 5px;
   font-size: 20px; /* Adjust font size as needed */
 }
+
 .quantity-input-container input::-webkit-outer-spin-button,
 .quantity-input-container input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -148,6 +164,7 @@
 .quantity-input-container input[type="number"] {
   -moz-appearance: textfield; /* Firefox */
 }
+
 .button-group {
   display: flex;
 }
@@ -158,12 +175,15 @@
   flex: 1; /* Equal width for both buttons */
   font-weight: 600 !important;
   font-size: 16px !important;
+  display: inline-block !important; /* Ensure the button is displayed as inline-block */
+  text-align: center !important; /* Ensure the text is centered */
 }
 
 .buy-now-button {
   width: 250px !important;
   margin-right: 30px !important;
   background-color: black !important;
+  color: white !important; /* Ensure text is visible */
 }
 
 .add-to-cart-button {
@@ -171,6 +191,20 @@
   color: black !important;
   border: 1px #000 solid !important;
 }
+
+.buy-now-button:disabled,
+.add-to-cart-button:disabled {
+  background-color: grey !important; /* Change to a grey background */
+  color: lightgrey !important; /* Ensure text is visible */
+  cursor: not-allowed !important; /* Change cursor to indicate it's disabled */
+}
+
+.sold-out-message {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
 .product-info {
   display: flex;
   flex-direction: column;
@@ -186,6 +220,7 @@
   margin-top: 10px;
   padding-top: 10px;
 }
+
 .section {
   cursor: pointer;
   padding: 10px;
@@ -198,13 +233,16 @@
 .section.selected {
   background-color: #ddd;
 }
+
 @media (max-width: 900px) {
   .product-details-column {
     padding: 0px;
   }
+
   .container {
     display: none;
   }
+
   .container.mobile-screen {
     display: flex;
     flex-direction: column;
@@ -239,29 +277,27 @@
     cursor: pointer;
     margin: 0px 0px 25px 10px;
   }
+
   .additional-images img:last-child {
     margin-right: 0;
   }
+
   .ButtonsLR {
     margin-top: -25px;
   }
+
   .ButtonsLR .button {
     background-color: black;
   }
+
   .product-info {
     padding: 15px;
   }
+
   .button-group {
     flex-direction: column;
     width: 250px;
     margin-bottom: 10px;
+    display: flex;
   }
 }
-
-/* .skeleton-loader {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-} */

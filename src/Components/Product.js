@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import "../Style/Product.css";
 
-const Product = ({ id, name, size, price, image }) => {
+const Product = ({ id, name, size, price, image, quantity }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <Link to={`/product/${id}`} className="product-link">
-      <div className="product-card">
+      <div className={`product-card ${quantity === 0 ? "sold-out" : ""}`}>
         <div className="product-image-container">
           {!imageLoaded && (
             <Skeleton
@@ -25,6 +25,7 @@ const Product = ({ id, name, size, price, image }) => {
             onLoad={() => setImageLoaded(true)}
             style={{ display: imageLoaded ? "block" : "none" }}
           />
+          {quantity === 0 && <span className="sold-out-label">Sold Out</span>}
         </div>
         <div className="product-details">
           <h2 className="product-name">{name}</h2>

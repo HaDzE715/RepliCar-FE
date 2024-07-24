@@ -150,13 +150,29 @@ const ProductOverview = ({ product }) => {
               <button onClick={handleIncreaseQuantity}>+</button>
             </div>
             <div className="button-group">
-              <Button variant="contained" className="buy-now-button">
+              <Button
+                variant="contained"
+                className="buy-now-button"
+                disabled={product.quantity === 0}
+              >
                 תקנה עכשיו
               </Button>
-              <Button variant="contained" className="add-to-cart-button">
+              <Button
+                variant="contained"
+                className="add-to-cart-button"
+                disabled={product.quantity === 0}
+              >
                 הוסיף לסל
               </Button>
             </div>
+            {product.quantity === 0 && (
+              <p
+                className="sold-out-message"
+                style={{ textAlign: "center", width: "100%", margin: "20px 0" }}
+              >
+                המוצר אזל מהמלאי
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -219,13 +235,24 @@ const ProductOverview = ({ product }) => {
           </Button>
         </div>
         <div className="button-group">
-          <Button variant="contained" className="buy-now-button">
+          <Button
+            variant="contained"
+            className="buy-now-button"
+            disabled={product.quantity === 0}
+          >
             תקנה עכשיו
           </Button>
-          <Button variant="contained" className="add-to-cart-button">
+          <Button
+            variant="contained"
+            className="add-to-cart-button"
+            disabled={product.quantity === 0}
+          >
             הוסף לסל
           </Button>
         </div>
+        {product.quantity === 0 && (
+          <p className="sold-out-message">המוצר אזל מהמלאי</p>
+        )}
         <div className="product-info">
           <h3>Description:</h3>
           <p>{product.description}</p>
