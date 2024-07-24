@@ -1,25 +1,32 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import "../Style/HomePage.css"; // Make sure to create and link the corresponding CSS file
+import "../Style/HomePage.css"; // Ensure this CSS file handles responsive design
 import SkidMarksImage from "../Pictures/skidmarks.png"; // Adjust the path as needed
 
 const HomePage = () => {
   const [brands, setBrands] = useState([]);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
+    console.log("API URL:", apiUrl); // Log the API URL to debug
+
     // Fetch brand data from the backend
     const fetchBrands = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/brands");
+        const response = await axios.get(`${apiUrl}/api/brands`);
         setBrands(response.data);
       } catch (error) {
         console.error("Error fetching brands:", error);
       }
     };
 
-    fetchBrands();
-  }, []);
+    if (apiUrl) {
+      fetchBrands();
+    } else {
+      console.error("API URL is not defined");
+    }
+  }, [apiUrl]);
 
   return (
     <div className="homepage">

@@ -10,10 +10,6 @@ import HomePage from "./Pages/HomePage";
 import PorscheLogo from "./Pictures/PorscheLogo.png";
 import FerrariLogo from "./Pictures/FerrariLogo.png";
 import AMGLogo from "./Pictures/AMGLogo.png";
-import RedP from "./Pictures/Porsche/Red.png";
-import BlackP from "./Pictures/Porsche/Black.png";
-import OrangeP from "./Pictures/Porsche/Orange.png";
-import Redl from "./Pictures/Ferrari/Redl.png";
 
 const logosData = {
   slides: [
@@ -31,71 +27,6 @@ const logosData = {
     },
   ],
 };
-
-const productsData = [
-  {
-    id: 1,
-    name: "Porsche 911 Carrera Alloy",
-    brand: "Porsche",
-    size: "Scale 1:24",
-    price: 399,
-    description:
-      "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Gift",
-    image: OrangeP,
-    additionalImages: [
-      BlackP,
-      RedP,
-      OrangeP,
-      Redl,
-      AMGLogo,
-      BlackP,
-      FerrariLogo,
-    ], // Initialized with additional images
-    colors: ["Black", "Red", "Orange"],
-  },
-  {
-    id: 2, // Updated to be unique
-    name: "Porsche 911 Carrera Alloy",
-    brand: "Porsche",
-    size: "Scale 1:24",
-    price: 399,
-    description:
-      "Alloy Sports Car Model Diecasts Metal Toy Vehicles Car Model Simulation Childrens Gift",
-    image: OrangeP,
-    additionalImages: [
-      BlackP,
-      RedP,
-      OrangeP,
-      Redl,
-      AMGLogo,
-      BlackP,
-      FerrariLogo,
-    ], // Initialized with additional images
-    colors: ["Black", "Red", "Orange"],
-  },
-  {
-    id: 3, // Updated to be unique
-    name: "Product 2",
-    brand: "Ferrari",
-    price: 1500,
-    description: "Description of Product 2",
-    image: Redl,
-    additionalImages: ["product2_1.jpg", "product2_2.jpg"], // Initialized with additional images
-    colors: [],
-  },
-  {
-    id: 4, // Updated to be unique
-    name: "Product 3",
-    brand: "Mercedes",
-    price: 1200,
-    description: "Description of Product 3",
-    image: AMGLogo,
-    additionalImages: ["product2_1.jpg", "product2_2.jpg"], // Initialized with additional images
-    colors: [],
-  },
-  // Add more products as needed
-];
-
 function App() {
   return (
     <Router>
@@ -104,14 +35,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/brands" element={<Brands logosData={logosData} />} />
-          <Route
-            path="/product/:id"
-            element={<ProductDetails productsData={productsData} />}
-          />
-          <Route
-            path="/brand/:brandname"
-            element={<BrandPage productsData={productsData} />}
-          />
+          <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/brand/:brandname" element={<BrandPage />} />
         </Routes>
       </div>
     </Router>

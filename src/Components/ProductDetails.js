@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 import "../Style/ProductDetails.css"; // Import CSS for ProductDetailPage
 import ProductOverview from "./ProductOverview.js";
 
-function ProductDetailPage({ productsData }) {
+function ProductDetailPage() {
   const { id } = useParams();
-  const product = productsData.find((product) => product.id === parseInt(id));
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/products/${id}`);
+        setProduct(response.data);
+      } catch (error) {
+        console.error("Error fetching product details:", error);
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
 
   if (!product) {
     return <div>Product not found</div>;

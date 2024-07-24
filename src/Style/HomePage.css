@@ -218,7 +218,7 @@ body {
     flex: 1 0 140px; /* Make each brand logo container take up equal space */
     max-width: 140px;
     text-align: center;
-    margin: 10px; /* Add some margin for spacing */
+    margin: 50px 10px 0px 0px;
   }
 
   .brand-logo {

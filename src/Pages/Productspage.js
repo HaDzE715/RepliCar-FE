@@ -40,8 +40,8 @@ const ProductsPage = ({ products }) => {
         <div className="products-container">
           {currentProducts.map((product) => (
             <Product
-              key={product.id} // Assuming each product has a unique ID
-              id={product.id}
+              key={product._id} // Use MongoDB's _id as the unique key
+              id={product._id}
               name={product.name}
               size={product.size}
               price={product.price}

@@ -31,6 +31,7 @@ const ProductOverview = ({ product }) => {
       setStartIndex(startIndex + 1);
     }
   };
+
   const handleDecreaseQuantity = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
@@ -47,6 +48,13 @@ const ProductOverview = ({ product }) => {
       setQuantity(newQuantity);
     }
   };
+
+  const colorOptions = product.colors.map((color) => ({
+    value: color.toLowerCase(),
+    label: color,
+  }));
+
+  const sizeOptions = [{ value: product.size, label: product.size }];
 
   return (
     <>
@@ -85,28 +93,15 @@ const ProductOverview = ({ product }) => {
           <p className="units-sold">
             Sold <span>10+</span>
           </p>
-          <p className="price">{product.price}.99₪</p>
+          <p className="price">{product.price}₪</p>
           <div className="size-section">
             <p>SIZE</p>
-            <SelectVariants
-              options={[
-                { value: 1, label: "Scale 1:18" },
-                { value: 2, label: "Scale 1:24" },
-                { value: 3, label: "Scale 1:32" },
-                { value: 4, label: "Scale 1:64" },
-              ]}
-            />
+            <SelectVariants options={sizeOptions} />
           </div>
           <hr className="divider" />
           <div className="color-section">
             <p>COLOR</p>
-            <SelectVariants
-              options={[
-                { value: "red", label: "Red" },
-                { value: "blue", label: "Blue" },
-                { value: "green", label: "Green" },
-              ]}
-            />
+            <SelectVariants options={colorOptions} />
           </div>
           <hr className="divider" /> {/* Use HTML hr element as divider */}
           <div className="quantity-section">
@@ -136,6 +131,7 @@ const ProductOverview = ({ product }) => {
         <div className="main-image">
           <img src={currentImage} alt="Main Product" />
           <h2 className="product-info">{product.name}</h2>
+          <h2 className="product-price">{product.size}</h2>
           <h2 className="product-price">{product.price}₪</h2>
         </div>
         <div className="additional-images">

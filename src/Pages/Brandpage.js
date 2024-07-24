@@ -2,36 +2,33 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Banner from "../Components/Banner";
-import ProductsPage from "./Productspage"; // Import the ProductsPage component
+import ProductsPage from "./Productspage";
 
-function BrandPage({ productsData }) {
+const BrandPage = () => {
   const { brandname } = useParams();
   const [brandDetails, setBrandDetails] = useState(null);
   const [brandProducts, setBrandProducts] = useState([]);
 
   useEffect(() => {
-    // Fetch brand details from the backend
     const fetchBrandDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/brands?name=${brandname}`
+          `${process.env.REACT_APP_API_URL}/api/brands?name=${brandname}`
         );
-        const brandData = response.data[0]; // Assuming the API returns an array with one element
+        const brandData = response.data[0];
         setBrandDetails(brandData);
 
-        // Filter products for the brand
-        const filteredProducts = productsData.filter(
-          (product) =>
-            product.brand.toLowerCase() === brandData.name.toLowerCase()
+        const productsResponse = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/products?brand=${brandname}`
         );
-        setBrandProducts(filteredProducts);
+        setBrandProducts(productsResponse.data);
       } catch (error) {
         console.error("Error fetching brand details:", error);
       }
     };
 
     fetchBrandDetails();
-  }, [brandname, productsData]);
+  }, [brandname]);
 
   if (!brandDetails) {
     return <div>Loading...</div>;
@@ -43,6 +40,6 @@ function BrandPage({ productsData }) {
       <ProductsPage products={brandProducts} />
     </div>
   );
-}
+};
 
 export default BrandPage;
