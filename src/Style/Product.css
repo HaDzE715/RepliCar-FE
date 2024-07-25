@@ -134,6 +134,32 @@ a.product-link:visited {
   border-radius: 5px;
 }
 
+.discount-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: green;
+  color: white;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
 .product-card.sold-out .product-image {
   filter: grayscale(100%); /* Make the image grayscale */
+}
+
+.product-price.original-price {
+  text-decoration: line-through;
+  color: #888;
+  margin-right: 8px;
+}
+
+.product-price.discount-price {
+  color: green;
+  font-weight: bold;
+  display: inline-block;
+  margin-right: 7px;
+  margin-top: -19px;
 }

@@ -117,7 +117,7 @@ const ProductOverview = ({ product }) => {
           />
           <div className="product-info">
             <h3>Description:</h3>
-            <p>{product.description}</p>
+            <p style={{ fontFamily: "Noto Sans Hebrew" }}>{product.description}</p>
             <SizeTable />
           </div>
         </div>
@@ -255,7 +255,9 @@ const ProductOverview = ({ product }) => {
         )}
         <div className="product-info">
           <h3>Description:</h3>
-          <p>{product.description}</p>
+          <p style={{ fontFamily: "Noto Sans Hebrew" }}>
+            {product.description}
+          </p>
           <SizeTable />
         </div>
       </div>

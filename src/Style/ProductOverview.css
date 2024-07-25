@@ -5,6 +5,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  font-family: "Darker Grotesque", sans-serif;
 }
 
 .brand-name {
@@ -292,6 +293,9 @@
 
   .product-info {
     padding: 15px;
+  }
+  .product-info .p {
+    font-family: "Noto Sans Hebrew", sans-serif;
   }
 
   .button-group {

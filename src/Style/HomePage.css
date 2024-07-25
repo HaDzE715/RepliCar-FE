@@ -56,6 +56,13 @@ body {
   font-family: "Noto Sans Hebrew", sans-serif;
 }
 
+/* Wrapper for all content under the banner */
+.content-wrapper {
+  max-width: 1200px; /* Adjust the maximum width as needed */
+  margin: 0 auto; /* Center the wrapper */
+  padding: 20px; /* Add padding for white spaces on the sides */
+}
+
 /* Featured products section styling */
 .featured-products {
   padding: 50px 20px;
@@ -129,9 +136,9 @@ body {
 }
 
 .skid-marks-img {
-  width: 80%; /* Use percentage for responsive width */
-  max-width: 600px; /* Set a max-width for larger screens */
-  height: auto; /* Maintain aspect ratio */
+  width: 100%; /* Use percentage for responsive width */
+  max-width: 1000px; /* Set a max-width for larger screens */
+  height: 100px; /* Maintain aspect ratio */
   margin: 10px 0; /* Adjust spacing as needed */
 }
 
@@ -158,6 +165,8 @@ body {
 .brand {
   margin: 20px;
   text-align: center;
+  flex: 1 0 140px; /* Make each brand logo container take up equal space */
+  max-width: 140px;
 }
 
 .brand-logo {
@@ -170,6 +179,49 @@ body {
 .brand-name {
   margin-top: 10px;
   font-size: 1.2em;
+}
+
+/* Discounts Section */
+.discounts-section {
+  padding: 20px;
+  text-align: center;
+}
+
+.discounts-section h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.discounts-scroll-container {
+  display: flex;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  gap: 20px; /* Adjust the gap between products */
+  padding: 10px;
+  padding-left: 120px;
+}
+
+.discounted-product {
+  min-width: 200px; /* Adjust based on product card size */
+  flex-shrink: 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.discounted-product img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.discounted-product .product-details {
+  margin-top: 10px;
+}
+
+.discounted-product .discount {
+  color: green;
+  font-weight: bold;
 }
 
 /* Adjust skid marks and title for smaller screens */
@@ -196,10 +248,13 @@ body {
 @media (max-width: 480px) {
   .skid-marks-img {
     width: 100%; /* Full width on very small screens */
+    height: 50px;
   }
 
   .skid-marks-title {
     font-size: 1.5em; /* Smaller font size for very small screens */
+    margin-top: -5px;
+    margin-bottom: -5px;
   }
 
   .brands-section {
@@ -219,6 +274,7 @@ body {
     max-width: 140px;
     text-align: center;
     margin: 50px 10px 0px 0px;
+    position: relative; /* Needed for the lines */
   }
 
   .brand-logo {
@@ -231,6 +287,45 @@ body {
   .brand-name {
     margin-top: 10px;
     font-size: 1.2em;
+  }
+
+  .discounts-scroll-container {
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    gap: 10px; /* Adjust the gap between products */
+    padding: 10px;
+  }
+
+  /* Add classic, lighter, and faded lines between brand logos */
+  .brand::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    width: 2px;
+    height: 110%;
+    background: linear-gradient(to bottom, transparent, lightgrey, transparent);
+    border-radius: 5px;
+  }
+
+  .brand::before {
+    content: "";
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, lightgrey, transparent);
+    border-radius: 5px;
+  }
+
+  .brand:nth-child(2n)::after {
+    display: none; /* Remove the line for every second element */
+  }
+  .product-name{
+    font-size: 20px !important;
   }
 }
 

@@ -64,6 +64,8 @@ const ProductsPage = ({ products }) => {
                   name={product.name}
                   size={product.size}
                   price={product.price}
+                  discount={product.discount} // Pass discount prop
+                  discount_price={product.discount_price}
                   image={product.image}
                   quantity={product.quantity}
                 />
