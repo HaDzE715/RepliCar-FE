@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none !important;
 }
 
 html,
@@ -324,7 +325,7 @@ body {
   .brand:nth-child(2n)::after {
     display: none; /* Remove the line for every second element */
   }
-  .product-name{
+  .product-name {
     font-size: 20px !important;
   }
 }

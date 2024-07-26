@@ -127,7 +127,14 @@ const ProductOverview = ({ product }) => {
           <p className="units-sold">
             Sold <span>10+</span>
           </p>
-          <p className="price">{product.price}₪</p>
+          {product.discount ? (
+            <div className="price-section">
+              <p className="product-price original-price">{product.price}₪</p>
+              <p className="product-price discount-price">{product.discount_price}₪</p>
+            </div>
+          ) : (
+            <p className="price">{product.price}₪</p>
+          )}
           <div className="size-section">
             <p>SIZE</p>
             <SelectVariants options={sizeOptions} />
@@ -195,7 +202,14 @@ const ProductOverview = ({ product }) => {
           />
           <h2 className="product-info">{product.name}</h2>
           <h2 className="product-price">{product.size}</h2>
-          <h2 className="product-price">{product.price}₪</h2>
+          {product.discount ? (
+            <div className="price-section">
+              <p className="product-price original-price">{product.price}₪</p>
+              <p className="product-price discount-price">{product.discount_price}₪</p>
+            </div>
+          ) : (
+            <h2 className="product-price">{product.price}₪</h2>
+          )}
         </div>
         <div className="additional-images">
           {product.additionalImages

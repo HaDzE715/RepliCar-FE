@@ -103,7 +103,7 @@ const HomePage = () => {
           />
         </section>
         {/* Brand Logos Section */}
-        <section className="brands-section">
+        <section className="brands-section" id="brands-section">
           <div className="brands-container">
             {brands.map((brand) => (
               <div key={brand._id} className="brand">

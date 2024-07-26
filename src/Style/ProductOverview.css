@@ -304,4 +304,30 @@
     margin-bottom: 10px;
     display: flex;
   }
+  .product-price.discount-price {
+    margin-right: 0px !important;
+    margin-top: 0px;
+    margin-left: 0px;
+  }
+}
+.product-price.original-price {
+  text-decoration: line-through !important;
+  color: #888 !important; /* Gray color for the original price */
+}
+
+.product-price.discount-price {
+  color: green !important; /* Green color for the discount price */
+  font-weight: bold !important;
+  display: inline-block !important;
+  font-size: 18px;
+}
+
+.price-section {
+  display: flex !important;
+  align-items: center !important;
+}
+.product-price.discount-price {
+  margin-right: 0px !important;
+  margin-top: 0px;
+  margin-left: 0px;
 }
