@@ -3,7 +3,7 @@ import Product from "../Components/Product";
 import Skeleton from "@mui/material/Skeleton";
 import "../Style/Productspage.css";
 
-const ProductsPage = ({ products }) => {
+const ProductsPage = ({ products, openDrawer }) => {
   const [productsPerPage, setProductsPerPage] = useState(9);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -68,6 +68,7 @@ const ProductsPage = ({ products }) => {
                   discount_price={product.discount_price}
                   image={product.image}
                   quantity={product.quantity}
+                  openDrawer={openDrawer} // Pass openDrawer function
                 />
               ))}
         </div>

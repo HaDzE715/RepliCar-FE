@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Fab, Modal, Box, IconButton, Slide } from "@mui/material";
 import { styled } from "@mui/system";
 import { useNavigate } from "react-router-dom";
@@ -30,29 +30,6 @@ const LogoItem = styled("img")({
   cursor: "pointer",
 });
 
-const AnimatedFab = styled(Fab)(({ animate }) => ({
-  backgroundColor: "black",
-  color: "white",
-  position: "fixed",
-  bottom: "20px",
-  right: "20px",
-  animation: animate ? "zoomRing 1s" : "none",
-  "@keyframes zoomRing": {
-    "0%": {
-      transform: "scale(1)",
-      boxShadow: "0 0 0 0 rgba(0, 0, 0, 0.7)",
-    },
-    "50%": {
-      transform: "scale(1.3)", // Increase the zoom effect
-      boxShadow: "0 0 0 20px rgba(0, 0, 0, 0)",
-    },
-    "100%": {
-      transform: "scale(1)",
-      boxShadow: "0 0 0 0 rgba(0, 0, 0, 0)",
-    },
-  },
-}));
-
 const LogoButton = ({ logos, animate }) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -60,15 +37,40 @@ const LogoButton = ({ logos, animate }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  useEffect(() => {
+    if (animate) {
+      const fabButton = document.getElementById("fab-button");
+      if (fabButton) {
+        fabButton.style.animation = "ring 1s ease-in-out";
+      }
+    }
+  }, [animate]);
+
+  const keyframes = `
+    @keyframes ring {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+  `;
+
   return (
     <>
-      <AnimatedFab
-        animate={animate}
+      <style>{keyframes}</style>
+      <Fab
+        id="fab-button"
+        style={{
+          backgroundColor: "black",
+          color: "white",
+          position: "fixed",
+          bottom: "20px",
+          right: "20px",
+        }}
         aria-label="logos"
         onClick={open ? handleClose : handleOpen}
       >
         {open ? <CloseIcon /> : <DirectionsCarIcon />}
-      </AnimatedFab>
+      </Fab>
       <Modal open={open} onClose={handleClose} closeAfterTransition>
         <Slide direction="up" in={open} mountOnEnter unmountOnExit>
           <ModalBox>
@@ -80,7 +82,7 @@ const LogoButton = ({ logos, animate }) => {
                 color: "white",
               }}
               onClick={handleClose}
-            ></IconButton>
+            />
             {logos.map((logo, index) => (
               <LogoItem
                 key={index}

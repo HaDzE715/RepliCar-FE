@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import "../Style/Product.css";
+import { useDrawer } from "../Components/DrawerContext";
 
 const Product = ({
   id,
@@ -14,9 +14,14 @@ const Product = ({
   quantity,
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const { openDrawer } = useDrawer();
+
+  const handleClick = () => {
+    openDrawer(id);
+  };
 
   return (
-    <Link to={`/product/${id}`} className="product-link">
+    <div className="product-link" onClick={handleClick}>
       <div className={`product-card ${quantity === 0 ? "sold-out" : ""}`}>
         <div className="product-image-container">
           {!imageLoaded && (
@@ -54,7 +59,7 @@ const Product = ({
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

@@ -5,6 +5,7 @@ import Skeleton from "@mui/material/Skeleton";
 import Banner from "../Components/Banner";
 import ProductsPage from "./Productspage";
 import LogoButton from "../Components/LogoButton"; // Import the LogoButton component
+import { useDrawer } from "../Components/DrawerContext"; // Import useDrawer
 
 const BrandPage = () => {
   const { brandname } = useParams();
@@ -13,6 +14,7 @@ const BrandPage = () => {
   const [loading, setLoading] = useState(true);
   const [logos, setLogos] = useState([]);
   const [animateFab, setAnimateFab] = useState(false); // State to control animation
+  const { openDrawer } = useDrawer(); // Use openDrawer from DrawerContext
 
   useEffect(() => {
     const fetchBrandDetails = async () => {
@@ -68,7 +70,7 @@ const BrandPage = () => {
       ) : (
         <>
           <Banner logo={brandDetails.logo} brandDetails={brandDetails} />
-          <ProductsPage products={brandProducts} />
+          <ProductsPage products={brandProducts} openDrawer={openDrawer} />
         </>
       )}
       <LogoButton logos={logos} animate={animateFab} />{" "}

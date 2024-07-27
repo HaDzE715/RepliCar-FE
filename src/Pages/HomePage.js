@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 import "../Style/HomePage.css"; // Ensure this CSS file handles responsive design
 import SkidMarksImage from "../Pictures/skidmarks.png"; // Adjust the path as needed
 import Product from "../Components/Product"; // Make sure to import the Product component
+import { useDrawer } from "../Components/DrawerContext"; // Import useDrawer
 
 const HomePage = () => {
   const [brands, setBrands] = useState([]);
   const [discountedProducts, setDiscountedProducts] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
+  const { openDrawer } = useDrawer(); // Use openDrawer from DrawerContext
 
   useEffect(() => {
     console.log("API URL:", apiUrl); // Log the API URL to debug
@@ -84,6 +86,7 @@ const HomePage = () => {
                 discount_price={product.discount_price}
                 image={product.image}
                 quantity={product.quantity}
+                openDrawer={openDrawer} // Pass openDrawer function
               />
             ))}
           </div>

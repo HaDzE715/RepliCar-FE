@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowUp,
@@ -12,17 +12,40 @@ import SelectVariants from "./SelectVariants";
 import { Button } from "@mui/material";
 import SizeTable from "./SizeTable";
 import { useCart } from "../Components/CartContext";
+import axios from "axios";
 
-const ProductOverview = ({ product }) => {
-  const [currentImage, setCurrentImage] = useState(product.image);
+const ProductOverview = ({ productId }) => {
+  const [product, setProduct] = useState(null);
+  const [currentImage, setCurrentImage] = useState(null);
   const [startIndex, setStartIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [mainImageLoaded, setMainImageLoaded] = useState(false);
-  const [additionalImagesLoaded, setAdditionalImagesLoaded] = useState(
-    new Array(product.additionalImages.length).fill(false)
-  );
+  const [additionalImagesLoaded, setAdditionalImagesLoaded] = useState([]);
   const [showAddedMessage, setShowAddedMessage] = useState(false);
   const { dispatch } = useCart();
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/products/${productId}`
+        );
+        setProduct(response.data);
+        setCurrentImage(response.data.image);
+        setAdditionalImagesLoaded(
+          new Array(response.data.additionalImages.length).fill(false)
+        );
+      } catch (error) {
+        console.error("Error fetching product details:", error);
+      }
+    };
+
+    fetchProduct();
+  }, [productId]);
+
+  if (!product) {
+    return <Skeleton variant="rectangular" width="100%" height="100%" />;
+  }
 
   const handleAddToCart = () => {
     dispatch({ type: "ADD_TO_CART", item: product });
@@ -123,6 +146,7 @@ const ProductOverview = ({ product }) => {
             alt="Main Product"
             onLoad={() => setMainImageLoaded(true)}
             style={{ display: mainImageLoaded ? "block" : "none" }}
+            className="drawer-main-image"
           />
           <div className="product-info">
             <h3 style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}>
@@ -177,6 +201,7 @@ const ProductOverview = ({ product }) => {
               variant="contained"
               className="buy-now-button"
               disabled={product.quantity === 0}
+              style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}
             >
               תקנה עכשיו
             </Button>
@@ -185,6 +210,7 @@ const ProductOverview = ({ product }) => {
               className="add-to-cart-button"
               disabled={product.quantity === 0}
               onClick={handleAddToCart}
+              style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}
             >
               הוסיף לסל
             </Button>
@@ -192,7 +218,6 @@ const ProductOverview = ({ product }) => {
           {product.quantity === 0 && (
             <p
               className="sold-out-message"
-              style={{ textAlign: "center", width: "100%", margin: "20px 0" }}
             >
               המוצר אזל מהמלאי
             </p>
@@ -274,6 +299,7 @@ const ProductOverview = ({ product }) => {
             variant="contained"
             className="buy-now-button"
             disabled={product.quantity === 0}
+            style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}
           >
             תקנה עכשיו
           </Button>
@@ -282,6 +308,7 @@ const ProductOverview = ({ product }) => {
             className="add-to-cart-button"
             disabled={product.quantity === 0}
             onClick={handleAddToCart}
+            style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}
           >
             הוסף לסל
           </Button>
