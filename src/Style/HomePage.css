@@ -384,4 +384,6 @@ body {
   margin-top: 20px;
   color: green;
   font-size: 14px;
+  direction: rtl;
+  font-family: "Noto Sans Hebrew";
 }
