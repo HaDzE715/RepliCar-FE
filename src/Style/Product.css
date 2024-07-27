@@ -126,7 +126,7 @@ a.product-link:visited {
   position: absolute;
   top: 10px;
   left: 10px;
-  background-color: red;
+  background-color: #FF6700;
   color: white;
   padding: 5px 10px;
   font-size: 14px;
@@ -138,7 +138,7 @@ a.product-link:visited {
   position: absolute;
   top: 10px;
   left: 10px;
-  background-color: green;
+  background-color: red;
   color: white;
   padding: 5px 10px;
   font-size: 14px;
@@ -153,15 +153,12 @@ a.product-link:visited {
 .product-price.original-price {
   text-decoration: line-through !important;
   color: #888;
-  /* margin-right: 8px; */
 }
 
-.product-price.discount-price {
-  color: green;
+.product-price.discount-price-comp {
+  color: red;
   font-weight: bold;
   display: inline-block;
-  margin-right: 7px;
-  margin-top: -19px;
-  margin-left: -20px !important;
+  margin-top: -19px !important;
   font-size: 22px !important;
 }

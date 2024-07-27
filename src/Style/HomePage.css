@@ -329,7 +329,7 @@ body {
     font-size: 20px !important;
   }
 }
-@media (max-width: 380px){
+@media (max-width: 380px) {
   .brand {
     flex: 1 0 100px; /* Make each brand logo container take up equal space */
     max-width: 140px;
@@ -343,4 +343,45 @@ body {
     padding: 40px 20px;
     text-align: center;
   }
+}
+.newsletter-section {
+  text-align: center;
+  margin: 40px 0;
+  font-family: "Noto Sans Hebrew", sans-serif;
+}
+
+.newsletter-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.newsletter-input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 250px;
+}
+
+.newsletter-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.newsletter-button:hover {
+  background-color: #555;
+}
+
+.newsletter-message {
+  margin-top: 20px;
+  color: green;
+  font-size: 14px;
 }

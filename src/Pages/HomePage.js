@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Skeleton from "@mui/material/Skeleton"; // Import Skeleton component
 import "../Style/HomePage.css"; // Ensure this CSS file handles responsive design
 import SkidMarksImage from "../Pictures/skidmarks.png"; // Adjust the path as needed
 import Product from "../Components/Product"; // Make sure to import the Product component
@@ -9,6 +10,11 @@ import { useDrawer } from "../Components/DrawerContext"; // Import useDrawer
 const HomePage = () => {
   const [brands, setBrands] = useState([]);
   const [discountedProducts, setDiscountedProducts] = useState([]);
+  const [loadingBrands, setLoadingBrands] = useState(true); // Loading state for brands
+  const [loadingDiscountedProducts, setLoadingDiscountedProducts] =
+    useState(true); // Loading state for discounted products
+  const [email, setEmail] = useState(""); // State for newsletter email
+  const [newsletterMessage, setNewsletterMessage] = useState(""); // State for feedback message
   const apiUrl = process.env.REACT_APP_API_URL;
   const { openDrawer } = useDrawer(); // Use openDrawer from DrawerContext
 
@@ -20,6 +26,7 @@ const HomePage = () => {
       try {
         const response = await axios.get(`${apiUrl}/api/brands`);
         setBrands(response.data);
+        setLoadingBrands(false); // Set loading to false when data is fetched
       } catch (error) {
         console.error("Error fetching brands:", error);
       }
@@ -34,6 +41,7 @@ const HomePage = () => {
           (product) => product.discount === true
         );
         setDiscountedProducts(discounted.slice(0, 4)); // Get first 3-4 discounted products
+        setLoadingDiscountedProducts(false); // Set loading to false when data is fetched
       } catch (error) {
         console.error("Error fetching discounted products:", error);
       }
@@ -46,6 +54,18 @@ const HomePage = () => {
       console.error("API URL is not defined");
     }
   }, [apiUrl]);
+
+  const handleNewsletterSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(`${apiUrl}/api/newsletter`, { email });
+      setNewsletterMessage("Thank you for subscribing!");
+      setEmail("");
+    } catch (error) {
+      setNewsletterMessage("Subscription failed. Please try again.");
+      console.error("Error subscribing to newsletter:", error);
+    }
+  };
 
   return (
     <div className="homepage">
@@ -75,20 +95,28 @@ const HomePage = () => {
             />
           </section>
           <div className="discounts-scroll-container">
-            {discountedProducts.map((product) => (
-              <Product
-                key={product._id}
-                id={product._id}
-                name={product.name}
-                size={product.size}
-                price={product.price}
-                discount={product.discount}
-                discount_price={product.discount_price}
-                image={product.image}
-                quantity={product.quantity}
-                openDrawer={openDrawer} // Pass openDrawer function
-              />
-            ))}
+            {loadingDiscountedProducts
+              ? Array.from(new Array(4)).map((_, index) => (
+                  <div key={index} className="product-card">
+                    <Skeleton variant="rectangular" width={210} height={118} />
+                    <Skeleton width="80%" />
+                    <Skeleton width="60%" />
+                  </div>
+                ))
+              : discountedProducts.map((product) => (
+                  <Product
+                    key={product._id}
+                    id={product._id}
+                    name={product.name}
+                    size={product.size}
+                    price={product.price}
+                    discount={product.discount}
+                    discount_price={product.discount_price}
+                    image={product.image}
+                    quantity={product.quantity}
+                    openDrawer={openDrawer} // Pass openDrawer function
+                  />
+                ))}
           </div>
         </section>
         {/* Skid Marks Section */}
@@ -108,18 +136,68 @@ const HomePage = () => {
         {/* Brand Logos Section */}
         <section className="brands-section" id="brands-section">
           <div className="brands-container">
-            {brands.map((brand) => (
-              <div key={brand._id} className="brand">
-                <Link to={`/brand/${brand.name.toLowerCase()}`}>
-                  <img
-                    src={brand.logo}
-                    alt={brand.name}
-                    className="brand-logo"
+            {loadingBrands
+              ? Array.from(new Array(4)).map((_, index) => (
+                  <Skeleton
+                    key={index}
+                    variant="rectangular"
+                    width={120}
+                    height={120}
+                    style={{ margin: "10px" }}
                   />
-                </Link>
-              </div>
-            ))}
+                ))
+              : brands.map((brand) => (
+                  <div key={brand._id} className="brand">
+                    <Link to={`/brand/${brand.name.toLowerCase()}`}>
+                      <img
+                        src={brand.logo}
+                        alt={brand.name}
+                        className="brand-logo"
+                      />
+                    </Link>
+                  </div>
+                ))}
           </div>
+        </section>
+        {/* Newsletter Subscription Section */}
+        {/* Newsletter Subscription Section */}
+        <section className="newsletter-section">
+          <h2 style={{ fontFamily: "Noto Sans Hebrew" }}>
+            {" "}
+            הירשמו לניוזלטר שלנו{" "}
+          </h2>
+          <p
+            style={{
+              fontFamily: "Noto Sans Hebrew",
+              direction: "rtl",
+              fontSize: "10px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            עדכונים על קולקציות חדשות והטבות בלעדיות ישירות למייל.
+          </p>
+          <form onSubmit={handleNewsletterSubmit} className="newsletter-form">
+            <button
+              type="submit"
+              className="newsletter-button"
+              style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}
+            >
+              להירשם
+            </button>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="הזן את המייל שלך"
+              style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}
+              required
+              className="newsletter-input"
+            />
+          </form>
+          {newsletterMessage && (
+            <p className="newsletter-message">{newsletterMessage}</p>
+          )}
         </section>
       </div>
     </div>

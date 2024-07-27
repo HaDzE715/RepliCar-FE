@@ -49,7 +49,7 @@ const Product = ({
             {discount ? (
               <>
                 <p className="product-price original-price">{price}₪</p>
-                <p className="product-price discount-price">
+                <p className="product-price discount-price-comp">
                   {discount_price}₪
                 </p>
               </>

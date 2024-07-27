@@ -316,10 +316,12 @@
 }
 
 .product-price.discount-price {
-  color: green !important; /* Green color for the discount price */
+  color: red !important; /* Green color for the discount price */
   font-weight: bold !important;
   display: inline-block !important;
   font-size: 18px;
+  margin-top: 0px !important;
+  margin-left: -20px !important;
 }
 
 .price-section {
