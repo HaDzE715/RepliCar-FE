@@ -12,6 +12,7 @@ const BrandPage = () => {
   const [brandProducts, setBrandProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [logos, setLogos] = useState([]);
+  const [animateFab, setAnimateFab] = useState(false); // State to control animation
 
   useEffect(() => {
     const fetchBrandDetails = async () => {
@@ -42,6 +43,7 @@ const BrandPage = () => {
         console.error("Error fetching brand details:", error);
       } finally {
         setLoading(false); // Set loading state to false after fetching
+        setAnimateFab(true); // Trigger the animation after loading
       }
     };
 
@@ -69,7 +71,8 @@ const BrandPage = () => {
           <ProductsPage products={brandProducts} />
         </>
       )}
-      <LogoButton logos={logos} /> {/* Add the LogoButton component */}
+      <LogoButton logos={logos} animate={animateFab} />{" "}
+      {/* Add the LogoButton component */}
     </div>
   );
 };

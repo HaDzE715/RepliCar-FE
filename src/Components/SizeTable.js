@@ -4,14 +4,16 @@ import "../Style/SizeTable.css";
 const SizeTable = () => {
   return (
     <div className="size-table">
-      <h3>Size Table:</h3>
+      <h3 style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}>
+        טבלת מידות:
+      </h3>
       <table>
         <thead>
           <tr>
-            <th>SIZE</th>
-            <th>LENGTH</th>
-            <th>WIDTH</th>
-            <th>HEIGHT</th>
+            <th style={{ fontFamily: "Noto sans Hebrew" }}>גודל</th>
+            <th style={{ fontFamily: "Noto sans Hebrew" }}>אורך</th>
+            <th style={{ fontFamily: "Noto sans Hebrew" }}>רוחב</th>
+            <th style={{ fontFamily: "Noto sans Hebrew" }}>גובה</th>
           </tr>
         </thead>
         <tbody>

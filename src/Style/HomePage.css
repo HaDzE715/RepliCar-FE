@@ -329,7 +329,15 @@ body {
     font-size: 20px !important;
   }
 }
-
+@media (max-width: 380px){
+  .brand {
+    flex: 1 0 100px; /* Make each brand logo container take up equal space */
+    max-width: 140px;
+    text-align: center;
+    margin: 50px 10px 0px 0px;
+    position: relative; /* Needed for the lines */
+  }
+}
 @media (max-width: 768px) {
   .new-products-section {
     padding: 40px 20px;

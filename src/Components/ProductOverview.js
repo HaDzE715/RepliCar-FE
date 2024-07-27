@@ -11,6 +11,7 @@ import "../Style/ProductOverview.css";
 import SelectVariants from "./SelectVariants";
 import { Button } from "@mui/material";
 import SizeTable from "./SizeTable";
+import { useCart } from "../Components/CartContext";
 
 const ProductOverview = ({ product }) => {
   const [currentImage, setCurrentImage] = useState(product.image);
@@ -20,6 +21,14 @@ const ProductOverview = ({ product }) => {
   const [additionalImagesLoaded, setAdditionalImagesLoaded] = useState(
     new Array(product.additionalImages.length).fill(false)
   );
+  const [showAddedMessage, setShowAddedMessage] = useState(false);
+  const { dispatch } = useCart();
+
+  const handleAddToCart = () => {
+    dispatch({ type: "ADD_TO_CART", item: product });
+    setShowAddedMessage(true);
+    setTimeout(() => setShowAddedMessage(false), 3000);
+  };
 
   const handleClick = (image) => {
     setCurrentImage(image);
@@ -116,8 +125,12 @@ const ProductOverview = ({ product }) => {
             style={{ display: mainImageLoaded ? "block" : "none" }}
           />
           <div className="product-info">
-            <h3>Description:</h3>
-            <p style={{ fontFamily: "Noto Sans Hebrew" }}>{product.description}</p>
+            <h3 style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}>
+              תיאור:
+            </h3>
+            <p style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}>
+              {product.description}
+            </p>
             <SizeTable />
           </div>
         </div>
@@ -130,7 +143,9 @@ const ProductOverview = ({ product }) => {
           {product.discount ? (
             <div className="price-section">
               <p className="product-price original-price">{product.price}₪</p>
-              <p className="product-price discount-price">{product.discount_price}₪</p>
+              <p className="product-price discount-price">
+                {product.discount_price}₪
+              </p>
             </div>
           ) : (
             <p className="price">{product.price}₪</p>
@@ -168,6 +183,7 @@ const ProductOverview = ({ product }) => {
                 variant="contained"
                 className="add-to-cart-button"
                 disabled={product.quantity === 0}
+                onClick={handleAddToCart}
               >
                 הוסיף לסל
               </Button>
@@ -181,6 +197,9 @@ const ProductOverview = ({ product }) => {
               </p>
             )}
           </div>
+          {showAddedMessage && (
+            <div className="added-message">המוצר נוסף לסל הקניות!</div>
+          )}
         </div>
       </div>
       {/* Mobile screen version */}
@@ -205,7 +224,9 @@ const ProductOverview = ({ product }) => {
           {product.discount ? (
             <div className="price-section">
               <p className="product-price original-price">{product.price}₪</p>
-              <p className="product-price discount-price">{product.discount_price}₪</p>
+              <p className="product-price discount-price">
+                {product.discount_price}₪
+              </p>
             </div>
           ) : (
             <h2 className="product-price">{product.price}₪</h2>
@@ -260,6 +281,7 @@ const ProductOverview = ({ product }) => {
             variant="contained"
             className="add-to-cart-button"
             disabled={product.quantity === 0}
+            onClick={handleAddToCart}
           >
             הוסף לסל
           </Button>
@@ -268,12 +290,17 @@ const ProductOverview = ({ product }) => {
           <p className="sold-out-message">המוצר אזל מהמלאי</p>
         )}
         <div className="product-info">
-          <h3>Description:</h3>
-          <p style={{ fontFamily: "Noto Sans Hebrew" }}>
+          <h3 style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}>
+            תיאור:
+          </h3>
+          <p style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}>
             {product.description}
           </p>
           <SizeTable />
         </div>
+        {showAddedMessage && (
+          <div className="added-message">המוצר נוסף לסל הקניות !</div>
+        )}
       </div>
     </>
   );

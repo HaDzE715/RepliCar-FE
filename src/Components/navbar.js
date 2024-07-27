@@ -10,8 +10,10 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Badge from "@mui/material/Badge"; // Import Badge component
 import logo from "../Pictures/logo.jpg";
 import { Link } from "react-router-dom";
+import { useCart } from "../Components/CartContext"; // Import useCart context
 
 const pages = [
   { name: "מוצרים", link: "/brands" },
@@ -21,6 +23,7 @@ const pages = [
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const { cart } = useCart(); // Get the cart from the context
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -29,6 +32,9 @@ function ResponsiveAppBar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  // Calculate the total number of items in the cart
+  const totalItems = cart.length;
 
   return (
     <AppBar position="static" sx={{ backgroundColor: "black" }}>
@@ -74,7 +80,9 @@ function ResponsiveAppBar() {
               color="inherit"
               sx={{ ml: 1 }}
             >
-              <ShoppingCartIcon />
+              <Badge badgeContent={totalItems} color="error" showZero>
+                <ShoppingCartIcon />
+              </Badge>
             </IconButton>
           </Box>
 
@@ -128,7 +136,9 @@ function ResponsiveAppBar() {
             }}
           >
             <IconButton component={Link} to="/cart" color="inherit">
-              <ShoppingCartIcon />
+              <Badge badgeContent={totalItems} color="error" showZero>
+                <ShoppingCartIcon />
+              </Badge>
             </IconButton>
           </Box>
 
