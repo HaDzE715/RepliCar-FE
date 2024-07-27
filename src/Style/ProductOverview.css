@@ -358,12 +358,6 @@
     opacity: 1;
   }
 }
-.drawer-container {
-  background-color: white;
-  max-height: 80vh;
-  overflow-y: auto;
-  position: relative;
-}
 @media screen and (max-width: 768px) {
   .drawer-main-image {
     width: 100%;

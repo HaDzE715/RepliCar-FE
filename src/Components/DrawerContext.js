@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { Drawer, Slide, IconButton } from "@mui/material";
 import ProductOverview from "./ProductOverview"; // Adjust the import as necessary
 import CloseIcon from "@mui/icons-material/Close";
@@ -10,6 +10,16 @@ export const useDrawer = () => useContext(DrawerContext);
 export const DrawerProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [productId, setProductId] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const openDrawer = (id) => {
     setProductId(id);
@@ -33,23 +43,41 @@ export const DrawerProvider = ({ children }) => {
           style: {
             height: "70vh",
             borderRadius: "20px 20px 0px 0px",
+            overflowX: "hidden", // Prevent horizontal scrolling
+            overflowY: "auto", // Allow vertical scrolling if needed
           },
         }}
       >
-        <div className="drawer-container">
-          <IconButton onClick={closeDrawer} className="drawer-close-icon">
+        <div
+          className="drawer-container"
+          style={{ position: "relative", overflowX: "hidden" }} // Ensure no overflow
+        >
+          <IconButton
+            onClick={closeDrawer}
+            className="drawer-close-icon"
+            style={{
+              position: "absolute",
+              top: "10px",
+              right: "10px", // Move to the right
+              color: "black",
+              backgroundColor: "white",
+              borderRadius: "50%",
+              padding: "10px",
+              cursor: "pointer",
+              zIndex: 10,
+              display: isMobile ? "block" : "none", // Hide on desktop mode
+              fontSize: "12px",
+              alignContent: "center",
+              justifyContent: "center",
+            }}
+          >
             <CloseIcon
               style={{
-                position: "absolute",
-                top: "10px",
-                left: "400px",
+                fontSize: "14px", // Adjust the size of the X icon
                 color: "black",
-                backgroundColor: "white",
-                borderRadius: "50%",
-                padding: "5px",
-                cursor: "pointer",
-                zIndex: 10,
-                display: window.innerWidth > 768 ? "none" : "block",
+                alignContent: "center",
+                justifyContent: "center",
+                display: "flex",
               }}
             />
           </IconButton>
