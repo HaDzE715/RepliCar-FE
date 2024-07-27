@@ -171,32 +171,32 @@ const ProductOverview = ({ product }) => {
               />
               <button onClick={handleIncreaseQuantity}>+</button>
             </div>
-            <div className="button-group">
-              <Button
-                variant="contained"
-                className="buy-now-button"
-                disabled={product.quantity === 0}
-              >
-                תקנה עכשיו
-              </Button>
-              <Button
-                variant="contained"
-                className="add-to-cart-button"
-                disabled={product.quantity === 0}
-                onClick={handleAddToCart}
-              >
-                הוסיף לסל
-              </Button>
-            </div>
-            {product.quantity === 0 && (
-              <p
-                className="sold-out-message"
-                style={{ textAlign: "center", width: "100%", margin: "20px 0" }}
-              >
-                המוצר אזל מהמלאי
-              </p>
-            )}
           </div>
+          <div className="button-group">
+            <Button
+              variant="contained"
+              className="buy-now-button"
+              disabled={product.quantity === 0}
+            >
+              תקנה עכשיו
+            </Button>
+            <Button
+              variant="contained"
+              className="add-to-cart-button"
+              disabled={product.quantity === 0}
+              onClick={handleAddToCart}
+            >
+              הוסיף לסל
+            </Button>
+          </div>
+          {product.quantity === 0 && (
+            <p
+              className="sold-out-message"
+              style={{ textAlign: "center", width: "100%", margin: "20px 0" }}
+            >
+              המוצר אזל מהמלאי
+            </p>
+          )}
           {showAddedMessage && (
             <div className="added-message">המוצר נוסף לסל הקניות!</div>
           )}
