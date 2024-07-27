@@ -356,6 +356,7 @@ body {
   align-items: center;
   gap: 10px;
   margin-top: 20px;
+  position: relative;
 }
 
 .newsletter-input {
@@ -364,6 +365,8 @@ body {
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 250px;
+  z-index: 10; /* Ensure it is on top of other elements */
+  pointer-events: auto;
 }
 
 .newsletter-button {
@@ -374,6 +377,7 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  z-index: 10; /* Ensure it is on top of other elements */
 }
 
 .newsletter-button:hover {
