@@ -58,8 +58,8 @@ const HomePage = () => {
   const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${apiUrl}/api/newsletter`, { email });
-      setNewsletterMessage("Thank you for subscribing!");
+      await axios.post(`${apiUrl}/subscribe`, { email });
+      setNewsletterMessage("!תודה לך על ההרשמה");
       setEmail("");
     } catch (error) {
       setNewsletterMessage("Subscription failed. Please try again.");
