@@ -11,6 +11,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import "../Style/CheckoutPage.css"; // Ensure this import is correct
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 const rtlCache = createCache({
   key: "muirtl",
@@ -71,7 +73,7 @@ export default function CheckoutPage() {
       city: formData.get("city"),
       streetAddress: formData.get("streetAddress"),
       clientType: formData.get("clientType"),
-      orderNotes: formData.get("orderNotes"), // Add this line
+      orderNotes: formData.get("orderNotes"),
     };
 
     try {
@@ -358,11 +360,105 @@ export default function CheckoutPage() {
                     sx: { fontFamily: "Noto Sans Hebrew" },
                   }}
                 />
+                <Box
+                  className="checkout-cart-totals"
+                  style={{
+                    backgroundColor: "#f5f5f5",
+                    BorderColor: "#f5f5f5",
+                  }}
+                >
+                  <div className="totals-row">
+                    <span>סכום ביניים:</span>
+                    <span>{calculateSubtotal()}₪</span>
+                  </div>
+                  <div className="totals-row">
+                    <span>משלוח:</span>
+                    <span>{calculateShipping()}₪</span>
+                  </div>
+                  <div className="totals-row">
+                    <span>סך הכל:</span>
+                    <span>{calculateTotalPrice()}₪</span>
+                  </div>
+                </Box>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="agreeTerms"
+                      sx={{
+                        "& .MuiSvgIcon-root": { fontSize: 28 },
+                      }}
+                    />
+                  }
+                  label={
+                    <Typography
+                      sx={{
+                        fontFamily: "Noto Sans Hebrew",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <span
+                        style={{
+                          whiteSpace: "pre",
+                          fontFamily: "Noto Sans Hebrew",
+                        }}
+                      >
+                        קראתי ואני מסכים לאתר{" "}
+                      </span>
+                      <a
+                        href="/terms" // Change this to the actual URL of your terms and conditions
+                        style={{
+                          textDecoration: "underline",
+                          margin: "0 2px",
+                          fontFamily: "Noto Sans Hebrew",
+                        }}
+                        target="_blank"
+                      >
+                        תנאי
+                      </a>
+                      <a
+                        href="/terms" // Change this to the actual URL of your terms and conditions
+                        style={{
+                          textDecoration: "underline",
+                          margin: "0 0px",
+                          fontFamily: "Noto Sans Hebrew",
+                        }}
+                      >
+                        השימוש
+                      </a>
+                      <span style={{ color: "red", marginLeft: 4 }}>*</span>
+                    </Typography>
+                  }
+                />
+
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="subscribeNewsletter"
+                      sx={{
+                        "& .MuiSvgIcon-root": { fontSize: 28 },
+                      }}
+                    />
+                  }
+                  label={
+                    <Typography
+                      sx={{
+                        fontFamily: "Noto Sans Hebrew",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      אני מאשר/ת קבלת דיוור במייל/SMS
+                      <span style={{ color: "red", marginLeft: 4 }}>*</span>
+                    </Typography>
+                  }
+                />
+
                 <Button
                   type="submit"
                   variant="contained"
                   sx={{
-                    backgroundColor: "black", // Set the background color to black
+                    backgroundColor: "green", // Set the background color to black
                     color: "white", // Set the text color to white
                     fontFamily: "Noto Sans Hebrew", // Set the font family
                     "&:hover": {
@@ -370,7 +466,7 @@ export default function CheckoutPage() {
                     },
                   }}
                 >
-                  שלח
+                  מעבר לתשלום
                 </Button>
               </Box>
             </Box>
