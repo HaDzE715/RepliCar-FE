@@ -47,6 +47,7 @@
   display: flex;
   align-items: center;
   font-family: "Noto Sans Hebrew", sans-serif;
+  z-index: 1010;
 }
 .view-cart-link:focus,
 .view-cart-link:active {
@@ -78,14 +79,19 @@
 .checkout-cart-dropdown {
   display: flex;
   flex-direction: column;
+  gap: 20px;
+  padding: 20px;
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 0 0 3.125rem 3.125rem; /* Adds border radius to the top and bottom corners */
   box-shadow: 0 2px 0 2px #afaeae;
   width: 100%; /* Ensure the dropdown takes full width */
   max-height: 300px; /* Limit the height for better appearance */
-  overflow: hidden; /* Hide overflow */
-  position: relative; /* Allow positioning of totals section */
+  overflow-y: auto; /* Allow vertical scrolling if content overflows */
+  transition: max-height 0.5s ease; /* Smooth transition for dropdown */
+  position: fixed; /* Position fixed */
+  top: 190px; /* Adjust as needed to align with your header */
+  z-index: 999; /* Ensure it stays above other content */
 }
 
 .checkout-cart-items {
@@ -174,10 +180,21 @@
   font-family: "Noto Sans Hebrew";
 }
 .checkout-cart-totals span {
-  font-family: "Noto sans Hebrew";
+  font-family: "Noto Sans Hebrew";
   direction: rtl;
 }
 .checkout-summary span {
   font-family: "Noto Sans Hebrew";
   direction: rtl;
+}
+.form-container-checkout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: "Noto Sans Hebrew";
+  margin-bottom: 10px;
+  margin-top: -40px;
 }
