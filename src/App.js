@@ -15,6 +15,7 @@ import TermsAndConditions from "./Pages/TermsAndConditions";
 import ConditionalFooter from "./Components/ConditionalFooter";
 import ContactUs from "./Pages/ContactUs"; // Import the ContactUs component
 import CheckoutPage from "./Pages/CheckOutPage";
+import { Helmet } from "react-helmet";
 
 const logosData = {
   slides: [
@@ -39,6 +40,21 @@ function App() {
       <DrawerProvider>
         <Router>
           <div className="App">
+            <Helmet>
+              <script
+                async
+                src="https://www.googletagmanager.com/gtag/js?id=G-N2GX693398"
+              ></script>
+              <script>
+                {`
+                   window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+
+                   gtag('config', 'G-N2GX693398');
+                `}
+              </script>
+            </Helmet>
             <Navbar />
             <main>
               <Routes>

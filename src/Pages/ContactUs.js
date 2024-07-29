@@ -202,7 +202,7 @@ export default function ContactMeForm() {
             <TextField
               name="message"
               label="הודעה"
-              variant="standard"
+              variant="outlined"
               multiline
               rows={4}
               fullWidth
@@ -220,11 +220,11 @@ export default function ContactMeForm() {
               type="submit"
               variant="contained"
               sx={{
-                backgroundColor: "black", // Set the background color to black
-                color: "white", // Set the text color to white
-                fontFamily: "Noto Sans Hebrew", // Set the font family
+                backgroundColor: "black", 
+                color: "white", 
+                fontFamily: "Noto Sans Hebrew", 
                 "&:hover": {
-                  backgroundColor: "darkgrey", // Optional: Set a different color on hover
+                  backgroundColor: "darkgrey",
                 },
               }}
             >
