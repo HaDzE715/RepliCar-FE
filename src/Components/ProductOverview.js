@@ -47,10 +47,31 @@ const ProductOverview = ({ productId }) => {
     return <Skeleton variant="rectangular" width="100%" height="100%" />;
   }
 
+  const updateLocalStorageCart = (updatedCart) => {
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
   const handleAddToCart = () => {
-    dispatch({ type: "ADD_TO_CART", item: product });
+    const item = { ...product, quantity };
+    dispatch({ type: "ADD_TO_CART", item });
+    updateLocalStorageCart([
+      ...JSON.parse(localStorage.getItem("cart") || "[]"),
+      item,
+    ]);
     setShowAddedMessage(true);
     setTimeout(() => setShowAddedMessage(false), 3000);
+  };
+
+  const handleBuyNow = () => {
+    const item = { ...product, quantity };
+    dispatch({ type: "ADD_TO_CART", item });
+    updateLocalStorageCart([
+      ...JSON.parse(localStorage.getItem("cart") || "[]"),
+      item,
+    ]);
+    setTimeout(() => {
+      window.location.href = "/checkout";
+    }, 100); // Slight delay to ensure state update
   };
 
   const handleClick = (image) => {
@@ -201,6 +222,7 @@ const ProductOverview = ({ productId }) => {
               variant="contained"
               className="buy-now-button"
               disabled={product.quantity === 0}
+              onClick={handleBuyNow}
               style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}
             >
               תקנה עכשיו
@@ -212,15 +234,11 @@ const ProductOverview = ({ productId }) => {
               onClick={handleAddToCart}
               style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}
             >
-              הוסיף לסל
+              הוסף לסל
             </Button>
           </div>
           {product.quantity === 0 && (
-            <p
-              className="sold-out-message"
-            >
-              המוצר אזל מהמלאי
-            </p>
+            <p className="sold-out-message">המוצר אזל מהמלאי</p>
           )}
           {showAddedMessage && (
             <div className="added-message">המוצר נוסף לסל הקניות!</div>
@@ -299,6 +317,7 @@ const ProductOverview = ({ productId }) => {
             variant="contained"
             className="buy-now-button"
             disabled={product.quantity === 0}
+            onClick={handleBuyNow}
             style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}
           >
             תקנה עכשיו
