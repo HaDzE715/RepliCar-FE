@@ -39,7 +39,10 @@ export default function ContactMeForm() {
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/contact", data); // Replace with your backend URL
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/contact`,
+        data
+      ); // Replace with your backend URL
       if (response.status === 200) {
         alert("Email sent successfully");
       } else {
