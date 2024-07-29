@@ -11,8 +11,9 @@ import FerrariLogo from "./Pictures/FerrariLogo.png";
 import AMGLogo from "./Pictures/AMGLogo.png";
 import { CartProvider } from "./Components/CartContext";
 import { DrawerProvider } from "./Components/DrawerContext"; // Import DrawerProvider
-import Footer from "./Components/Footer";
 import TermsAndConditions from "./Pages/TermsAndConditions";
+import ConditionalFooter from "./Components/ConditionalFooter";
+import ContactUs from "./Pages/ContactUs"; // Import the ContactUs component
 
 const logosData = {
   slides: [
@@ -38,18 +39,21 @@ function App() {
         <Router>
           <div className="App">
             <Navbar />
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route
-                path="/brands"
-                element={<Brands logosData={logosData} />}
-              />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="/product/:id" element={<ProductDetails />} />
-              <Route path="/brand/:brandname" element={<BrandPage />} />
-              <Route path="/terms" element={<TermsAndConditions />} />
-            </Routes>
-            <Footer />
+            <main>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route
+                  path="/brands"
+                  element={<Brands logosData={logosData} />}
+                />
+                <Route path="/cart" element={<CartPage />} />
+                <Route path="/product/:id" element={<ProductDetails />} />
+                <Route path="/brand/:brandname" element={<BrandPage />} />
+                <Route path="/terms" element={<TermsAndConditions />} />
+                <Route path="/contact" element={<ContactUs />} />{" "}
+              </Routes>
+            </main>
+            <ConditionalFooter />
           </div>
         </Router>
       </DrawerProvider>
