@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useCart } from "../Components/CartContext";
 import "../Style/CartPage.css"; // Make sure to create and import the CSS file
+import { Link } from "react-router-dom";
 
 const CartPage = () => {
   const { cart, dispatch } = useCart();
@@ -94,17 +95,25 @@ const CartPage = () => {
       <div className="cart-totals">
         <div className="totals-row">
           <span className="totals-text">סיכום ביניים:</span>
-          <span className="totals-text" style={{fontSize:"16px"}}>{calculateSubtotal()}₪</span>
+          <span className="totals-text" style={{ fontSize: "16px" }}>
+            {calculateSubtotal()}₪
+          </span>
         </div>
         <div className="totals-row">
           <span className="totals-text">משלוח וטיפול:</span>
-          <span className="totals-text" style={{fontSize:"16px"}}>{calculateShipping()}₪</span>
+          <span className="totals-text" style={{ fontSize: "16px" }}>
+            {calculateShipping()}₪
+          </span>
         </div>
         <div className="totals-row">
           <span className="totals-text">סך הכל:</span>
-          <span className="totals-text" style={{fontSize:"16px"}}>{calculateTotal()}₪</span>
+          <span className="totals-text" style={{ fontSize: "16px" }}>
+            {calculateTotal()}₪
+          </span>
         </div>
-        <button className="checkout-button">המשך לקופה</button>
+        <Link to="/checkout" className="checkout-button-link">
+          <button className="checkout-button">המשך לקופה</button>
+        </Link>
       </div>
     </div>
   );

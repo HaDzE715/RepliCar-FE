@@ -72,7 +72,7 @@ const HomePage = () => {
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
-          <Link to="/brands" className="hero-button">
+          <Link to="/" className="hero-button">
             {"<-"} למוצרים שלנו
           </Link>
         </div>

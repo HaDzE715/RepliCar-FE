@@ -16,9 +16,9 @@ import { Link } from "react-router-dom";
 import { useCart } from "../Components/CartContext"; // Import useCart context
 
 const pages = [
-  { name: "מוצרים", link: "/brands" },
+  { name: "תקנון האתר", link: "/terms" },
   { name: "קצת עלינו", link: "/about" },
-  { name: "צור קשר", link: "/contact" },
+  { name: "צרו קשר", link: "/contact" },
 ];
 
 function ResponsiveAppBar() {
@@ -119,8 +119,10 @@ function ResponsiveAppBar() {
                   my: 2,
                   color: "white",
                   display: "block",
-                  fontSize: "24px",
+                  fontSize: "22px",
                   mx: "10px", // Adjust the margin between the buttons
+                  fontFamily: "Noto Sans Hebrew",
+                  fontWeight: "300",
                 }}
               >
                 {page.name}
@@ -162,8 +164,14 @@ function ResponsiveAppBar() {
           >
             {pages.map((page) => (
               <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                <Link to={page.link} style={{ textDecoration: "none" }}>
-                  <Typography textAlign="center">{page.name}</Typography>
+                <Link
+                  to={page.link}
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
+                >
+                  <Typography textAlign="center" style={{fontFamily:"Noto Sans Hebrew"}}>{page.name}</Typography>
                 </Link>
               </MenuItem>
             ))}

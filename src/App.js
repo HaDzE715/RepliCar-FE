@@ -14,6 +14,7 @@ import { DrawerProvider } from "./Components/DrawerContext"; // Import DrawerPro
 import TermsAndConditions from "./Pages/TermsAndConditions";
 import ConditionalFooter from "./Components/ConditionalFooter";
 import ContactUs from "./Pages/ContactUs"; // Import the ContactUs component
+import CheckoutPage from "./Pages/CheckOutPage";
 
 const logosData = {
   slides: [
@@ -46,6 +47,7 @@ function App() {
                   path="/brands"
                   element={<Brands logosData={logosData} />}
                 />
+                <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/product/:id" element={<ProductDetails />} />
                 <Route path="/brand/:brandname" element={<BrandPage />} />

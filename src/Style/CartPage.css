@@ -125,4 +125,8 @@
   margin-top: 10px;
   font-family: "Noto sans hebrew";
   direction: rtl;
+  width: 100%;
+}
+.checkout-button-link {
+  text-decoration: none;
 }
