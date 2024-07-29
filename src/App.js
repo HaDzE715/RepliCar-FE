@@ -11,6 +11,8 @@ import FerrariLogo from "./Pictures/FerrariLogo.png";
 import AMGLogo from "./Pictures/AMGLogo.png";
 import { CartProvider } from "./Components/CartContext";
 import { DrawerProvider } from "./Components/DrawerContext"; // Import DrawerProvider
+import Footer from "./Components/Footer";
+import TermsAndConditions from "./Pages/TermsAndConditions";
 
 const logosData = {
   slides: [
@@ -45,7 +47,9 @@ function App() {
               <Route path="/cart" element={<CartPage />} />
               <Route path="/product/:id" element={<ProductDetails />} />
               <Route path="/brand/:brandname" element={<BrandPage />} />
+              <Route path="/terms" element={<TermsAndConditions />} />
             </Routes>
+            <Footer />
           </div>
         </Router>
       </DrawerProvider>

@@ -1,0 +1,25 @@
+.terms-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  color: #333;
+  font-family: "Noto Sans Hebrew";
+  direction: rtl;
+}
+
+.terms-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: "Noto Sans Hebrew";
+}
+
+.terms-container h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-family: "Noto Sans Hebrew";
+}
+
+.terms-container p {
+  margin-bottom: 10px;
+  line-height: 1.6;
+  font-family: "Noto Sans Hebrew";
+}

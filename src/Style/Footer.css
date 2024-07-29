@@ -1,0 +1,108 @@
+.footer {
+  width: 100%;
+  background-color: black;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-content {
+  max-width: 1200px;
+  width: 100%;
+}
+
+.footer-logo {
+  max-width: 150px;
+  margin-bottom: 20px;
+}
+
+.footer-text {
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-family: "Noto Sans Hebrew";
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: white;
+  position: relative;
+  justify-content: center;
+}
+
+.contact-logo-email {
+  position: relative;
+  width: 22px;
+  height: 24px;
+  margin-left: 5px;
+  top: 6px;
+}
+
+.instagram-logo {
+  position: relative; /* Ensure it is relative to the parent */
+  width: 30px;
+  height: 24px;
+  top: 6px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  direction: rtl;
+  font-family: "Noto Sans Hebrew";
+}
+
+.footer-link {
+  color: white; /* Explicitly set link color */
+  font-size: 14px;
+  font-family: "Noto Sans Hebrew";
+  text-decoration: none;
+}
+
+.footer-link:hover .contact-info:hover {
+  text-decoration: underline;
+}
+
+a.footer-link a.contact-info {
+  color: white; /* Ensure link color remains white */
+}
+
+a.footer-link:hover {
+  text-decoration: underline;
+}
+
+.payment-logos {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.payment-logo {
+  width: 50px;
+  height: auto;
+}
+
+.contact-item span {
+  text-decoration: none;
+  color: white;
+  font-family: "Noto Sans Hebrew";
+}

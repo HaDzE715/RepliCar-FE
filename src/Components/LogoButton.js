@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Fab, Modal, Box, IconButton, Slide } from "@mui/material";
+import { Fab, Modal, Box, Slide } from "@mui/material";
 import { styled } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
@@ -32,6 +32,7 @@ const LogoItem = styled("img")({
 
 const LogoButton = ({ logos, animate }) => {
   const [open, setOpen] = useState(false);
+  const [fabBottom, setFabBottom] = useState("20px");
   const navigate = useNavigate();
 
   const handleOpen = () => setOpen(true);
@@ -45,6 +46,33 @@ const LogoButton = ({ logos, animate }) => {
       }
     }
   }, [animate]);
+
+  useEffect(() => {
+    const footer = document.querySelector("footer");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setFabBottom(`${entry.boundingClientRect.height + 20}px`);
+          } else {
+            setFabBottom("20px");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (footer) {
+      observer.observe(footer);
+    }
+
+    return () => {
+      if (footer) {
+        observer.unobserve(footer);
+      }
+    };
+  }, []);
 
   const keyframes = `
     @keyframes ring {
@@ -63,8 +91,10 @@ const LogoButton = ({ logos, animate }) => {
           backgroundColor: "black",
           color: "white",
           position: "fixed",
-          bottom: "20px",
+          bottom: fabBottom,
           right: "20px",
+          zIndex: 1000,
+          transition: "bottom 0.1s ease", // Smooth transition for bottom position
         }}
         aria-label="logos"
         onClick={open ? handleClose : handleOpen}
@@ -74,15 +104,6 @@ const LogoButton = ({ logos, animate }) => {
       <Modal open={open} onClose={handleClose} closeAfterTransition>
         <Slide direction="up" in={open} mountOnEnter unmountOnExit>
           <ModalBox>
-            <IconButton
-              style={{
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-                color: "white",
-              }}
-              onClick={handleClose}
-            />
             {logos.map((logo, index) => (
               <LogoItem
                 key={index}

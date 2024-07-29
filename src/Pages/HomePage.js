@@ -58,8 +58,8 @@ const HomePage = () => {
   const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${apiUrl}/subscribe`, { email });
-      setNewsletterMessage("תודה לך על ההרשמה.");
+      await axios.post(`${apiUrl}/api/newsletter`, { email });
+      setNewsletterMessage("Thank you for subscribing!");
       setEmail("");
     } catch (error) {
       setNewsletterMessage("Subscription failed. Please try again.");
@@ -159,7 +159,6 @@ const HomePage = () => {
                 ))}
           </div>
         </section>
-        {/* Newsletter Subscription Section */}
         {/* Newsletter Subscription Section */}
         <section className="newsletter-section">
           <h2 style={{ fontFamily: "Noto Sans Hebrew" }}>
