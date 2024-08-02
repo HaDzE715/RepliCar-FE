@@ -388,6 +388,6 @@ body {
   margin-top: 20px;
   color: green;
   font-size: 14px;
-  direction: rtl;
+  direction: rtl !important;
   font-family: "Noto Sans Hebrew";
 }

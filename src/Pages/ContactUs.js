@@ -220,9 +220,9 @@ export default function ContactMeForm() {
               type="submit"
               variant="contained"
               sx={{
-                backgroundColor: "black", 
-                color: "white", 
-                fontFamily: "Noto Sans Hebrew", 
+                backgroundColor: "black",
+                color: "white",
+                fontFamily: "Noto Sans Hebrew",
                 "&:hover": {
                   backgroundColor: "darkgrey",
                 },
