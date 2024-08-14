@@ -12,6 +12,7 @@ import ConditionalFooter from "./Components/ConditionalFooter";
 import ContactUs from "./Pages/ContactUs"; // Import the ContactUs component
 import CheckoutPage from "./Pages/CheckOutPage";
 import { Helmet } from "react-helmet";
+import CardDetailsPage from "./Pages/CardDetailsPage";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             <main>
               <Routes>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/card-details" element={<CardDetailsPage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/product/:id" element={<ProductDetails />} />

@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowUp,
-  faArrowDown,
-  faArrowLeft,
-  faArrowRight,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import Skeleton from "@mui/material/Skeleton";
 import "../Style/ProductOverview.css";
 import SelectVariants from "./SelectVariants";
@@ -13,6 +8,18 @@ import { Button } from "@mui/material";
 import SizeTable from "./SizeTable";
 import { useCart } from "../Components/CartContext";
 import axios from "axios";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrows: true,
+};
 
 const ProductOverview = ({ productId }) => {
   const [product, setProduct] = useState(null);
@@ -256,12 +263,32 @@ const ProductOverview = ({ productId }) => {
               animation="wave"
             />
           )}
-          <img
-            src={currentImage}
-            alt="Main Product"
-            onLoad={() => setMainImageLoaded(true)}
-            style={{ display: mainImageLoaded ? "block" : "none" }}
-          />
+          <Slider {...settings}>
+            {product.additionalImages.map((image, index) => (
+              <div key={index}>
+                {!additionalImagesLoaded[index] && (
+                  <Skeleton variant="rectangular" width="100%" height="450px" />
+                )}
+                <img
+                  src={image}
+                  alt=""
+                  onClick={() => handleClick(image)}
+                  onLoad={() =>
+                    setAdditionalImagesLoaded((prevState) => {
+                      const newState = [...prevState];
+                      newState[index] = true;
+                      return newState;
+                    })
+                  }
+                  style={{
+                    display: additionalImagesLoaded[index] ? "block" : "none",
+                    width: "100%",
+                    height: "auto",
+                  }}
+                />
+              </div>
+            ))}
+          </Slider>
           <h2 className="product-info">{product.name}</h2>
           <h2 className="product-price">{product.size}</h2>
           {product.discount ? (
@@ -274,43 +301,6 @@ const ProductOverview = ({ productId }) => {
           ) : (
             <h2 className="product-price">{product.price}₪</h2>
           )}
-        </div>
-        <div className="additional-images">
-          {product.additionalImages
-            .slice(startIndex, startIndex + 4)
-            .map((image, index) => (
-              <div key={index} className="additional-image-wrapper">
-                {!additionalImagesLoaded[startIndex + index] && (
-                  <Skeleton variant="rectangular" width="80px" height="75px" />
-                )}
-                <img
-                  src={image}
-                  alt=""
-                  className="additional-image"
-                  onClick={() => handleClick(image)}
-                  onLoad={() =>
-                    setAdditionalImagesLoaded((prevState) => {
-                      const newState = [...prevState];
-                      newState[startIndex + index] = true;
-                      return newState;
-                    })
-                  }
-                  style={{
-                    display: additionalImagesLoaded[startIndex + index]
-                      ? "block"
-                      : "none",
-                  }}
-                />
-              </div>
-            ))}
-        </div>
-        <div className="ButtonsLR">
-          <Button onClick={handlePrev}>
-            <FontAwesomeIcon icon={faArrowLeft} style={{ color: "black" }} />
-          </Button>
-          <Button onClick={handleNext}>
-            <FontAwesomeIcon icon={faArrowRight} style={{ color: "black" }} />
-          </Button>
         </div>
         <div className="button-group">
           <Button

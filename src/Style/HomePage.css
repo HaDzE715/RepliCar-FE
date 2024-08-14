@@ -186,6 +186,7 @@ body {
 .discounts-section {
   padding: 20px;
   text-align: center;
+  overflow: hidden;
 }
 
 .discounts-section h2 {
@@ -199,6 +200,7 @@ body {
   gap: 20px; /* Adjust the gap between products */
   padding: 10px;
   padding-left: 120px;
+  overflow: hidden;
 }
 
 .discounted-product {
@@ -295,6 +297,14 @@ body {
     overflow-x: auto; /* Enable horizontal scrolling */
     gap: 10px; /* Adjust the gap between products */
     padding: 10px;
+
+    /* Hide the scrollbar */
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  }
+
+  .discounts-scroll-container::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
   }
 
   /* Add classic, lighter, and faded lines between brand logos */

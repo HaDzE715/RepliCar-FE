@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../Components/CartContext";
 import { prefixer } from "stylis";
 import rtlPlugin from "stylis-plugin-rtl";
@@ -29,6 +30,8 @@ export default function CheckoutPage() {
   const dropdownRef = useRef(null); // Reference for the dropdown
   const buttonRef = useRef(null); // Reference for the button
   const [rtl] = useState(true); // Set initial state to true for Hebrew RTL
+  const navigate = useNavigate();
+  const [showAddedMessage, setShowAddedMessage] = useState(false);
 
   const calculateTotalQuantity = () => {
     return cart.reduce((total, item) => total + item.quantity, 0);
@@ -65,24 +68,36 @@ export default function CheckoutPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const data = {
+    if (!formData.get("agreeTerms")) {
+      setShowAddedMessage(true);
+      setTimeout(() => setShowAddedMessage(false), 2000);
+      return;
+    }
+    const clientData = {
       firstName: formData.get("firstName"),
       lastName: formData.get("lastName"),
       phone: formData.get("phone"),
       email: formData.get("email"),
       city: formData.get("city"),
       streetAddress: formData.get("streetAddress"),
-      clientType: formData.get("clientType"),
       orderNotes: formData.get("orderNotes"),
+      totalQuantity: calculateTotalQuantity(),
+      totalPrice: calculateTotalPrice(),
     };
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/clientInfo`,
-        data
-      ); // Replace with your backend URL
+        `${process.env.REACT_APP_API_URL}/api/clientInfoBeforePurchase`, // Ensure this matches your backend route
+        clientData
+      );
       if (response.status === 200) {
-        alert("Client information submitted successfully");
+        navigate("/card-details", {
+          state: {
+            clientData,
+            totalQuantity: calculateTotalQuantity(),
+            totalPrice: calculateTotalPrice(),
+          },
+        });
       } else {
         alert("Failed to submit client information");
       }
@@ -472,6 +487,11 @@ export default function CheckoutPage() {
             </Box>
           </CacheProvider>
         </div>
+        {showAddedMessage && (
+          <div className="terms-con-message">
+            עליך להסכים על תנאי שימוש באתר!
+          </div>
+        )}
       </div>
     </div>
   );
