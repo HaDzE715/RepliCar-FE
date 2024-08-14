@@ -23,7 +23,7 @@ const CardDetailsPage = () => {
   const [rtl] = useState(true); // Set initial state to true for Hebrew RTL
   const navigate = useNavigate();
   const location = useLocation();
-  const { clientData, totalQuantity, totalPrice } = location.state || {
+  const { totalQuantity, totalPrice } = location.state || {
     clientData: {},
     totalQuantity: 0,
     totalPrice: 0,
