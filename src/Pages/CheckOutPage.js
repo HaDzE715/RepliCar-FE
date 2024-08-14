@@ -29,7 +29,7 @@ export default function CheckoutPage() {
   const [isCartVisible, setIsCartVisible] = useState(false);
   const dropdownRef = useRef(null); // Reference for the dropdown
   const buttonRef = useRef(null); // Reference for the button
-  const [rtl] = useState(true); // Set initial state to true for Hebrew RTL
+  const [rtl] = useState(true);
   const navigate = useNavigate();
   const [showAddedMessage, setShowAddedMessage] = useState(false);
 
@@ -87,7 +87,7 @@ export default function CheckoutPage() {
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/clientInfoBeforePurchase`, // Ensure this matches your backend route
+        `${process.env.REACT_APP_API_URL}/api/clientInfoBeforePurchase`,
         clientData
       );
       if (response.status === 200) {

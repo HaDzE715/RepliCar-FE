@@ -211,7 +211,7 @@ const ProductOverview = ({ productId }) => {
             <p>COLOR</p>
             <SelectVariants options={colorOptions} />
           </div>
-          <hr className="divider" /> {/* Use HTML hr element as divider */}
+          <hr className="divider" />
           <div className="quantity-section">
             <p>QUANTITY</p>
             <div className="quantity-input-container">
