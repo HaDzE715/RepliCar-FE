@@ -25,11 +25,14 @@ const CartPage = () => {
   };
 
   const calculateSubtotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+    return cart.reduce((total, item) => {
+      const itemPrice = item.discount ? item.discount_price : item.price;
+      return total + itemPrice * item.quantity;
+    }, 0);
   };
 
   const calculateShipping = () => {
-    return cart.length > 0 ? 20 : 0; // Example fixed shipping cost
+    return 0;
   };
 
   const calculateTotal = () => {

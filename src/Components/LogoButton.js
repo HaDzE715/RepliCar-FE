@@ -21,12 +21,18 @@ const ModalBox = styled(Box)({
   justifyContent: "flex-start",
   overflowY: "auto", // Enable vertical scrolling
   overflowX: "hidden", // Hide horizontal overflow
+  scrollbarWidth: "none", // For Firefox
+  msOverflowStyle: "none", // For Internet Explorer and Edge
+
+  "&::-webkit-scrollbar": {
+    display: "none", // For Chrome, Safari, and Opera
+  },
 });
 
 const LogoItem = styled("img")({
-  width: "60px", // Adjust the size of logos
+  width: "60px",
   height: "90px",
-  margin: "10px 0px 20px 0px", // Adjust margin for spacing
+  margin: "10px 0px 20px 0px",
   cursor: "pointer",
 });
 
