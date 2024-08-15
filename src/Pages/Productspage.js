@@ -32,11 +32,54 @@ const ProductsPage = ({ products, openDrawer }) => {
   const currentProducts = products.slice(startIndex, endIndex);
 
   const handlePrevPage = () => {
-    setCurrentPage(currentPage - 1);
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
   };
 
   const handleNextPage = () => {
-    setCurrentPage(currentPage + 1);
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const renderPageNumbers = () => {
+    const pageNumbers = [];
+    const maxPageNumbersToShow = 3;
+    let startPage, endPage;
+
+    if (totalPages <= maxPageNumbersToShow) {
+      startPage = 1;
+      endPage = totalPages;
+    } else {
+      const maxPagesBeforeCurrentPage = Math.floor(maxPageNumbersToShow / 2);
+      const maxPagesAfterCurrentPage = Math.ceil(maxPageNumbersToShow / 2) - 1;
+
+      if (currentPage <= maxPagesBeforeCurrentPage) {
+        startPage = 1;
+        endPage = maxPageNumbersToShow;
+      } else if (currentPage + maxPagesAfterCurrentPage >= totalPages) {
+        startPage = totalPages - maxPageNumbersToShow + 1;
+        endPage = totalPages;
+      } else {
+        startPage = currentPage - maxPagesBeforeCurrentPage;
+        endPage = currentPage + maxPagesAfterCurrentPage;
+      }
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(
+        <button
+          key={i}
+          className={`page-number ${currentPage === i ? "active" : ""}`}
+          onClick={() => setCurrentPage(i)}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    return pageNumbers;
   };
 
   return (
@@ -81,17 +124,7 @@ const ProductsPage = ({ products, openDrawer }) => {
         >
           &lt;
         </button>
-        <span className="page-numbers">
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i}
-              className={`page-number ${currentPage === i + 1 ? "active" : ""}`}
-              onClick={() => setCurrentPage(i + 1)}
-            >
-              {i + 1}
-            </button>
-          ))}
-        </span>
+        <span className="page-numbers">{renderPageNumbers()}</span>
         <button
           className="pagination-btn"
           onClick={handleNextPage}

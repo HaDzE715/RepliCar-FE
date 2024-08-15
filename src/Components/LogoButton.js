@@ -20,7 +20,7 @@ const ModalBox = styled(Box)({
   alignItems: "center",
   justifyContent: "flex-start",
   overflowY: "auto", // Enable vertical scrolling
-  overflowX: "hidden",
+  overflowX: "hidden", // Hide horizontal overflow
 });
 
 const LogoItem = styled("img")({
@@ -32,7 +32,7 @@ const LogoItem = styled("img")({
 
 const LogoButton = ({ logos, animate }) => {
   const [open, setOpen] = useState(false);
-  const [fabBottom, setFabBottom] = useState("20px");
+  const [fabColor, setFabColor] = useState("black"); // State to control FAB color
   const navigate = useNavigate();
 
   const handleOpen = () => setOpen(true);
@@ -54,9 +54,9 @@ const LogoButton = ({ logos, animate }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setFabBottom(`${entry.boundingClientRect.height + 20}px`);
+            setFabColor("white"); // Change FAB color when footer is in view
           } else {
-            setFabBottom("20px");
+            setFabColor("black"); // Default FAB color
           }
         });
       },
@@ -88,13 +88,13 @@ const LogoButton = ({ logos, animate }) => {
       <Fab
         id="fab-button"
         style={{
-          backgroundColor: "black",
-          color: "white",
+          backgroundColor: fabColor,
+          color: fabColor === "black" ? "white" : "black",
           position: "fixed",
-          bottom: fabBottom,
+          bottom: "20px",
           right: "20px",
           zIndex: 1000,
-          transition: "bottom 0.1s ease", // Smooth transition for bottom position
+          transition: "background-color 0.3s ease, color 0.3s ease",
         }}
         aria-label="logos"
         onClick={open ? handleClose : handleOpen}
