@@ -101,9 +101,10 @@ const HomePage = () => {
     <div className="homepage">
       <section className="hero">
         <div className="hero-content">
-          <Link to="/" className="hero-button">
-            {"<-"} למוצרים שלנו
-          </Link>
+          <h1>
+            גלה את היוקרה האמיתית עם אוסף הדגמים המוקפד שלנו של רכבי דייקאסט
+            ממותגים המובילים בעולם.
+          </h1>
         </div>
       </section>
       <div className="content-wrapper" style={{ overflow: "hidden" }}>

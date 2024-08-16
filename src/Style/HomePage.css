@@ -16,7 +16,9 @@ body {
 
 /* Hero section styling */
 .hero {
-  background: url("../Pictures/hero-image3.png") no-repeat center center;
+  background: url("../Pictures/hero-image9.jpg") no-repeat center center;
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: cover; /* Ensure the image covers the entire section */
   color: white;
   text-align: center;
@@ -52,9 +54,13 @@ body {
 
 /* Styling for hero content */
 .hero-content h1 {
-  font-size: 3em;
-  margin-bottom: 20px;
-  font-family: "Noto Sans Hebrew", sans-serif;
+  font-size: 16px;
+  padding: 10px;
+  font-weight: 500;
+  margin-top: 270px;
+  font-family: "Noto Sans Hebrew", sans-serif !important;
+  direction: rtl;
+  display: none;
 }
 
 /* Wrapper for all content under the banner */
@@ -114,9 +120,23 @@ body {
 @media (max-width: 768px) {
   .hero {
     height: 60vh; /* Adjust the height for smaller screens */
+    background: url("../Pictures/hero-image6.png") no-repeat center center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
   }
   .product-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .hero-content h1 {
+    font-size: 16px;
+    padding: 10px;
+    font-weight: 300;
+    margin-top: 270px;
+    font-family: "Noto Sans Hebrew", sans-serif !important;
+    direction: rtl;
+    display: block;
   }
 }
 
