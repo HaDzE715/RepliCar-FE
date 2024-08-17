@@ -38,11 +38,14 @@ export default function CheckoutPage() {
   };
 
   const calculateSubtotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+    return cart.reduce((total, item) => {
+      const itemPrice = item.discount ? item.discount_price : item.price;
+      return total + itemPrice * item.quantity;
+    }, 0);
   };
 
   const calculateShipping = () => {
-    return cart.length > 0 ? 20 : 0; // Example fixed shipping cost
+    return 0; // Shipping cost set to zero
   };
 
   const calculateTotalPrice = () => {
@@ -93,22 +96,23 @@ export default function CheckoutPage() {
       if (response.status === 200) {
         navigate("/card-details", {
           state: {
+            cart,
             clientData,
             totalQuantity: calculateTotalQuantity(),
             totalPrice: calculateTotalPrice(),
           },
         });
       } else {
+        console.error("Failed to submit client information");
         alert("Failed to submit client information");
       }
     } catch (error) {
-      console.error("Error submitting client information:", error);
-      alert("An error occurred while submitting the client information");
+      console.error("Error processing the checkout:", error);
+      alert("An error occurred while processing the checkout.");
     }
   };
 
   useEffect(() => {
-    // Close dropdown if clicking outside of it
     const handleClickOutside = (event) => {
       if (
         dropdownRef.current &&

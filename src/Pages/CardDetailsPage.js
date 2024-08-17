@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
+import axios from "axios";
 import "../Style/CardDetailsPage.css"; // Ensure this import is correct
 
 const rtlCache = createCache({
@@ -23,14 +24,21 @@ const CardDetailsPage = () => {
   const [rtl] = useState(true); // Set initial state to true for Hebrew RTL
   const navigate = useNavigate();
   const location = useLocation();
-  const { totalQuantity, totalPrice } = location.state || {
-    clientData: {},
+  const { cart, clientData, totalQuantity, totalPrice } = location.state || {
+    cart: [],
+    clientData: {}, // Add this line to define clientData
     totalQuantity: 0,
     totalPrice: 0,
   };
 
-  const handleSubmit = (event) => {
+  const orderNumber = Math.floor(1000 + Math.random() * 90000);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!cart || cart.length === 0) {
+      alert("Cart is empty or not available.");
+      return;
+    }
 
     const formData = new FormData(event.target);
     const data = {
@@ -45,10 +53,43 @@ const CardDetailsPage = () => {
 
     console.log("Card Details Submitted:", data);
 
-    // Here you can handle the payment process
+    // Create the order object
+    const order = {
+      user: {
+        name: clientData.firstName + " " + clientData.lastName,
+        email: clientData.email,
+        phone: clientData.phone,
+      },
+      shippingAddress: {
+        city: clientData.city,
+        streetAddress: clientData.streetAddress,
+      },
+      products: cart.map((item) => ({
+        product: item._id,
+        quantity: item.quantity,
+      })),
+      totalPrice,
+      orderNumber, // Include the order number here
+    };
 
-    // Redirect to a confirmation or success page
-    navigate("/payment-success");
+    try {
+      // Send the order to the backend
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/orders`,
+        order
+      );
+      if (response.status === 201) {
+        // On success, navigate to the payment success page
+        navigate("/payment-success", {
+          state: { clientName: clientData.firstName, orderNumber },
+        });
+      } else {
+        alert("Failed to process the order.");
+      }
+    } catch (error) {
+      console.error("Error processing order:", error);
+      alert("An error occurred while processing the order.");
+    }
   };
 
   return (
@@ -81,7 +122,7 @@ const CardDetailsPage = () => {
               variant="h6"
               sx={{ mb: 1, fontFamily: "Noto Sans Hebrew" }}
             >
-              מספר הזמנה: 123456
+              מספר הזמנה: {orderNumber}
             </Typography>
             <Typography
               variant="body1"

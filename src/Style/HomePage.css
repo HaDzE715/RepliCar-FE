@@ -120,7 +120,7 @@ body {
 @media (max-width: 768px) {
   .hero {
     height: 60vh; /* Adjust the height for smaller screens */
-    background: url("../Pictures/hero-image6.png") no-repeat center center;
+    background: url("../Pictures/hero--image9.jpg") no-repeat center center;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

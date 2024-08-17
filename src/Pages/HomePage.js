@@ -99,14 +99,7 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-      <section className="hero">
-        <div className="hero-content">
-          <h1>
-            גלה את היוקרה האמיתית עם אוסף הדגמים המוקפד שלנו של רכבי דייקאסט
-            ממותגים המובילים בעולם.
-          </h1>
-        </div>
-      </section>
+      <section className="hero" />
       <div className="content-wrapper" style={{ overflow: "hidden" }}>
         <section className="discounts-section" style={{ overflow: "hidden" }}>
           <section className="skid-marks-section">
