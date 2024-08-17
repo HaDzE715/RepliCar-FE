@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../Style/PaymentSuccessPage.css"; // Ensure this import is correct
 import { useLocation } from "react-router-dom";
+import { useCart } from "../Components/CartContext";
 
 const PaymentSuccessPage = () => {
   const location = useLocation();
   const { clientName, orderNumber } = location.state || {};
+  const { dispatch } = useCart();
+
+  // Clear the cart when the page loads
+  useEffect(() => {
+    dispatch({ type: "CLEAR_CART" });
+  }, [dispatch]);
 
   return (
     <div className="payment-success-container">
@@ -14,7 +21,7 @@ const PaymentSuccessPage = () => {
             היי {clientName} 👋, ההזמנה שלך התקבלה!
           </h1>
           <h2 className="delivery-info">
-            השליח יתקשר אליך לפני הגעה, זה בערך בין 3-5 ימים.
+            השליח יתקשר אליך לפני הגעה, זה בערך בין 3-7 ימים.
           </h2>
           <p className="success-message-text">
             מספר ההזמנה שלך הוא {orderNumber}.

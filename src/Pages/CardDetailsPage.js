@@ -79,6 +79,9 @@ const CardDetailsPage = () => {
         order
       );
       if (response.status === 201) {
+        document.getElementById("root").scrollIntoView({
+          behavior: "smooth",
+        });
         // On success, navigate to the payment success page
         navigate("/payment-success", {
           state: { clientName: clientData.firstName, orderNumber },

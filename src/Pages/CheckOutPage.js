@@ -94,6 +94,9 @@ export default function CheckoutPage() {
         clientData
       );
       if (response.status === 200) {
+        document.getElementById("root").scrollIntoView({
+          behavior: "smooth",
+        });
         navigate("/card-details", {
           state: {
             cart,

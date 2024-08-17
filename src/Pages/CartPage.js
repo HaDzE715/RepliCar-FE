@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useCart } from "../Components/CartContext";
 import "../Style/CartPage.css"; // Make sure to create and import the CSS file
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
   const { cart, dispatch } = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("Current cart state after removal:", cart);
@@ -21,14 +22,21 @@ const CartPage = () => {
   };
 
   const handleDecreaseQuantity = (id) => {
-    dispatch({ type: "DECREASE_QUANTITY", id });
+    const product = cart.find((item) => item._id === id);
+    if (product.quantity === 1) {
+      handleRemoveFromCart(id);
+    } else {
+      dispatch({ type: "DECREASE_QUANTITY", id });
+    }
   };
 
   const calculateSubtotal = () => {
-    return cart.reduce((total, item) => {
-      const itemPrice = item.discount ? item.discount_price : item.price;
-      return total + itemPrice * item.quantity;
-    }, 0);
+    return cart
+      .reduce((total, item) => {
+        const itemPrice = item.discount ? item.discount_price : item.price;
+        return total + itemPrice * item.quantity;
+      }, 0)
+      .toFixed(2); // Ensure two decimal places
   };
 
   const calculateShipping = () => {
@@ -36,11 +44,24 @@ const CartPage = () => {
   };
 
   const calculateTotal = () => {
-    return calculateSubtotal() + calculateShipping();
+    return (parseFloat(calculateSubtotal()) + calculateShipping()).toFixed(2);
+  };
+
+  const handleProceedToCheckout = () => {
+    // Scroll to the top using getElementById
+    const element = document.getElementById("cart-page");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // Navigate to the checkout page after the scroll
+    setTimeout(() => {
+      navigate("/checkout");
+    }, 100);
   };
 
   return (
-    <div className="cart-page">
+    <div id="cart-page" className="cart-page">
       <h2
         style={{
           marginBottom: "20px",
@@ -84,7 +105,10 @@ const CartPage = () => {
                   <button
                     className="cart-remove-button"
                     onClick={() => handleRemoveFromCart(item._id)}
-                    style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}
+                    style={{
+                      fontFamily: "Noto Sans Hebrew",
+                      direction: "rtl",
+                    }}
                   >
                     מחק
                   </button>
@@ -114,9 +138,9 @@ const CartPage = () => {
             {calculateTotal()}₪
           </span>
         </div>
-        <Link to="/checkout" className="checkout-button-link">
-          <button className="checkout-button">המשך לקופה</button>
-        </Link>
+        <button className="checkout-button" onClick={handleProceedToCheckout}>
+          המשך לקופה
+        </button>
       </div>
     </div>
   );

@@ -6,9 +6,23 @@ import emaillogo from "../Pictures/EmailLogo.png";
 import visaLogo from "../Pictures/visa.png";
 import mastercardLogo from "../Pictures/mastercard.png";
 import amexLogo from "../Pictures/amex.png";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const handleLinkClick = (path) => {
+    // Scroll to the top using getElementById before navigating
+    document.getElementById("root").scrollIntoView({
+      behavior: "smooth",
+    });
+
+    // Delay navigation slightly to allow scroll to happen
+    setTimeout(() => {
+      navigate(path);
+    }, 100);
+  };
+
   return (
     <footer className="footer">
       <div className="footer-content">
@@ -23,25 +37,34 @@ const Footer = () => {
             >
               <span>אינסטגרם בצאט</span>
               <img src={instalogo} alt="Instagram" className="instagram-logo" />
-              </a>
+            </a>
           </div>
           <div className="contact-item">
             <a href="mailto:Repli.car911@gmail.com">
               <span>Repli.car911@gmail.com</span>
               <img src={emaillogo} alt="Email" className="contact-logo-email" />
-              </a>
+            </a>
           </div>
         </div>
         <div className="footer-links">
-          <Link to="/about" className="footer-link">
+          <span
+            onClick={() => handleLinkClick("/about")}
+            className="footer-link"
+          >
             • אודות
-          </Link>
-          <Link to="/contact" className="footer-link">
+          </span>
+          <span
+            onClick={() => handleLinkClick("/contact")}
+            className="footer-link"
+          >
             • צרו קשר
-          </Link>
-          <Link to="/terms" className="footer-link">
+          </span>
+          <span
+            onClick={() => handleLinkClick("/terms")}
+            className="footer-link"
+          >
             • תקנון האתר
-          </Link>
+          </span>
         </div>
         <div className="payment-logos">
           <img src={visaLogo} alt="Visa" className="payment-logo" />
