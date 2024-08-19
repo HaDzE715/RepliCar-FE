@@ -13,6 +13,7 @@ import ContactUs from "./Pages/ContactUs"; // Import the ContactUs component
 import CheckoutPage from "./Pages/CheckOutPage";
 import CardDetailsPage from "./Pages/CardDetailsPage";
 import PaymentSuccessPage from "./Pages/PaymentSuccessPage";
+import AboutUs from "./Pages/AboutUs";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <main>
               <Routes>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/about" element={<AboutUs />} />
                 <Route path="/payment-success" element={<PaymentSuccessPage />} />
                 <Route path="/card-details" element={<CardDetailsPage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
