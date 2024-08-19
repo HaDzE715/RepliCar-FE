@@ -159,7 +159,7 @@ export default function CheckoutPage() {
           <span className={`arrow ${isCartVisible ? "up" : "down"}`}></span>
         </button>
       </div>
-      <div style={{ position: "relative" }}>
+      <div className="checkout-form-wrap" style={{ position: "relative" }}>
         {isCartVisible && (
           <div ref={dropdownRef} className="checkout-cart-dropdown">
             <div className="checkout-cart-items">
