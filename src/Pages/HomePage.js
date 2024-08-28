@@ -1,6 +1,5 @@
 import React, { useEffect, useState, Suspense, lazy } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import "../Style/HomePage.css";
 import SkidMarksImage from "../Pictures/skidmarks.png";
@@ -42,28 +41,18 @@ const LazyImage = ({ src, alt, ...props }) => {
 };
 
 const HomePage = () => {
-  const [brands, setBrands] = useState([]);
   const [discountedProducts, setDiscountedProducts] = useState([]);
-  const [loadingBrands, setLoadingBrands] = useState(true);
   const [loadingDiscountedProducts, setLoadingDiscountedProducts] =
     useState(true);
   const [email, setEmail] = useState("");
   const [newsletterMessage, setNewsletterMessage] = useState("");
   const apiUrl = process.env.REACT_APP_API_URL;
   const { openDrawer } = useDrawer();
+  const [mostSoldProducts, setMostSoldProducts] = useState([]);
+  const [loadingMostSoldProducts, setLoadingMostSoldProducts] = useState(true);
 
   useEffect(() => {
     console.log("API URL:", apiUrl);
-
-    const fetchBrands = async () => {
-      try {
-        const response = await axios.get(`${apiUrl}/api/brands`);
-        setBrands(response.data);
-        setLoadingBrands(false);
-      } catch (error) {
-        console.error("Error fetching brands:", error);
-      }
-    };
 
     const fetchDiscountedProducts = async () => {
       try {
@@ -78,10 +67,24 @@ const HomePage = () => {
         console.error("Error fetching discounted products:", error);
       }
     };
+    const fetchMostSoldProducts = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/api/products`);
+        const allProducts = response.data;
+        const filteredProducts = allProducts.filter(
+          (product) => product.sold > 0
+        ); // Only include products with sold > 0
+        const sortedBySold = filteredProducts.sort((a, b) => b.sold - a.sold); // Sort by sold field
+        setMostSoldProducts(sortedBySold.slice(0, 4)); // Get top 4 most sold products
+        setLoadingMostSoldProducts(false);
+      } catch (error) {
+        console.error("Error fetching most sold products:", error);
+      }
+    };
 
     if (apiUrl) {
-      fetchBrands();
       fetchDiscountedProducts();
+      fetchMostSoldProducts();
     } else {
       console.error("API URL is not defined");
     }
@@ -210,38 +213,43 @@ const HomePage = () => {
             alt="Skid Marks"
             className="skid-marks-img"
           />
-          <h1 className="skid-marks-title">המותגים שלנו</h1>
+          <h1 className="skid-marks-title">הכי נמכר אצלנו</h1>
           <LazyImage
             src={SkidMarksImage}
             alt="Skid Marks"
             className="skid-marks-img"
           />
         </section>
-        <section className="brands-section" id="brands-section">
-          <div className="brands-container">
-            {loadingBrands
-              ? Array.from(new Array(4)).map((_, index) => (
-                  <Skeleton
-                    key={index}
-                    variant="rectangular"
-                    width={120}
-                    height={120}
-                    style={{ margin: "10px" }}
-                  />
-                ))
-              : brands.map((brand) => (
-                  <div key={brand._id} className="brand">
-                    <Link to={`/brand/${brand.name.toLowerCase()}`}>
-                      <img
-                        src={brand.logo}
-                        alt={brand.name}
-                        className="brand-logo"
-                      />
-                    </Link>
+        <div className="discounts-scroll-container">
+          {loadingMostSoldProducts
+            ? Array.from(new Array(4)).map((_, index) => (
+                <div key={index} className="product-card">
+                  <Skeleton variant="rectangular" width={210} height={118} />
+                  <Skeleton width="80%" />
+                  <Skeleton width="60%" />
+                </div>
+              ))
+            : mostSoldProducts.map((product) => (
+                <Suspense fallback={<div>Loading...</div>} key={product._id}>
+                  <div className="product-with-sold-number">
+                    <span className="sold-number-tag">
+                      Sold: {product.sold}
+                    </span>
+                    <Product
+                      id={product._id}
+                      name={product.name}
+                      size={product.size}
+                      price={product.price}
+                      discount={product.discount}
+                      discount_price={product.discount_price}
+                      image={product.image}
+                      quantity={product.quantity}
+                      openDrawer={openDrawer}
+                    />
                   </div>
-                ))}
-          </div>
-        </section>
+                </Suspense>
+              ))}
+        </div>
         <section className="newsletter-section">
           <h2 style={{ fontFamily: "Noto Sans Hebrew" }}>
             {" "}

@@ -170,38 +170,6 @@ body {
   font-family: "Noto Sans Hebrew", sans-serif;
 }
 
-/* Brands Section */
-.brands-section {
-  padding: 50px 20px;
-  text-align: center;
-  font-family: "Noto Sans Hebrew", sans-serif;
-}
-
-.brands-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.brand {
-  margin: 20px;
-  text-align: center;
-  flex: 1 0 140px; /* Make each brand logo container take up equal space */
-  max-width: 140px;
-}
-
-.brand-logo {
-  max-width: 100px;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
-
-.brand-name {
-  margin-top: 10px;
-  font-size: 1.2em;
-}
-
 /* Discounts Section */
 .discounts-section {
   padding: 20px;
@@ -280,38 +248,6 @@ body {
     margin-bottom: -5px;
   }
 
-  .brands-section {
-    padding: 20px 20px;
-    text-align: center;
-    font-family: "Noto Sans Hebrew", sans-serif;
-  }
-
-  .brands-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .brand {
-    flex: 1 0 140px; /* Make each brand logo container take up equal space */
-    max-width: 140px;
-    text-align: center;
-    margin: 50px 10px 0px 0px;
-    position: relative; /* Needed for the lines */
-  }
-
-  .brand-logo {
-    width: 100%; /* Ensure the logo fills the container */
-    height: auto; /* Maintain aspect ratio */
-    display: block;
-    margin: 0 auto;
-  }
-
-  .brand-name {
-    margin-top: 10px;
-    font-size: 1.2em;
-  }
-
   .discounts-scroll-container {
     display: flex;
     overflow-x: auto; /* Enable horizontal scrolling */
@@ -327,45 +263,8 @@ body {
     display: none; /* For Chrome, Safari, and Opera */
   }
 
-  /* Add classic, lighter, and faded lines between brand logos */
-  .brand::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 100%;
-    transform: translateY(-50%);
-    width: 2px;
-    height: 110%;
-    background: linear-gradient(to bottom, transparent, lightgrey, transparent);
-    border-radius: 5px;
-  }
-
-  .brand::before {
-    content: "";
-    position: absolute;
-    top: 110%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(to right, transparent, lightgrey, transparent);
-    border-radius: 5px;
-  }
-
-  .brand:nth-child(2n)::after {
-    display: none; /* Remove the line for every second element */
-  }
   .product-name {
     font-size: 20px !important;
-  }
-}
-@media (max-width: 380px) {
-  .brand {
-    flex: 1 0 100px; /* Make each brand logo container take up equal space */
-    max-width: 140px;
-    text-align: center;
-    margin: 50px 10px 0px 0px;
-    position: relative; /* Needed for the lines */
   }
 }
 @media (max-width: 768px) {
@@ -549,4 +448,20 @@ body {
   .category-title {
     margin-right: -10px;
   }
+}
+.product-with-sold-number {
+  position: relative;
+}
+.sold-number-tag {
+  position: absolute;
+  top: 30px;
+  left: 10px;
+  background-color: #006400; /* Customize the color as needed */
+  color: white;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 5px;
+  z-index: 1;
+  font-family: "Noto Sans Hebrew", sans-serif;
 }
