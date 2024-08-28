@@ -30,6 +30,9 @@ const ProductOverview = ({ productId }) => {
   const [additionalImagesLoaded, setAdditionalImagesLoaded] = useState([]);
   const [showAddedMessage, setShowAddedMessage] = useState(false);
   const { dispatch } = useCart();
+  const [showNotifyForm, setShowNotifyForm] = useState(false);
+  const [notificationMethod, setNotificationMethod] = useState("whatsapp");
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -121,7 +124,37 @@ const ProductOverview = ({ productId }) => {
   }));
 
   const sizeOptions = [{ value: product.size, label: product.size }];
+  const handleNotifyMeClick = () => {
+    setShowNotifyForm(!showNotifyForm);
+  };
+  const handleNotifyMeSubmit = async (e) => {
+    e.preventDefault();
 
+    const notificationData = {
+      fullName: e.target.fullName.value,
+      email: e.target.email ? e.target.email.value : null,
+      phone: e.target.phone ? e.target.phone.value : null,
+      notificationMethod: e.target.notificationMethod.value,
+      productId: productId, // Assuming productId is passed as a prop to the component
+    };
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/notify-me`,
+        notificationData
+      );
+      if (response.status === 200) {
+        setSuccessMessage(
+          "הבקשה שלך התקבלה! אנו נודיע לך כאשר המוצר יחזור למלאי."
+        );
+      } else {
+        setSuccessMessage("הייתה בעיה בעיבוד הבקשה שלך. נסה שוב מאוחר יותר.");
+      }
+    } catch (error) {
+      console.error("Error submitting notification request:", error);
+      setSuccessMessage("הייתה בעיה בעיבוד הבקשה שלך. נסה שוב מאוחר יותר.");
+    }
+  };
   return (
     <>
       <div className="container">
@@ -323,7 +356,128 @@ const ProductOverview = ({ productId }) => {
           </Button>
         </div>
         {product.quantity === 0 && (
-          <p className="sold-out-message">המוצר אזל מהמלאי</p>
+          <>
+            <p className="sold-out-message">המוצר אזל מהמלאי</p>
+            <button
+              onClick={handleNotifyMeClick}
+              className="notify-me-button"
+              style={{
+                fontFamily: "Noto Sans Hebrew",
+                direction: "rtl",
+                marginTop: "10px",
+              }}
+            >
+              עדכן אותי כאשר המוצר יחזור למלאי
+              <FontAwesomeIcon
+                icon={showNotifyForm ? faArrowUp : faArrowDown}
+                style={{ marginRight: "10px" }}
+              />
+            </button>
+            {showNotifyForm && (
+              <form onSubmit={handleNotifyMeSubmit} className="notify-form">
+                <input
+                  type="text"
+                  name="fullName"
+                  placeholder="שם מלא"
+                  required
+                  style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}
+                />
+                <div
+                  className="notification-preference"
+                  style={{
+                    fontFamily: "Noto Sans Hebrew",
+                    direction: "rtl",
+                    marginTop: "10px",
+                  }}
+                >
+                  <p>קבל התראה באמצעות:</p>
+                  <label>
+                    <input
+                      type="radio"
+                      name="notificationMethod"
+                      value="email"
+                      onChange={() => setNotificationMethod("email")}
+                      required
+                    />
+                    מייל
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="notificationMethod"
+                      value="whatsapp"
+                      onChange={() => setNotificationMethod("whatsapp")}
+                      checked={notificationMethod === "whatsapp"}
+                      required
+                    />
+                    וואטסאף
+                  </label>
+                </div>
+                {notificationMethod === "email" && (
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="כתובת אימייל"
+                    required
+                    style={{
+                      fontFamily: "Noto Sans Hebrew",
+                      direction: "rtl",
+                      marginTop: "10px",
+                    }}
+                  />
+                )}
+                {notificationMethod === "whatsapp" && (
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="מספר טלפון"
+                    required
+                    style={{
+                      fontFamily: "Noto Sans Hebrew",
+                      direction: "rtl",
+                      marginTop: "10px",
+                    }}
+                    pattern="[0-9]*"
+                    inputMode="numeric"
+                  />
+                )}
+                <Button
+                  variant="contained"
+                  type="submit"
+                  style={{
+                    backgroundColor: "transparent", // Transparent background
+                    color: "black", // Black text color
+                    padding: "10px 20px",
+                    cursor: "pointer",
+                    fontSize: "14px",
+                    width: "100%",
+                    textAlign: "center",
+                    display: "block",
+                    border: "1px solid black",
+                    fontFamily: "Noto Sans Hebrew",
+                    direction: "rtl",
+                    marginTop: "10px",
+                  }}
+                >
+                  שלח
+                </Button>
+              </form>
+            )}
+            {successMessage && (
+              <p
+                style={{
+                  color: "green",
+                  fontFamily: "Noto Sans Hebrew",
+                  direction: "rtl",
+                  marginTop: "10px",
+                  fontSize: "14px",
+                  textAlign: "center",
+                }}
+              >
+                {successMessage}
+              </p>
+            )}
+          </>
         )}
         <div className="product-info">
           <h3 style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}>

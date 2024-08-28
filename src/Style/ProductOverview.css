@@ -388,3 +388,54 @@
   display: flex !important;
   justify-content: center !important;
 }
+.notify-me-button {
+  background-color: transparent; /* Transparent background */
+  color: black; /* Black text color */
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 100%;
+  text-align: center;
+  display: block;
+  border: none;
+  right: 5px;
+}
+
+.notify-form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notify-form input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.notification-preference {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.notification-preference p {
+  margin-bottom: 0;
+  font-size: 14px;
+  font-family: "Noto sans hebrew";
+}
+
+.notification-preference label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  gap: 10px;
+  font-family: "Noto sans hebrew";
+}
+
+.notification-preference input[type="radio"] {
+  margin-right: 5px;
+}
