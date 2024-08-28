@@ -421,4 +421,132 @@ body {
   direction: rtl !important;
   font-family: "Noto Sans Hebrew";
 }
+.banner1-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0; /* Adjust spacing as needed */
+  padding: 0 10px; /* Responsive padding */
+  box-sizing: border-box;
+}
 
+.banner1-image {
+  width: 100%;
+  max-width: 1200px; /* Adjust max-width based on your layout */
+  height: auto;
+  border-radius: 10px; /* Optional: adds rounded corners */
+  object-fit: cover; /* Ensures the image covers the entire area */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: adds a subtle shadow */
+}
+/* Container for both boxes */
+.homepage-diecast-category-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  gap: 40px; /* Space between the boxes */
+  margin: 20px auto; /* Center the container */
+  max-width: 1200px; /* Container width */
+  justify-content: center;
+}
+
+/* Individual box styling */
+.homepage-diecast-category-box {
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  flex: 1 1 45%; /* Take up 45% of the container width on larger screens */
+  max-width: 400px;
+  width: 100%;
+  margin: 10px; /* Space around each box */
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  justify-content: space-between; /* Ensure content is spaced properly */
+}
+
+/* Content within the box */
+.homepage-category-box-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+  flex-grow: 1; /* Allow content to grow and fill space */
+}
+
+/* Ensuring consistent image height */
+.homepage-category-image {
+  width: 100%;
+  height: 350px; /* Set a consistent height for all images */
+  object-fit: cover; /* Ensures the image covers the box without distortion */
+  margin-bottom: 15px;
+}
+
+/* Title styling */
+.category-title {
+  font-weight: bold;
+  font-size: 18px;
+  color: #333;
+  text-align: right;
+  font-family: "Noto Sans Hebrew", sans-serif;
+  direction: rtl;
+  margin-right: 10px;
+}
+
+/* Description styling */
+.category-description {
+  font-size: 16px;
+  color: #555;
+  text-align: right;
+  font-family: "Noto Sans Hebrew", sans-serif;
+  direction: rtl;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  flex-grow: 1; /* Allows the description to fill available space */
+}
+
+/* Button styling */
+.homepage-buy-now-button {
+  padding: 0;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  color: rgb(0, 0, 0);
+  border: 1px solid #000;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Noto Sans Hebrew", sans-serif;
+  width: calc(100% - 25px);
+  height: 40px;
+  line-height: 35px;
+  margin: 0 10px 10px 10px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.homepage-buy-now-button:hover {
+  background-color: #e65a00;
+}
+
+/* Media query for mobile screens */
+@media (max-width: 768px) {
+  .homepage-diecast-category-box {
+    flex: 1 1 100%; /* Full width on mobile */
+    max-width: 100%; /* Ensure it spans the full width */
+  }
+  .homepage-diecast-category-container {
+    gap: 0px;
+  }
+  .homepage-category-image {
+    height: 250px;
+  }
+}
+
+@media (min-width: 420px) {
+  .category-description {
+    margin-right: -10px;
+  }
+  .category-title {
+    margin-right: -10px;
+  }
+}

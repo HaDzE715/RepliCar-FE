@@ -5,6 +5,9 @@ import Skeleton from "@mui/material/Skeleton";
 import "../Style/HomePage.css";
 import SkidMarksImage from "../Pictures/skidmarks.png";
 import { useDrawer } from "../Components/DrawerContext";
+import Banner1 from "../Pictures/bn2.png";
+import Diecast from "../Pictures/diecast-cat.jpg";
+import Frames from "../Pictures/Frames.jpg";
 
 const Product = lazy(() => import("../Components/Product")); // Lazy load Product component
 
@@ -140,6 +143,66 @@ const HomePage = () => {
                   </Suspense>
                 ))}
           </div>
+        </section>
+        <section className="banner1-section">
+          <LazyImage
+            src={Banner1} // Use BannerImage if imported locally
+            alt="Promotional Banner"
+            className="banner1-image"
+          />
+        </section>
+        <div className="homepage-diecast-category-container">
+          <section className="homepage-diecast-category-box">
+            <div className="homepage-category-box-content">
+              <img
+                src={Diecast} // Replace with your diecast image URL
+                alt="Diecast Cars"
+                className="homepage-category-image"
+              />
+              <div className="homepage-category-description">
+                <h3 className="category-title">אוסף הדגמים</h3>
+                <p className="category-description">
+                  דגמים מדויקים ומפורטים לכל חובב רכבים ואספנים.
+                </p>
+              </div>
+
+              <button
+                className="homepage-buy-now-button"
+                onClick={() => (window.location.href = "/diecast-category")} // Replace with your target URL
+              >
+                תקנה עכשיו
+              </button>
+            </div>
+          </section>
+          <section className="homepage-diecast-category-box">
+            <div className="homepage-category-box-content">
+              <img
+                src={Frames} // Replace with your diecast image URL
+                alt="Diecast Cars"
+                className="homepage-category-image"
+              />
+              <div className="homepage-category-description">
+                <h3 className="category-title">אוסף המסגרות</h3>
+                <p className="category-description">
+                  דגמים מדויקים ומפורטים לכל חובב רכבים ואספנים.
+                </p>
+              </div>
+
+              <button
+                className="homepage-buy-now-button"
+                onClick={() => (window.location.href = "/diecast-category")} // Replace with your target URL
+              >
+                תקנה עכשיו
+              </button>
+            </div>
+          </section>
+        </div>
+        <section className="banner1-section">
+          <LazyImage
+            src={Banner1} // Use BannerImage if imported locally
+            alt="Promotional Banner"
+            className="banner1-image"
+          />
         </section>
         <section className="skid-marks-section">
           <LazyImage
