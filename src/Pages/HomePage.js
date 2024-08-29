@@ -4,7 +4,8 @@ import Skeleton from "@mui/material/Skeleton";
 import "../Style/HomePage.css";
 import SkidMarksImage from "../Pictures/skidmarks.png";
 import { useDrawer } from "../Components/DrawerContext";
-import Banner1 from "../Pictures/bn2.png";
+import Banner1 from "../Pictures/Banner1.jpeg";
+import Banner2 from "../Pictures/Banner21.jpeg";
 import Diecast from "../Pictures/diecast-cat.jpg";
 import Frames from "../Pictures/Frames.jpg";
 
@@ -152,6 +153,7 @@ const HomePage = () => {
             src={Banner1} // Use BannerImage if imported locally
             alt="Promotional Banner"
             className="banner1-image"
+            onClick={() => (window.location.href = "/frames")}
           />
         </section>
         <div className="homepage-diecast-category-container">
@@ -202,9 +204,10 @@ const HomePage = () => {
         </div>
         <section className="banner1-section">
           <LazyImage
-            src={Banner1} // Use BannerImage if imported locally
+            src={Banner2} // Use BannerImage if imported locally
             alt="Promotional Banner"
             className="banner1-image"
+            onClick={() => (window.location.href = "/diecast-category")}
           />
         </section>
         <section className="skid-marks-section">

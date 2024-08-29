@@ -3,7 +3,7 @@ import axios from "axios";
 import Skeleton from "@mui/material/Skeleton";
 import Product from "../Components/Product";
 import "../Style/FramesPage.css";
-import FramesBanner from "../Pictures/Frames.jpg";
+import FrameBanner from "../Pictures/Frames.jpg";
 
 const FramesPage = () => {
   const [frames, setFrames] = useState([]);
@@ -31,13 +31,13 @@ const FramesPage = () => {
       <section className="frames-banner">
         <div className="banner-content">
           <img
-            src={FramesBanner}
+            src={FrameBanner} // Replace with the actual path to your image
             alt="Frames Collection"
             className="banner-image"
           />
           <div className="banner-text">
             <h1>המסגרות המובילות שלנו</h1>
-            <p>החלום היחדי שרואים לפני שינה.</p>
+            <p>גלו את האוסף המרהיב שלנו של מסגרות מעוצבות לכל צורך.</p>
           </div>
         </div>
       </section>

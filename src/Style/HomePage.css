@@ -175,6 +175,7 @@ body {
   padding: 20px;
   text-align: center;
   overflow: hidden;
+  padding-bottom: 0px;
 }
 
 .discounts-section h2 {
@@ -337,6 +338,7 @@ body {
   border-radius: 10px; /* Optional: adds rounded corners */
   object-fit: cover; /* Ensures the image covers the entire area */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: adds a subtle shadow */
+  margin-top: -10px;
 }
 /* Container for both boxes */
 .homepage-diecast-category-container {
@@ -469,6 +471,14 @@ body {
   }
   .category-title {
     margin-right: -70px;
+  }
+}
+@media (max-width: 380px) {
+  .category-title {
+    margin-right: 0px;
+  }
+  .category-description {
+    margin-right: 0px;
   }
 }
 .product-with-sold-number {
