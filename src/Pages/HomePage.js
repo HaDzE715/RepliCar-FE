@@ -158,35 +158,35 @@ const HomePage = () => {
           <section className="homepage-diecast-category-box">
             <div className="homepage-category-box-content">
               <img
-                src={Diecast} // Replace with your diecast image URL
+                src={Frames} // Replace with your diecast image URL
                 alt="Diecast Cars"
                 className="homepage-category-image"
               />
               <div className="homepage-category-description">
-                <h3 className="category-title">אוסף הדגמים</h3>
+                <h3 className="category-title">אוסף מסגרות</h3>
                 <p className="category-description">
-                  דגמים מדויקים ומפורטים לכל חובב רכבים ואספנים.
+                  דגמי דייקאסט ייחודיים במסגרת מעוצבת{" "}
                 </p>
               </div>
 
               <button
                 className="homepage-buy-now-button"
-                onClick={() => (window.location.href = "/diecast-category")} // Replace with your target URL
+                onClick={() => (window.location.href = "/frames")} // Replace with your target URL
               >
-                תקנה עכשיו
+                צפה במוצרים{" "}
               </button>
             </div>
           </section>
           <section className="homepage-diecast-category-box">
             <div className="homepage-category-box-content">
               <img
-                src={Frames} // Replace with your diecast image URL
+                src={Diecast} // Replace with your diecast image URL
                 alt="Diecast Cars"
                 className="homepage-category-image"
               />
               <div className="homepage-category-description">
-                <h3 className="category-title">אוסף המסגרות</h3>
-                <p className="category-description">
+                <h3 className="category-title2">אוסף הדגמים</h3>
+                <p className="category-description2">
                   דגמים מדויקים ומפורטים לכל חובב רכבים ואספנים.
                 </p>
               </div>
@@ -195,7 +195,7 @@ const HomePage = () => {
                 className="homepage-buy-now-button"
                 onClick={() => (window.location.href = "/diecast-category")} // Replace with your target URL
               >
-                תקנה עכשיו
+                צפה במוצרים{" "}
               </button>
             </div>
           </section>

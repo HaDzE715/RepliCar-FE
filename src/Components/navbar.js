@@ -16,7 +16,8 @@ import { Link } from "react-router-dom";
 import { useCart } from "../Components/CartContext"; // Import useCart context
 
 const pages = [
-  { name: "תקנון האתר", link: "/terms" },
+  { name: "מסגרות", link: "/frames" },
+  { name: "רכבים", link: "/diecast" },
   { name: "קצת עלינו", link: "/about" },
   { name: "צרו קשר", link: "/contact" },
 ];
@@ -37,7 +38,10 @@ function ResponsiveAppBar() {
   const totalItems = cart.length;
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "black" }}>
+    <AppBar
+      position="static"
+      sx={{ backgroundColor: "black", direction: "rtl" }}
+    >
       <Container maxWidth="xl">
         <Toolbar
           disableGutters
@@ -61,7 +65,11 @@ function ResponsiveAppBar() {
               <MenuIcon />
             </IconButton>
             <Box
-              sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}
+              sx={{
+                flexGrow: 1,
+                display: "flex",
+                justifyContent: "center",
+              }}
             >
               <Link to="/">
                 <img
@@ -160,6 +168,7 @@ function ResponsiveAppBar() {
             onClose={handleCloseNavMenu}
             sx={{
               display: { xs: "block", md: "none" },
+              direction: "rtl",
             }}
           >
             {pages.map((page) => (
@@ -171,7 +180,12 @@ function ResponsiveAppBar() {
                     color: "black",
                   }}
                 >
-                  <Typography textAlign="center" style={{fontFamily:"Noto Sans Hebrew"}}>{page.name}</Typography>
+                  <Typography
+                    textAlign="center"
+                    style={{ fontFamily: "Noto Sans Hebrew" }}
+                  >
+                    {page.name}
+                  </Typography>
                 </Link>
               </MenuItem>
             ))}
