@@ -272,9 +272,6 @@ const HomePage = () => {
             : mostSoldProducts.map((product) => (
                 <Suspense fallback={<div>Loading...</div>} key={product._id}>
                   <div className="product-with-sold-number">
-                    <span className="sold-number-tag">
-                      Sold: {product.sold}
-                    </span>
                     <Product
                       id={product._id}
                       name={product.name}

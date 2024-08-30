@@ -54,20 +54,22 @@ a.product-link:visited {
   margin-top: 20px;
   font-family: Arial, Helvetica, sans-serif;
   width: 100%; /* Ensure details take the full width of the card */
-  text-align: center;
+  text-align: left !important;
 }
 .product-name {
-  margin: 0 0 10px;
+  margin: 0px !important;
   font-size: 18px;
 }
 .product-size {
-  margin: 0 0 5px;
+  margin: 0 0 0px;
   font-size: 16px;
   color: #888; /* Adjust the color as needed */
 }
 .product-price {
   padding: 15px;
+  padding-bottom: 0px;
   font-size: 14px;
+  text-align: left !important;
 }
 @media screen and (max-width: 1000px) {
   .products-container {
@@ -90,6 +92,8 @@ a.product-link:visited {
   .product-price {
     margin: 0;
     font-size: 18px;
+    text-align: left !important;
+    padding-left: 0;
   }
 
   .product-details {
@@ -163,9 +167,8 @@ a.product-link:visited {
   font-size: 22px !important;
 }
 .custom-buy-now-button {
-  padding: 6px 12px; /* Less padding */
-  min-width: 120px; /* Specific minimum width */
-  font-family: "Noto Sans Hebrew", sans-serif;
+  font-family: "Noto Sans Hebrew", sans-serif !important;
   direction: rtl;
   background-color: black !important;
+  margin-top: 20px !important;
 }

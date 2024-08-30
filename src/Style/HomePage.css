@@ -484,19 +484,6 @@ body {
 .product-with-sold-number {
   position: relative;
 }
-.sold-number-tag {
-  position: absolute;
-  top: 30px;
-  left: 10px;
-  background-color: #006400; /* Customize the color as needed */
-  color: white;
-  padding: 5px 10px;
-  font-size: 14px;
-  font-weight: 500;
-  border-radius: 5px;
-  z-index: 1;
-  font-family: "Noto Sans Hebrew", sans-serif;
-}
 .progress-bar-container {
   position: relative;
   height: 3px;

@@ -86,14 +86,16 @@ const Product = ({
               <p className="product-price">{price}₪</p>
             )}
           </div>
-          <Button
-            variant="contained"
-            className="custom-buy-now-button"
-            disabled={quantity === 0}
-            onClick={handleBuyNow}
-          >
-            קנה עכשיו
-          </Button>
+          {quantity > 0 && (
+            <Button
+              variant="contained"
+              className="custom-buy-now-button"
+              onClick={handleBuyNow}
+              style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}
+            >
+              קנה עכשיו
+            </Button>
+          )}
         </div>
       </div>
     </div>

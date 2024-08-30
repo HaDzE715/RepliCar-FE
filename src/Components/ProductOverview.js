@@ -323,7 +323,7 @@ const ProductOverview = ({ productId }) => {
             ))}
           </Slider>
           <h2 className="product-info">{product.name}</h2>
-          <h2 className="product-price">{product.size}</h2>
+          <h2 className="product-size-overview">{product.size}</h2>
           {product.discount ? (
             <div className="price-section">
               <p className="product-price original-price">{product.price}₪</p>
@@ -332,7 +332,7 @@ const ProductOverview = ({ productId }) => {
               </p>
             </div>
           ) : (
-            <h2 className="product-price">{product.price}₪</h2>
+            <h2 className="product-price-overview">{product.price}₪</h2>
           )}
         </div>
         <div className="button-group">
