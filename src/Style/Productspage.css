@@ -19,10 +19,11 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Three columns per row */
   width: 100%; /* Ensure the container takes the full width */
+  gap: 20px;
 }
 
 .product-card {
-  width: 300px;
+  width: 100%;
   background-color: #fff;
   transition: transform 0.3s ease;
   display: flex;

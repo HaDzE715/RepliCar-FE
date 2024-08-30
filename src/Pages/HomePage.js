@@ -52,6 +52,7 @@ const HomePage = () => {
   const [mostSoldProducts, setMostSoldProducts] = useState([]);
   const [loadingMostSoldProducts, setLoadingMostSoldProducts] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0); // New state for active product index
+  const [mostSoldScrollProgress, setMostSoldScrollProgress] = useState(0);
 
   useEffect(() => {
     const fetchDiscountedProducts = async () => {
@@ -126,6 +127,28 @@ const HomePage = () => {
       console.error("Error subscribing to newsletter:", error);
     }
   };
+  useEffect(() => {
+    const mostSoldContainer = document.querySelector(
+      ".most-sold-products-container"
+    );
+    const handleMostSoldScroll = () => {
+      const scrollLeft = mostSoldContainer.scrollLeft;
+      const scrollWidth =
+        mostSoldContainer.scrollWidth - mostSoldContainer.clientWidth;
+      const progress = (scrollLeft / scrollWidth) * 100;
+      setMostSoldScrollProgress(progress);
+    };
+
+    if (mostSoldContainer) {
+      mostSoldContainer.addEventListener("scroll", handleMostSoldScroll);
+    }
+
+    return () => {
+      if (mostSoldContainer) {
+        mostSoldContainer.removeEventListener("scroll", handleMostSoldScroll);
+      }
+    };
+  }, []);
 
   return (
     <div className="homepage">
@@ -260,7 +283,7 @@ const HomePage = () => {
             className="skid-marks-img"
           />
         </section>
-        <div className="discounts-scroll-container">
+        <div className="discounts-scroll-container most-sold-products-container">
           {loadingMostSoldProducts
             ? Array.from(new Array(4)).map((_, index) => (
                 <div key={index} className="product-card">
@@ -286,6 +309,16 @@ const HomePage = () => {
                   </div>
                 </Suspense>
               ))}
+        </div>
+
+        <div
+          className="scroll-progress-bar"
+          style={{ width: "91%", margin: "0 auto" }}
+        >
+          <div
+            className="scroll-progress"
+            style={{ width: `${mostSoldScrollProgress}%` }}
+          ></div>
         </div>
         <section className="newsletter-section">
           <h2 style={{ fontFamily: "Noto Sans Hebrew" }}>

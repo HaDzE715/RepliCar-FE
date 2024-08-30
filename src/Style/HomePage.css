@@ -189,7 +189,9 @@ body {
   gap: 20px; /* Adjust the gap between products */
   padding: 10px;
   padding-left: 120px;
-  overflow: hidden;
+  white-space: nowrap;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
 }
 
 .discounted-product {
@@ -322,24 +324,25 @@ body {
   font-family: "Noto Sans Hebrew";
 }
 .banner1-section {
-  width: 100%;
+  width: 100%; /* Make sure the section takes full width */
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Center the banner horizontally */
+  align-items: center; /* Center the banner vertically (if there's enough height) */
   margin: 20px 0; /* Adjust spacing as needed */
   padding: 0 10px; /* Responsive padding */
   box-sizing: border-box;
+  text-align: center;
 }
 
 .banner1-image {
   width: 100%;
-  max-width: 1200px; /* Adjust max-width based on your layout */
+  max-width: 865px; /* Adjust max-width based on your layout */
   height: auto;
   border-radius: 10px; /* Optional: adds rounded corners */
   object-fit: cover; /* Ensures the image covers the entire area */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: adds a subtle shadow */
-  margin-top: -10px;
 }
+
 /* Container for both boxes */
 .homepage-diecast-category-container {
   display: flex;
@@ -463,6 +466,15 @@ body {
   .homepage-category-image {
     height: 250px;
   }
+  .banner1-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0; /* Adjust spacing as needed */
+    padding: 0 10px; /* Responsive padding */
+    box-sizing: border-box;
+  }
 }
 
 @media (min-width: 400px) {
@@ -483,6 +495,11 @@ body {
 }
 .product-with-sold-number {
   position: relative;
+}
+@media (min-width: 800px) {
+  .progress-bar-container {
+    display: none;
+  }
 }
 .progress-bar-container {
   position: relative;
@@ -511,4 +528,37 @@ body {
   flex: 0 0 45%; /* Adjust width of each product to fit two per row */
   box-sizing: border-box; /* Ensure padding and border are included in width */
   display: inline-block; /* Ensure each product behaves like a block in a row */
+}
+/* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+.discounts-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.discounts-scroll-container {
+  scrollbar-width: none; /* Hides scrollbar in Firefox */
+  -ms-overflow-style: none; /* Hides scrollbar in IE and Edge */
+}
+
+/* Make sure the content is still scrollable */
+.discounts-scroll-container {
+  overflow-x: scroll; /* Ensure the container is still scrollable */
+  white-space: nowrap; /* Prevents content from wrapping */
+}
+/* Container for the progress bar */
+.scroll-progress-bar {
+  width: 100%;
+  height: 5px; /* Adjust the height of the progress bar */
+  background-color: #e0e0e0; /* Light background color for the bar */
+  border-radius: 5px; /* Rounded corners */
+  overflow: hidden;
+  margin-top: 10px; /* Spacing from the scroll container */
+}
+
+/* Actual progress bar */
+.scroll-progress {
+  width: 0;
+  height: 100%;
+  background-color: #000; /* Color of the progress bar */
+  border-radius: 5px; /* Match the rounded corners */
 }
