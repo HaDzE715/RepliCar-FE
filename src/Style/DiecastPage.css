@@ -1,0 +1,101 @@
+.diecast-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.page-title {
+  font-size: 2.5em;
+  font-family: "Noto Sans Hebrew", sans-serif;
+  margin: 20px 0;
+  text-align: center;
+  direction: rtl;
+  color: #333;
+}
+
+.diecast-banner {
+  background-color: black;
+  color: white;
+  width: 100%;
+  padding: 15px 0;
+}
+
+.banner-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 15px;
+  animation: slideInLeft 1s ease-out forwards;
+}
+
+.banner-image {
+  width: 170px;
+  height: auto;
+  margin-right: 15px;
+  border-radius: 8px;
+}
+
+.banner-text {
+  max-width: 500px;
+  text-align: right;
+  direction: rtl;
+  animation: slideInRight 1s ease-out forwards;
+}
+
+.banner-text h1 {
+  font-size: 2em;
+  margin-bottom: 8px;
+  font-family: "Noto Sans Hebrew", sans-serif;
+}
+
+.banner-text p {
+  font-size: 1em;
+  font-family: "Noto Sans Hebrew", sans-serif;
+}
+
+.diecast-products-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 100%;
+  padding: 20px;
+  max-width: 1200px;
+  padding-top: 0px;
+}
+
+.product-skeleton {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 380px) {
+  .diecast-products-container {
+    margin-right: 40px;
+  }
+}

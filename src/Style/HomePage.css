@@ -497,3 +497,31 @@ body {
   z-index: 1;
   font-family: "Noto Sans Hebrew", sans-serif;
 }
+.progress-bar-container {
+  position: relative;
+  height: 3px;
+  background-color: #e0e0e0; /* Light gray background for the progress bar */
+  margin-top: 10px;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #000000; /* Orange color for the progress bar */
+  transition: width 0.3s ease;
+}
+.most-sold-section {
+  overflow: auto;
+}
+
+.most-sold-scroll-container {
+  display: flex; /* Use flexbox to align items horizontally */
+  gap: 20px; /* Space between products */
+  padding: 20px; /* Add padding for spacing */
+  overflow-x: hidden;
+}
+
+.product-with-sold-number {
+  flex: 0 0 45%; /* Adjust width of each product to fit two per row */
+  box-sizing: border-box; /* Ensure padding and border are included in width */
+  display: inline-block; /* Ensure each product behaves like a block in a row */
+}

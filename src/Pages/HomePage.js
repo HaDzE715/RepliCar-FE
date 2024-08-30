@@ -51,10 +51,9 @@ const HomePage = () => {
   const { openDrawer } = useDrawer();
   const [mostSoldProducts, setMostSoldProducts] = useState([]);
   const [loadingMostSoldProducts, setLoadingMostSoldProducts] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0); // New state for active product index
 
   useEffect(() => {
-    console.log("API URL:", apiUrl);
-
     const fetchDiscountedProducts = async () => {
       try {
         const response = await axios.get(`${apiUrl}/api/products`);
@@ -68,15 +67,16 @@ const HomePage = () => {
         console.error("Error fetching discounted products:", error);
       }
     };
+
     const fetchMostSoldProducts = async () => {
       try {
         const response = await axios.get(`${apiUrl}/api/products`);
         const allProducts = response.data;
         const filteredProducts = allProducts.filter(
           (product) => product.sold > 0
-        ); // Only include products with sold > 0
-        const sortedBySold = filteredProducts.sort((a, b) => b.sold - a.sold); // Sort by sold field
-        setMostSoldProducts(sortedBySold.slice(0, 4)); // Get top 4 most sold products
+        );
+        const sortedBySold = filteredProducts.sort((a, b) => b.sold - a.sold);
+        setMostSoldProducts(sortedBySold.slice(0, 4));
         setLoadingMostSoldProducts(false);
       } catch (error) {
         console.error("Error fetching most sold products:", error);
@@ -91,11 +91,34 @@ const HomePage = () => {
     }
   }, [apiUrl]);
 
+  // Function to update the active product index when a product is clicked
+  useEffect(() => {
+    const container = document.querySelector(".discounts-scroll-container");
+
+    const handleScroll = () => {
+      const scrollLeft = container.scrollLeft;
+      const scrollWidth = container.scrollWidth - container.clientWidth;
+      const index = Math.round(
+        (scrollLeft / scrollWidth) * discountedProducts.length
+      );
+      setActiveIndex(index);
+    };
+
+    if (container) {
+      container.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [discountedProducts]);
+
   const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(`${apiUrl}/subscribe`, { email });
-      console.log("Subscription response:", response.data);
       setNewsletterMessage("תודה לך על ההרשמה!");
       setEmail("");
     } catch (error) {
@@ -131,7 +154,7 @@ const HomePage = () => {
                     <Skeleton width="60%" />
                   </div>
                 ))
-              : discountedProducts.map((product) => (
+              : discountedProducts.map((product, index) => (
                   <Suspense fallback={<div>Loading...</div>} key={product._id}>
                     <Product
                       id={product._id}
@@ -143,14 +166,28 @@ const HomePage = () => {
                       image={product.image}
                       quantity={product.quantity}
                       openDrawer={openDrawer}
+                      onClick={() => setActiveIndex(index)} // Update the active product index
                     />
                   </Suspense>
                 ))}
           </div>
+          {!loadingDiscountedProducts && (
+            <div className="progress-bar-container">
+              <div
+                className="progress-bar"
+                style={{
+                  width: `${
+                    ((activeIndex + 1) / discountedProducts.length) * 100
+                  }%`,
+                }}
+              ></div>
+            </div>
+          )}
         </section>
+
         <section className="banner1-section">
           <LazyImage
-            src={Banner1} // Use BannerImage if imported locally
+            src={Banner1}
             alt="Promotional Banner"
             className="banner1-image"
             onClick={() => (window.location.href = "/frames")}
@@ -160,8 +197,8 @@ const HomePage = () => {
           <section className="homepage-diecast-category-box">
             <div className="homepage-category-box-content">
               <img
-                src={Frames} // Replace with your diecast image URL
-                alt="Diecast Cars"
+                src={Frames}
+                alt="Frames"
                 className="homepage-category-image"
               />
               <div className="homepage-category-description">
@@ -173,7 +210,7 @@ const HomePage = () => {
 
               <button
                 className="homepage-buy-now-button"
-                onClick={() => (window.location.href = "/frames")} // Replace with your target URL
+                onClick={() => (window.location.href = "/frames")}
               >
                 צפה במוצרים{" "}
               </button>
@@ -182,7 +219,7 @@ const HomePage = () => {
           <section className="homepage-diecast-category-box">
             <div className="homepage-category-box-content">
               <img
-                src={Diecast} // Replace with your diecast image URL
+                src={Diecast}
                 alt="Diecast Cars"
                 className="homepage-category-image"
               />
@@ -195,7 +232,7 @@ const HomePage = () => {
 
               <button
                 className="homepage-buy-now-button"
-                onClick={() => (window.location.href = "/diecast-category")} // Replace with your target URL
+                onClick={() => (window.location.href = "/diecast")}
               >
                 צפה במוצרים{" "}
               </button>
@@ -204,10 +241,10 @@ const HomePage = () => {
         </div>
         <section className="banner1-section">
           <LazyImage
-            src={Banner2} // Use BannerImage if imported locally
+            src={Banner2}
             alt="Promotional Banner"
             className="banner1-image"
-            onClick={() => (window.location.href = "/diecast-category")}
+            onClick={() => (window.location.href = "/diecast")}
           />
         </section>
         <section className="skid-marks-section">
@@ -255,8 +292,7 @@ const HomePage = () => {
         </div>
         <section className="newsletter-section">
           <h2 style={{ fontFamily: "Noto Sans Hebrew" }}>
-            {" "}
-            הירשמו לניוזלטר שלנו{" "}
+            הירשמו לניוזלטר שלנו
           </h2>
           <p
             style={{

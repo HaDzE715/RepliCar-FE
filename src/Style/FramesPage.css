@@ -62,18 +62,35 @@
 
 .frames-products-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr); /* Two columns layout */
   gap: 20px;
   width: 100%;
   padding: 20px;
   max-width: 1200px;
   padding-top: 0px;
+  position: relative; /* Ensure that the no-products message is positioned correctly */
 }
 
 .product-skeleton {
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 8px;
+}
+
+.no-products-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Take full width */
+  grid-column: 1 / -1; /* Span across both columns */
+}
+
+.no-products {
+  font-size: 1.2em;
+  color: #333;
+  font-family: "Noto Sans Hebrew", sans-serif;
+  text-align: center;
+  direction: rtl;
 }
 
 @media (max-width: 380px) {

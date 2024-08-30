@@ -2,47 +2,47 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Skeleton from "@mui/material/Skeleton";
 import Product from "../Components/Product";
-import "../Style/FramesPage.css";
-import FrameBanner from "../Pictures/Frames.jpg";
+import "../Style/DiecastPage.css";
+import DiecastBanner from "../Pictures/diecast-cat.jpg";
 
-const FramesPage = () => {
-  const [frames, setFrames] = useState([]);
+const DiecastPage = () => {
+  const [diecast, setDiecast] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchFrames = async () => {
+    const fetchDiecast = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/products?category=Frames`
+          `${process.env.REACT_APP_API_URL}/api/products?category=Diecast`
         );
-        setFrames(response.data);
+        setDiecast(response.data);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching frames:", error);
+        console.error("Error fetching diecast products:", error);
         setLoading(false);
       }
     };
 
-    fetchFrames();
+    fetchDiecast();
   }, []);
 
   return (
-    <div className="frames-page">
-      <section className="frames-banner">
+    <div className="diecast-page">
+      <section className="diecast-banner">
         <div className="banner-content">
           <img
-            src={FrameBanner} // Replace with the actual path to your image
-            alt="Frames Collection"
+            src={DiecastBanner}
+            alt="Diecast Collection"
             className="banner-image"
           />
           <div className="banner-text">
-            <h1>המסגרות המובילות שלנו</h1>
-            <p>החלום היחדי שרואים לפני שינה.</p>
+            <h1>רכבי הדייקאסט המובילים שלנו</h1>
+            <p>גלו את האוסף המרהיב שלנו של רכבי דייקאסט לכל צורך.</p>
           </div>
         </div>
       </section>
-      <h1 className="page-title">מסגרות</h1>
-      <div className="frames-products-container">
+      <h1 className="page-title">רכבים</h1>
+      <div className="diecast-products-container">
         {loading ? (
           Array.from(new Array(6)).map((_, index) => (
             <div key={index} className="product-skeleton">
@@ -51,8 +51,8 @@ const FramesPage = () => {
               <Skeleton width="60%" />
             </div>
           ))
-        ) : frames.length > 0 ? (
-          frames.map((product) => (
+        ) : diecast.length > 0 ? (
+          diecast.map((product) => (
             <Product
               key={product._id}
               id={product._id}
@@ -66,13 +66,11 @@ const FramesPage = () => {
             />
           ))
         ) : (
-          <div className="no-products-container">
-            <p className="no-products">אין מוצרים זמינים בקטגוריה זו.</p>
-          </div>
+          <p className="no-products">אין מוצרים זמינים בקטגוריה זו.</p>
         )}
       </div>
     </div>
   );
 };
 
-export default FramesPage;
+export default DiecastPage;

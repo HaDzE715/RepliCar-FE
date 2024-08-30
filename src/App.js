@@ -15,6 +15,7 @@ import CardDetailsPage from "./Pages/CardDetailsPage";
 import PaymentSuccessPage from "./Pages/PaymentSuccessPage";
 import AboutUs from "./Pages/AboutUs";
 import FramePage from "./Pages/FramePage";
+import DiecastPage from "./Pages/DiecastPage";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/about" element={<AboutUs />} />
                 <Route path="/frames" element={<FramePage />} />
+                <Route path="/diecast" element={<DiecastPage />} />
                 <Route
                   path="/payment-success"
                   element={<PaymentSuccessPage />}
