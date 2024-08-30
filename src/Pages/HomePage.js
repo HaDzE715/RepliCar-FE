@@ -118,7 +118,7 @@ const HomePage = () => {
   const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${apiUrl}/subscribe`, { email });
+      await axios.post(`${apiUrl}/subscribe`, { email });
       setNewsletterMessage("תודה לך על ההרשמה!");
       setEmail("");
     } catch (error) {
