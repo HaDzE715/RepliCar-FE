@@ -4,6 +4,7 @@ import "../Style/Product.css";
 import { useDrawer } from "../Components/DrawerContext";
 import { Button } from "@mui/material";
 import { useCart } from "../Components/CartContext"; // Assuming you have a CartContext for handling cart actions
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Product = ({
   id,
@@ -18,9 +19,15 @@ const Product = ({
   const [imageLoaded, setImageLoaded] = useState(false);
   const { openDrawer } = useDrawer();
   const { dispatch } = useCart(); // Assuming you have a cart context
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleClick = () => {
-    openDrawer(id); // This function opens the product in a drawer or modal
+    if (window.innerWidth >= 1024) {
+      // Check if the screen width is 1024px or more (desktop)
+      navigate(`/product-details/${id}`); // Navigate to ProductDetails page on desktop
+    } else {
+      openDrawer(id); // Open the drawer on mobile
+    }
   };
 
   const handleBuyNow = (event) => {
@@ -77,7 +84,7 @@ const Product = ({
           <div className="product-price-container">
             {discount ? (
               <>
-                <p className="product-price original-price">{price}₪</p>
+                <p className="product-price1 original-price">{price}₪</p>
                 <p className="product-price discount-price-comp">
                   {discount_price}₪
                 </p>

@@ -34,6 +34,7 @@ function App() {
                   path="/payment-success"
                   element={<PaymentSuccessPage />}
                 />
+                <Route path="/product-details/:id" element={<ProductDetails />} />
                 <Route path="/card-details" element={<CardDetailsPage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/cart" element={<CartPage />} />

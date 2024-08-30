@@ -313,6 +313,8 @@
 .product-price.original-price {
   text-decoration: line-through !important;
   color: #888 !important; /* Gray color for the original price */
+  padding-left: 15px !important;
+  margin-right: 20px;
 }
 
 .product-price.discount-price {
@@ -365,6 +367,7 @@
     width: 100%;
   }
 }
+
 .slick-slider .slick-dots li button:before {
   font-size: 8px !important;
   color: rgb(0, 0, 0) !important;
@@ -419,7 +422,7 @@
 .notification-preference {
   display: flex;
   align-items: center;
-  gap: 20px;
+  /* gap: 20px; */
 }
 
 .notification-preference p {
@@ -432,7 +435,7 @@
   display: flex;
   align-items: center;
   font-size: 14px;
-  gap: 10px;
+  gap: 5px;
   font-family: "Noto sans hebrew";
 }
 
@@ -446,8 +449,9 @@
   margin-top: -20px;
 }
 .product-price-overview {
-  color: #000000 !important;
+  color: rgb(8, 145, 8) !important;
   font-size: 20px;
   padding-left: 15px;
   margin-top: 10px;
+  font-weight: 500;
 }

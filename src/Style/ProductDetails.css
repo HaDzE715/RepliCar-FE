@@ -1,12 +1,186 @@
-.product-detail-page {
-  display: flex; /* Use flexbox to layout children */
+.product-details-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap; /* Ensure content wraps on smaller screens */
 }
 
-.product-details-column {
-  flex: 8; /* Make ProductOverview take up remaining space Change to 7 for 70%*/
-  padding-right: 20px; /* Add some space between columns */
+.product-details-image-slider {
+  flex: 1;
+  position: relative;
 }
 
-.order-details-column {
-  flex: 3; /* Make OrderDetails take up remaining space */
+.main-image {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+}
+
+.slider-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.7); /* Darker background for visibility */
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 50%; /* Circular shape */
+  width: 40px; /* Fixed width and height for consistency */
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-button:hover {
+  background-color: rgba(0, 0, 0, 0.9); /* Slightly darker on hover */
+}
+
+.prev-button {
+  left: 10px;
+}
+
+.next-button {
+  right: 10px;
+}
+
+.slider-button::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid white;
+  border-right: 2px solid white;
+}
+
+.prev-button::before {
+  transform: rotate(-135deg);
+}
+
+.next-button::before {
+  transform: rotate(45deg);
+}
+
+.product-details-image-slider {
+  position: relative;
+}
+.product-details-info {
+  flex: 1;
+  display: block; /* Changed to block to prevent content from moving down */
+  justify-content: center;
+  padding: 20px; /* Added padding to separate from edges */
+}
+
+.product-details-title {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.product-details-size,
+.product-details-price,
+.product-details-description {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  font-family: "Noto sans Hebrew";
+}
+.product-details-description {
+  direction: rtl;
+}
+
+.product-details-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.product-details-buy-now,
+.product-details-add-to-cart {
+  flex: 1;
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-family: "Noto Sans Hebrew", sans-serif;
+  text-align: center;
+}
+
+.product-details-buy-now {
+  background-color: #e65a00;
+}
+
+.product-details-add-to-cart {
+  background-color: #333;
+}
+
+.product-details-sold-out {
+  color: red;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .product-details-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .product-details-image-slider {
+    width: 100%;
+  }
+
+  .product-details-info {
+    width: 100%;
+    text-align: center;
+    padding: 10px; /* Adjusted padding for smaller screens */
+  }
+
+  .product-details-title {
+    font-size: 1.8em;
+    text-align: left;
+  }
+
+  .product-details-size,
+  .product-details-price,
+  .product-details-description {
+    font-size: 1em;
+    text-align: left;
+  }
+  .product-details-description {
+    direction: rtl;
+    text-align: right;
+    margin-top: 30px;
+  }
+
+  .product-details-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .product-details-buy-now,
+  .product-details-add-to-cart {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  .slider-button {
+    top: 50%;
+  }
+}
+@media screen and (min-width: 800px) {
+  .product-price.original-price {
+    padding-left: 0px !important;
+  }
+  .product-price.discount-price {
+    margin-left: 0px !important;
+  }
+}
+.button-group-product-details {
+  display: flex;
+  margin-bottom: 20px;
 }

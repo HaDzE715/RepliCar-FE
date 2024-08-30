@@ -66,10 +66,14 @@ a.product-link:visited {
   color: #888; /* Adjust the color as needed */
 }
 .product-price {
-  padding: 15px;
+  padding: 14px;
+  padding-left: 1.5px !important;
   padding-bottom: 0px;
   font-size: 14px;
   text-align: left !important;
+  color: rgb(8, 145, 8);
+  font-family: "Noto sans hebrew";
+  font-weight: 300 !important;
 }
 @media screen and (max-width: 1000px) {
   .products-container {
@@ -154,21 +158,29 @@ a.product-link:visited {
   filter: grayscale(100%); /* Make the image grayscale */
 }
 
-.product-price.original-price {
+.product-price1.original-price {
   text-decoration: line-through !important;
-  color: #888;
+  color: #888888;
+  margin-top: 20px;
 }
 
 .product-price.discount-price-comp {
   color: red;
   font-weight: bold;
   display: inline-block;
-  margin-top: -19px !important;
-  font-size: 22px !important;
+  margin-top: -20px !important;
+  font-size: 18px !important;
+  font-weight: 400;
 }
 .custom-buy-now-button {
   font-family: "Noto Sans Hebrew", sans-serif !important;
   direction: rtl;
   background-color: black !important;
-  margin-top: 20px !important;
+  margin-top: 10px !important;
+}
+@media screen and (min-width: 800px) {
+  .product-price {
+    padding: 0px !important;
+    margin-top: 20px;
+  }
 }

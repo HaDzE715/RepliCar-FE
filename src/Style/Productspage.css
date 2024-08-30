@@ -22,7 +22,7 @@
 }
 
 .product-card {
-  width: 100%;
+  width: 300px;
   background-color: #fff;
   transition: transform 0.3s ease;
   display: flex;
