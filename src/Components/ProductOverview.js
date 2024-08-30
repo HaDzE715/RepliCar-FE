@@ -343,7 +343,7 @@ const ProductOverview = ({ productId }) => {
             onClick={handleBuyNow}
             style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}
           >
-            תקנה עכשיו
+            קנה עכשיו
           </Button>
           <Button
             variant="contained"

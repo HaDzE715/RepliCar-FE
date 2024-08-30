@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
 import "../Style/Product.css";
 import { useDrawer } from "../Components/DrawerContext";
+import { Button } from "@mui/material";
+import { useCart } from "../Components/CartContext"; // Assuming you have a CartContext for handling cart actions
 
 const Product = ({
   id,
@@ -15,14 +17,41 @@ const Product = ({
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const { openDrawer } = useDrawer();
+  const { dispatch } = useCart(); // Assuming you have a cart context
 
   const handleClick = () => {
-    openDrawer(id);
+    openDrawer(id); // This function opens the product in a drawer or modal
+  };
+
+  const handleBuyNow = (event) => {
+    event.stopPropagation(); // Prevent the click from propagating to the product card's onClick
+    const item = {
+      id,
+      name,
+      size,
+      price,
+      discount,
+      discount_price,
+      image,
+      quantity,
+    };
+    dispatch({ type: "ADD_TO_CART", item });
+    const updatedCart = [
+      ...JSON.parse(localStorage.getItem("cart") || "[]"),
+      item,
+    ];
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    setTimeout(() => {
+      window.location.href = "/checkout";
+    }, 100); // Slight delay to ensure state update
   };
 
   return (
-    <div className="product-link" onClick={handleClick}>
-      <div className={`product-card ${quantity === 0 ? "sold-out" : ""}`}>
+    <div className="product-link">
+      <div
+        className={`product-card ${quantity === 0 ? "sold-out" : ""}`}
+        onClick={handleClick}
+      >
         <div className="product-image-container">
           {!imageLoaded && (
             <Skeleton
@@ -57,6 +86,14 @@ const Product = ({
               <p className="product-price">{price}₪</p>
             )}
           </div>
+          <Button
+            variant="contained"
+            className="custom-buy-now-button"
+            disabled={quantity === 0}
+            onClick={handleBuyNow}
+          >
+            קנה עכשיו
+          </Button>
         </div>
       </div>
     </div>
