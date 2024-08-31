@@ -3,8 +3,10 @@ import Skeleton from "@mui/material/Skeleton";
 import "../Style/Product.css";
 import { useDrawer } from "../Components/DrawerContext";
 import { Button } from "@mui/material";
-import { useCart } from "../Components/CartContext"; // Assuming you have a CartContext for handling cart actions
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+// import { useCart } from "../Components/CartContext";
+import { useNavigate } from "react-router-dom";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 const Product = ({
   id,
@@ -17,41 +19,53 @@ const Product = ({
   quantity,
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  // const [showAddedMessage, setShowAddedMessage] = useState(false);
+
   const { openDrawer } = useDrawer();
-  const { dispatch } = useCart(); // Assuming you have a cart context
-  const navigate = useNavigate(); // Initialize useNavigate
+  // const { dispatch } = useCart();
+  const navigate = useNavigate();
 
   const handleClick = () => {
     if (window.innerWidth >= 1024) {
-      // Check if the screen width is 1024px or more (desktop)
-      navigate(`/product-details/${id}`); // Navigate to ProductDetails page on desktop
+      navigate(`/product-details/${id}`);
     } else {
-      openDrawer(id); // Open the drawer on mobile
+      openDrawer(id);
     }
   };
 
   const handleBuyNow = (event) => {
-    event.stopPropagation(); // Prevent the click from propagating to the product card's onClick
-    const item = {
-      id,
-      name,
-      size,
-      price,
-      discount,
-      discount_price,
-      image,
-      quantity,
-    };
-    dispatch({ type: "ADD_TO_CART", item });
-    const updatedCart = [
-      ...JSON.parse(localStorage.getItem("cart") || "[]"),
-      item,
-    ];
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    event.stopPropagation();
+    // addProductToCart();
     setTimeout(() => {
       window.location.href = "/checkout";
-    }, 100); // Slight delay to ensure state update
+    }, 100);
   };
+
+  // const handleAddToCart = (event) => {
+  //   event.stopPropagation();
+  //   addProductToCart();
+  //   setShowAddedMessage(true);
+  //   setTimeout(() => setShowAddedMessage(false), 3000);
+  // };
+
+  // const addProductToCart = () => {
+  //   const item = {
+  //     id,
+  //     name,
+  //     size,
+  //     price,
+  //     discount,
+  //     discount_price,
+  //     image,
+  //     quantity,
+  //   };
+
+  //   dispatch({ type: "ADD_TO_CART", item });
+
+  //   const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+  //   const updatedCart = [...existingCart, item];
+  //   localStorage.setItem("cart", JSON.stringify(updatedCart));
+  // };
 
   return (
     <div className="product-link">
@@ -94,14 +108,31 @@ const Product = ({
             )}
           </div>
           {quantity > 0 && (
-            <Button
-              variant="contained"
-              className="custom-buy-now-button"
-              onClick={handleBuyNow}
-              style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}
-            >
-              קנה עכשיו
-            </Button>
+            <>
+              <div className="button-container">
+                <Button
+                  variant="contained"
+                  className="product-custom-buy-now-button"
+                  onClick={handleBuyNow}
+                  style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}
+                >
+                  קנה עכשיו
+                </Button>
+                {/* <FontAwesomeIcon
+                  icon={faShoppingCart}
+                  style={{
+                    width: "20px",
+                    height: "20px",
+                    fontWeight: "200",
+                    paddingTop: "10px",
+                  }}
+                  onClick={handleAddToCart}
+                />
+                {showAddedMessage && (
+                  <div className="added-message">המוצר נוסף לסל הקניות!</div>
+                )} */}
+              </div>
+            </>
           )}
         </div>
       </div>
