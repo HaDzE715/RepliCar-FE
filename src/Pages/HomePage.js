@@ -8,6 +8,7 @@ import Banner1 from "../Pictures/Banner1.jpeg";
 import Banner2 from "../Pictures/Banner21.jpeg";
 import Diecast from "../Pictures/diecast-cat.jpg";
 import Frames from "../Pictures/Frames.jpg";
+import ServiceSection from "../Components/ServiceSection";
 
 const Product = lazy(() => import("../Components/Product")); // Lazy load Product component
 
@@ -357,6 +358,7 @@ const HomePage = () => {
             <p className="newsletter-message">{newsletterMessage}</p>
           )}
         </section>
+        <ServiceSection />
       </div>
     </div>
   );

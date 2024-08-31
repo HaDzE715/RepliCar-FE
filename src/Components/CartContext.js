@@ -37,6 +37,9 @@ const cartReducer = (state, action) => {
           ? { ...item, quantity: item.quantity - 1 }
           : item
       );
+    case "SET_CART":
+      // Replace the current state with the provided cart
+      return action.cart;
     case "CLEAR_CART":
       return [];
 

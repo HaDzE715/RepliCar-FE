@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Skeleton from "@mui/material/Skeleton";
 import "../Style/Product.css";
 import { useDrawer } from "../Components/DrawerContext";
 import { Button } from "@mui/material";
-// import { useCart } from "../Components/CartContext";
+import { useCart } from "../Components/CartContext";
 import { useNavigate } from "react-router-dom";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 const Product = ({
   id,
@@ -20,10 +18,23 @@ const Product = ({
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   // const [showAddedMessage, setShowAddedMessage] = useState(false);
-
   const { openDrawer } = useDrawer();
-  // const { dispatch } = useCart();
+  const { dispatch } = useCart();
   const navigate = useNavigate();
+  // const [localQuantity, setLocalQuantity] = useState(quantity > 0 ? 1 : 0);
+
+  useEffect(() => {
+    // Log the incoming props to ensure they're correct
+    console.log("Product Props:", {
+      id,
+      name,
+      size,
+      price,
+      discount,
+      discount_price,
+      quantity,
+    });
+  }, [id, name, size, price, discount, discount_price, quantity]);
 
   const handleClick = () => {
     if (window.innerWidth >= 1024) {
@@ -35,37 +46,41 @@ const Product = ({
 
   const handleBuyNow = (event) => {
     event.stopPropagation();
-    // addProductToCart();
+    const finalPrice = discount ? discount_price : price;
+
+    const item = {
+      _id: id,
+      name,
+      size,
+      price: finalPrice,
+      discount,
+      discount_price,
+      image,
+      quantity: 1,
+    };
+
+    // Get existing cart from local storage
+    let existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+    const existingItemIndex = existingCart.findIndex(
+      (cartItem) => cartItem._id === item._id
+    );
+
+    if (existingItemIndex !== -1) {
+      existingCart[existingItemIndex].quantity += 1;
+    } else {
+      existingCart.push(item);
+    }
+
+    // Save updated cart to local storage
+    localStorage.setItem("cart", JSON.stringify(existingCart));
+
+    // Update the cart in your application state
+    dispatch({ type: "SET_CART", cart: existingCart });
+
     setTimeout(() => {
-      window.location.href = "/checkout";
-    }, 100);
+      navigate("/checkout");
+    }, 500);
   };
-
-  // const handleAddToCart = (event) => {
-  //   event.stopPropagation();
-  //   addProductToCart();
-  //   setShowAddedMessage(true);
-  //   setTimeout(() => setShowAddedMessage(false), 3000);
-  // };
-
-  // const addProductToCart = () => {
-  //   const item = {
-  //     id,
-  //     name,
-  //     size,
-  //     price,
-  //     discount,
-  //     discount_price,
-  //     image,
-  //     quantity,
-  //   };
-
-  //   dispatch({ type: "ADD_TO_CART", item });
-
-  //   const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
-  //   const updatedCart = [...existingCart, item];
-  //   localStorage.setItem("cart", JSON.stringify(updatedCart));
-  // };
 
   return (
     <div className="product-link">
@@ -118,24 +133,14 @@ const Product = ({
                 >
                   קנה עכשיו
                 </Button>
-                {/* <FontAwesomeIcon
-                  icon={faShoppingCart}
-                  style={{
-                    width: "20px",
-                    height: "20px",
-                    fontWeight: "200",
-                    paddingTop: "10px",
-                  }}
-                  onClick={handleAddToCart}
-                />
-                {showAddedMessage && (
-                  <div className="added-message">המוצר נוסף לסל הקניות!</div>
-                )} */}
               </div>
             </>
           )}
         </div>
       </div>
+      {/* {showAddedMessage && (
+        <div className="added-message">המוצר נוסף לסל הקניות!</div>
+      )} */}
     </div>
   );
 };
