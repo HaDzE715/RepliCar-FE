@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
 import "../Style/Product.css";
 import { useDrawer } from "../Components/DrawerContext";
 import { Button } from "@mui/material";
 import { useCart } from "../Components/CartContext";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 const Product = ({
   id,
@@ -17,24 +19,12 @@ const Product = ({
   quantity,
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
-  // const [showAddedMessage, setShowAddedMessage] = useState(false);
+  const [showAddedMessage, setShowAddedMessage] = useState(false);
   const { openDrawer } = useDrawer();
   const { dispatch } = useCart();
   const navigate = useNavigate();
-  // const [localQuantity, setLocalQuantity] = useState(quantity > 0 ? 1 : 0);
 
-  useEffect(() => {
-    // Log the incoming props to ensure they're correct
-    console.log("Product Props:", {
-      id,
-      name,
-      size,
-      price,
-      discount,
-      discount_price,
-      quantity,
-    });
-  }, [id, name, size, price, discount, discount_price, quantity]);
+  const finalPrice = discount ? discount_price : price;
 
   const handleClick = () => {
     if (window.innerWidth >= 1024) {
@@ -44,15 +34,13 @@ const Product = ({
     }
   };
 
-  const handleBuyNow = (event) => {
-    event.stopPropagation();
-    const finalPrice = discount ? discount_price : price;
-
+  const handleAddToCart = (event) => {
+    event.stopPropagation(); // Prevents the event from triggering other actions
     const item = {
       _id: id,
       name,
       size,
-      price: finalPrice,
+      price: finalPrice, // Use the final price based on discount status
       discount,
       discount_price,
       image,
@@ -77,9 +65,48 @@ const Product = ({
     // Update the cart in your application state
     dispatch({ type: "SET_CART", cart: existingCart });
 
+    setShowAddedMessage(true);
+    setTimeout(() => setShowAddedMessage(false), 3000);
+  };
+
+  const handleBuyNow = (event) => {
+    event.stopPropagation(); // Prevents the event from triggering other actions
+
+    const item = {
+      _id: id,
+      name,
+      size,
+      price: finalPrice, // Use the final price based on discount status
+      discount,
+      discount_price,
+      image,
+      quantity: 1,
+    };
+
+    // Get existing cart from local storage
+    let existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+    const existingItemIndex = existingCart.findIndex(
+      (cartItem) => cartItem._id === item._id
+    );
+
+    if (existingItemIndex !== -1) {
+      existingCart[existingItemIndex].quantity += 1;
+    } else {
+      existingCart.push(item);
+    }
+
+    // Save updated cart to local storage
+    localStorage.setItem("cart", JSON.stringify(existingCart));
+
+    // Update the cart in your application state
+    dispatch({ type: "SET_CART", cart: existingCart });
+
+    // Scroll to the top of the page and navigate to checkout
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0; // For Safari
     setTimeout(() => {
       navigate("/checkout");
-    }, 500);
+    }, 100);
   };
 
   return (
@@ -133,14 +160,26 @@ const Product = ({
                 >
                   קנה עכשיו
                 </Button>
+                <FontAwesomeIcon
+                  icon={faShoppingCart}
+                  style={{
+                    marginLeft: "0px",
+                    marginTop: "10px",
+                    cursor: "pointer",
+                    color: "black",
+                    width: "27px",
+                    height: "27px",
+                  }}
+                  onClick={handleAddToCart}
+                />
               </div>
             </>
           )}
         </div>
       </div>
-      {/* {showAddedMessage && (
+      {showAddedMessage && (
         <div className="added-message">המוצר נוסף לסל הקניות!</div>
-      )} */}
+      )}
     </div>
   );
 };

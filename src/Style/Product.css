@@ -22,9 +22,6 @@ a.product-link:visited {
   align-items: center;
   text-align: left; /* Ensure text and content align left */
 }
-/* .product-card:hover {
-  transform: scale(1.05);
-} */
 .product-image-container {
   margin-top: 20px;
   width: 100%;
