@@ -135,7 +135,7 @@ const ProductOverview = ({ productId }) => {
       email: e.target.email ? e.target.email.value : null,
       phone: e.target.phone ? e.target.phone.value : null,
       notificationMethod: e.target.notificationMethod.value,
-      productId: productId, // Assuming productId is passed as a prop to the component
+      productId: productId,
     };
 
     try {
@@ -398,6 +398,9 @@ const ProductOverview = ({ productId }) => {
                       value="email"
                       onChange={() => setNotificationMethod("email")}
                       required
+                      style={{
+                        marginRight: "10px",
+                      }}
                     />
                     מייל
                   </label>
@@ -409,8 +412,11 @@ const ProductOverview = ({ productId }) => {
                       onChange={() => setNotificationMethod("whatsapp")}
                       checked={notificationMethod === "whatsapp"}
                       required
+                      style={{
+                        marginRight: "10px",
+                      }}
                     />
-                    וואטסאף
+                    וואטספ
                   </label>
                 </div>
                 {notificationMethod === "email" && (

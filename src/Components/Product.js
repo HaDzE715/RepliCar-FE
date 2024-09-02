@@ -29,6 +29,10 @@ const Product = ({
   const handleClick = () => {
     if (window.innerWidth >= 1024) {
       navigate(`/product-details/${id}`);
+      setTimeout(() => {
+        document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
+        document.body.scrollTo({ top: 0, behavior: "smooth" }); // For Safari
+      }, 100);
     } else {
       openDrawer(id);
     }
@@ -102,10 +106,10 @@ const Product = ({
     dispatch({ type: "SET_CART", cart: existingCart });
 
     // Scroll to the top of the page and navigate to checkout
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0; // For Safari
+    navigate("/checkout");
     setTimeout(() => {
-      navigate("/checkout");
+      document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
+      document.body.scrollTo({ top: 0, behavior: "smooth" }); // For Safari
     }, 100);
   };
 

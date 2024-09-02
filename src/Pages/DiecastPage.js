@@ -25,6 +25,7 @@ const DiecastPage = () => {
 
     fetchDiecast();
   }, []);
+  
 
   return (
     <div className="diecast-page">

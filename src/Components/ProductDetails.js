@@ -96,9 +96,7 @@ const ProductDetails = () => {
                 : prevIndex - 1
             )
           }
-        >
-          {"<"}
-        </button>
+        ></button>
         <button
           className="slider-button next-button"
           onClick={() =>
@@ -108,9 +106,7 @@ const ProductDetails = () => {
                 : prevIndex + 1
             )
           }
-        >
-          {">"}
-        </button>
+        ></button>
       </div>
       <div className="product-details-info">
         <h1 className="product-details-title">{product.name}</h1>
