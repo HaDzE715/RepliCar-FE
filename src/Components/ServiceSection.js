@@ -1,6 +1,6 @@
 import React from "react";
-import { FaAward, FaGrinWink } from "react-icons/fa"; // Importing the Award and Grin Wink icons
 import { TbTruckDelivery } from "react-icons/tb"; // Importing the Truck Delivery icon
+import { FaHeadset } from "react-icons/fa"; // Importing the Headset icon for customer service
 
 const ServiceSection = () => {
   return (
@@ -8,16 +8,12 @@ const ServiceSection = () => {
       <h2 style={styles.sectionTitle}>היתרונות שלנו</h2>
       <div style={styles.servicesContainer}>
         <div style={styles.serviceItem}>
-          <FaAward style={{ ...styles.icon, color: "#333" }} />
-          <div style={styles.serviceText}>איכות פרימיום</div>
+          <TbTruckDelivery style={styles.icon} />
+          <div style={styles.serviceText}>משלוחים לכל הארץ</div>
         </div>
         <div style={styles.serviceItem}>
-          <TbTruckDelivery style={{ ...styles.icon, color: "#333" }} />
-          <div style={styles.serviceText}>משלוח מהיר</div>
-        </div>
-        <div style={styles.serviceItem}>
-          <FaGrinWink style={{ ...styles.icon, color: "#333" }} />
-          <div style={styles.serviceText}>שביעות רצון הלקוחות</div>
+          <FaHeadset style={styles.outlinedIcon} />
+          <div style={styles.serviceText}>שירות לקוחות 24/7</div>
         </div>
       </div>
     </div>
@@ -27,31 +23,43 @@ const ServiceSection = () => {
 const styles = {
   serviceSection: {
     textAlign: "center",
+    padding: "0px 20px",
+    backgroundColor: "#fff",
   },
   sectionTitle: {
-    fontSize: "24px",
+    fontSize: "28px",
     fontWeight: "bold",
-    marginBottom: "40px",
+    marginBottom: "30px",
     color: "#333",
     fontFamily: "Noto Sans Hebrew, sans-serif",
   },
   servicesContainer: {
     display: "flex",
-    justifyContent: "space-around",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "30px",
   },
   serviceItem: {
     textAlign: "center",
   },
   icon: {
     fontSize: "48px",
-    marginBottom: "20px",
-    color: "#000000", // Set all icons to black
+    marginBottom: "10px",
+    color: "#000000", // Black color for the shipping icon
+  },
+  outlinedIcon: {
+    fontSize: "48px",
+    marginBottom: "10px",
+    color: "#000000",
+    border: "2px solid #000000", // Outlined effect for the customer service icon
+    borderRadius: "50%", // Circular outline
+    padding: "10px",
   },
   serviceText: {
-    fontSize: "18px",
+    fontSize: "20px",
     color: "#333",
     fontWeight: "bold",
-    direction: "rtl", // Ensures text is displayed right-to-left
+    direction: "rtl",
     fontFamily: "Noto Sans Hebrew, sans-serif",
   },
 };

@@ -10,6 +10,7 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import axios from "axios";
 import "../Style/CardDetailsPage.css"; // Ensure this import is correct
+import ProgressBar from "../Components/ProgressBar";
 
 const rtlCache = createCache({
   key: "muirtl",
@@ -97,6 +98,7 @@ const CardDetailsPage = () => {
 
   return (
     <div className="card-details-page">
+      <ProgressBar currentStep="2" />
       <CacheProvider value={rtl ? rtlCache : ltrCache}>
         <Box
           sx={{

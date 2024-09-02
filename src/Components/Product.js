@@ -5,8 +5,7 @@ import { useDrawer } from "../Components/DrawerContext";
 import { Button } from "@mui/material";
 import { useCart } from "../Components/CartContext";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { HiOutlineShoppingCart } from "react-icons/hi";
 
 const Product = ({
   id,
@@ -135,7 +134,6 @@ const Product = ({
             onLoad={() => setImageLoaded(true)}
             style={{ display: imageLoaded ? "block" : "none" }}
           />
-          {quantity === 0 && <span className="sold-out-label">Sold Out</span>}
           {discount && <span className="discount-label">Discount</span>}
         </div>
         <div className="product-details">
@@ -164,8 +162,7 @@ const Product = ({
                 >
                   קנה עכשיו
                 </Button>
-                <FontAwesomeIcon
-                  icon={faShoppingCart}
+                <HiOutlineShoppingCart
                   style={{
                     marginLeft: "0px",
                     marginTop: "10px",

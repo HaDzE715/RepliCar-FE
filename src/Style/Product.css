@@ -135,12 +135,12 @@ a.product-link:visited {
     margin-left: -15px;
   }
 }
-.product-card.sold-out {
+/*.product-card.sold-out {
   position: relative;
   opacity: 0.6; /* Make the card semi-transparent */
-}
+/* }  */
 
-.sold-out-label {
+/* .sold-out-label {
   position: absolute;
   top: 10px;
   left: 10px;
@@ -150,7 +150,7 @@ a.product-link:visited {
   font-size: 14px;
   font-weight: bold;
   border-radius: 5px;
-}
+} */
 
 .discount-label {
   position: absolute;
@@ -164,9 +164,9 @@ a.product-link:visited {
   border-radius: 5px;
 }
 
-.product-card.sold-out .product-image {
+/* .product-card.sold-out .product-image {
   filter: grayscale(100%); /* Make the image grayscale */
-}
+/* }  */
 
 .product-price1.original-price {
   text-decoration: line-through !important;

@@ -191,14 +191,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f5f5f5;
+  /* background-color: #f5f5f5; */
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
   font-family: "Noto Sans Hebrew";
   margin-bottom: 10px;
   margin-top: -40px;
 }
-.terms-con-message{
+.terms-con-message {
   position: fixed;
   top: 50%;
   left: 50%;

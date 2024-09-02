@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "../Style/PaymentSuccessPage.css"; // Ensure this import is correct
 import { useLocation } from "react-router-dom";
 import { useCart } from "../Components/CartContext";
+import ProgressBar from "../Components/ProgressBar";
 
 const PaymentSuccessPage = () => {
   const location = useLocation();
@@ -15,6 +16,7 @@ const PaymentSuccessPage = () => {
 
   return (
     <div className="payment-success-container">
+          <ProgressBar currentStep="3" />
       <div className="success-box">
         <div className="success-message-container">
           <h1 className="success-message-title">

@@ -14,6 +14,7 @@ import axios from "axios";
 import "../Style/CheckoutPage.css"; // Ensure this import is correct
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import ProgressBar from "../Components/ProgressBar";
 
 const rtlCache = createCache({
   key: "muirtl",
@@ -160,6 +161,7 @@ export default function CheckoutPage() {
         </button>
       </div>
       <div className="checkout-form-wrap" style={{ position: "relative" }}>
+        <ProgressBar currentStep="1" />
         {isCartVisible && (
           <div ref={dropdownRef} className="checkout-cart-dropdown">
             <div className="checkout-cart-items">
