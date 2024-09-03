@@ -473,7 +473,6 @@ export default function CheckoutPage() {
                       }}
                     >
                       אני מאשר/ת קבלת דיוור במייל/SMS
-                      <span style={{ color: "red", marginLeft: 4 }}>*</span>
                     </Typography>
                   }
                 />

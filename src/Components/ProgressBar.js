@@ -1,33 +1,49 @@
 import React from "react";
 
 const ProgressBar = ({ currentStep }) => {
-  const steps = ["3", "2", "1"];
+  const steps = [
+    { number: "3", label: "הזמנה בוצעה" },
+    { number: "2", label: "פרטי תשלום" },
+    { number: "1", label: "פרטי לקוח" },
+  ];
+
   return (
     <div style={styles.progressContainer}>
       {steps.map((step, index) => (
-        <React.Fragment key={index}>
-          <div
-            style={{
-              ...styles.circle,
-              backgroundColor: currentStep >= step ? "#008000" : "#fff", // Green background when reached, white otherwise
-              color: currentStep >= step ? "#fff" : "#ccc", // White number when reached, grey otherwise
-              borderColor: currentStep >= step ? "#008000" : "#ccc", // Green border when reached, grey otherwise
-              transition:
-                "background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease", // Smooth transition
-            }}
-          >
-            {currentStep > step ? "✔" : step}
+        <div key={index} style={styles.stepWrapper}>
+          <div style={styles.stepContainer}>
+            <div
+              style={{
+                ...styles.circle,
+                backgroundColor:
+                  currentStep >= step.number ? "#008000" : "#fff",
+                color: currentStep >= step.number ? "#fff" : "#ccc",
+                borderColor: currentStep >= step.number ? "#008000" : "#ccc",
+                transition:
+                  "background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease",
+              }}
+            >
+              {currentStep > step.number ? "✔" : step.number}
+            </div>
+            <div
+              style={{
+                ...styles.label,
+                color: currentStep >= step.number ? "#008000" : "#ccc",
+              }}
+            >
+              {step.label}
+            </div>
           </div>
           {index < steps.length - 1 && (
             <div
               style={{
                 ...styles.line,
                 backgroundColor:
-                  currentStep >= steps[index + 1] ? "#008000" : "#ccc", // Green line when next step is reached, grey otherwise
+                  currentStep >= steps[index + 1].number ? "#008000" : "#ccc",
               }}
             ></div>
           )}
-        </React.Fragment>
+        </div>
       ))}
     </div>
   );
@@ -41,6 +57,16 @@ const styles = {
     marginBottom: "20px",
     marginTop: "20px",
   },
+  stepWrapper: {
+    display: "flex",
+    alignItems: "center",
+  },
+  stepContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    position: "relative",
+  },
   circle: {
     width: "40px",
     height: "40px",
@@ -50,13 +76,25 @@ const styles = {
     justifyContent: "center",
     fontSize: "16px",
     fontWeight: "bold",
-    border: "2px solid #ccc", // Default grey border for unreached circles
+    border: "2px solid #ccc",
+    zIndex: 1, // Ensure the circle stays above the line
+  },
+  label: {
+    marginTop: "8px",
+    fontSize: "14px",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontFamily: "Noto sans hebrew",
   },
   line: {
     width: "50px",
     height: "2px",
-    backgroundColor: "#ccc", // Default grey line for unreached steps
-    transition: "background-color 0.5s ease", // Smooth transition for line color
+    backgroundColor: "#ccc",
+    transition: "background-color 0.5s ease",
+    zIndex: 0, // Ensure the line stays behind the circles
+    marginBottom: "20px",
+    marginRight: "-5px",
+    marginLeft: "-5px",
   },
 };
 

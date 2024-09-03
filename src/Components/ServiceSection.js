@@ -5,7 +5,6 @@ import { FaHeadset } from "react-icons/fa"; // Importing the Headset icon for cu
 const ServiceSection = () => {
   return (
     <div style={styles.serviceSection}>
-      <h2 style={styles.sectionTitle}>היתרונות שלנו</h2>
       <div style={styles.servicesContainer}>
         <div style={styles.serviceItem}>
           <TbTruckDelivery style={styles.icon} />
@@ -25,13 +24,6 @@ const styles = {
     textAlign: "center",
     padding: "0px 20px",
     backgroundColor: "#fff",
-  },
-  sectionTitle: {
-    fontSize: "28px",
-    fontWeight: "bold",
-    marginBottom: "30px",
-    color: "#333",
-    fontFamily: "Noto Sans Hebrew, sans-serif",
   },
   servicesContainer: {
     display: "flex",
