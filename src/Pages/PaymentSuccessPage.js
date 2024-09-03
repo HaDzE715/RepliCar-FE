@@ -16,14 +16,14 @@ const PaymentSuccessPage = () => {
 
   return (
     <div className="payment-success-container">
-          <ProgressBar currentStep="3" />
+      <ProgressBar currentStep="3" />
       <div className="success-box">
         <div className="success-message-container">
           <h1 className="success-message-title">
             היי {clientName} 👋, ההזמנה שלך התקבלה!
           </h1>
           <h2 className="delivery-info">
-            השליח יתקשר אליך לפני הגעה, זה בערך בין 3-7 ימים.
+            השליח יתקשר אליך לפני הגעה, זה בערך תוך 3-7 ימים עסקים.
           </h2>
           <p className="success-message-text">
             מספר ההזמנה שלך הוא {orderNumber}.

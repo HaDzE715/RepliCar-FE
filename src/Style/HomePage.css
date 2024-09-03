@@ -256,7 +256,8 @@ body {
     overflow-x: auto; /* Enable horizontal scrolling */
     gap: 10px; /* Adjust the gap between products */
     padding: 10px;
-
+    padding-top: 0px;
+    margin-top: -20px;
     /* Hide the scrollbar */
     scrollbar-width: none; /* For Firefox */
     -ms-overflow-style: none; /* For Internet Explorer and Edge */
@@ -544,6 +545,9 @@ body {
 .discounts-scroll-container {
   overflow-x: scroll; /* Ensure the container is still scrollable */
   white-space: nowrap; /* Prevents content from wrapping */
+  justify-content: flex-start; /* Align content to the left */
+  display: flex; /* Use flexbox to align items */
+  scroll-snap-type: x mandatory; /* Optional: enables snap scrolling */
 }
 /* Container for the progress bar */
 .scroll-progress-bar {

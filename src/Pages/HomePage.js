@@ -2,13 +2,14 @@ import React, { useEffect, useState, Suspense, lazy } from "react";
 import axios from "axios";
 import Skeleton from "@mui/material/Skeleton";
 import "../Style/HomePage.css";
-import SkidMarksImage from "../Pictures/skidmarks.png";
 import { useDrawer } from "../Components/DrawerContext";
 import Banner1 from "../Pictures/Banner1.jpeg";
 import Banner2 from "../Pictures/Banner21.jpeg";
 import Diecast from "../Pictures/diecast-cat.jpg";
 import Frames from "../Pictures/Frames.jpg";
 import ServiceSection from "../Components/ServiceSection";
+import BestSeller from "../Pictures/BestSeller.jpeg";
+import HotBanner2 from "../Pictures/HotBanner2.jpeg";
 
 const Product = lazy(() => import("../Components/Product")); // Lazy load Product component
 
@@ -158,15 +159,9 @@ const HomePage = () => {
         <section className="discounts-section" style={{ overflow: "hidden" }}>
           <section className="skid-marks-section">
             <LazyImage
-              src={SkidMarksImage}
-              alt="Skid Marks"
-              className="skid-marks-img"
-            />
-            <h1 className="skid-marks-title">מבצעים חמים</h1>
-            <LazyImage
-              src={SkidMarksImage}
-              alt="Skid Marks"
-              className="skid-marks-img"
+              src={HotBanner2}
+              alt="Promotional Banner"
+              style={{ width: "330px", height: "90px", marginBottom: "10px" }}
             />
           </section>
           <div className="discounts-scroll-container">
@@ -273,15 +268,9 @@ const HomePage = () => {
         </section>
         <section className="skid-marks-section">
           <LazyImage
-            src={SkidMarksImage}
-            alt="Skid Marks"
-            className="skid-marks-img"
-          />
-          <h1 className="skid-marks-title">הכי נמכר אצלנו</h1>
-          <LazyImage
-            src={SkidMarksImage}
-            alt="Skid Marks"
-            className="skid-marks-img"
+            src={BestSeller}
+            alt="Promotional Banner"
+            style={{ width: "330px", height: "100px", marginBottom: "0px" }}
           />
         </section>
         <div className="discounts-scroll-container most-sold-products-container">

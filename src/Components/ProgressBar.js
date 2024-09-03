@@ -19,8 +19,12 @@ const ProgressBar = ({ currentStep }) => {
                   currentStep >= step.number ? "#008000" : "#fff",
                 color: currentStep >= step.number ? "#fff" : "#ccc",
                 borderColor: currentStep >= step.number ? "#008000" : "#ccc",
+                boxShadow:
+                  currentStep === step.number
+                    ? "0 0 10px 5px rgba(0, 128, 0, 0.5)" // Green shadow for current step
+                    : "none",
                 transition:
-                  "background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease",
+                  "background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease",
               }}
             >
               {currentStep > step.number ? "✔" : step.number}
@@ -77,7 +81,7 @@ const styles = {
     fontSize: "16px",
     fontWeight: "bold",
     border: "2px solid #ccc",
-    zIndex: 1, // Ensure the circle stays above the line
+    zIndex: 1,
   },
   label: {
     marginTop: "8px",
@@ -91,7 +95,7 @@ const styles = {
     height: "2px",
     backgroundColor: "#ccc",
     transition: "background-color 0.5s ease",
-    zIndex: 0, // Ensure the line stays behind the circles
+    zIndex: 0,
     marginBottom: "20px",
     marginRight: "-5px",
     marginLeft: "-5px",

@@ -208,7 +208,7 @@ export default function CheckoutPage() {
               </div>
               <div className="totals-row">
                 <span>משלוח:</span>
-                <span>{calculateShipping()}₪</span>
+                <span>חינם!</span>
               </div>
               <div className="totals-row">
                 <span>סך הכל:</span>
@@ -397,7 +397,7 @@ export default function CheckoutPage() {
                   </div>
                   <div className="totals-row">
                     <span>משלוח:</span>
-                    <span>{calculateShipping()}₪</span>
+                    <span>חינם!</span>
                   </div>
                   <div className="totals-row">
                     <span>סך הכל:</span>
