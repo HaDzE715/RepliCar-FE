@@ -1,18 +1,61 @@
 import React, { useEffect } from "react";
-import "../Style/PaymentSuccessPage.css"; // Ensure this import is correct
-import { useLocation } from "react-router-dom";
+import "../Style/PaymentSuccessPage.css";
 import { useCart } from "../Components/CartContext";
+import axios from "axios";
 import ProgressBar from "../Components/ProgressBar";
 
 const PaymentSuccessPage = () => {
-  const location = useLocation();
-  const { clientName, orderNumber } = location.state || {};
   const { dispatch } = useCart();
+  const orderDetails = JSON.parse(localStorage.getItem("orderDetails"));
+  const {
+    clientName,
+    orderNumber,
+    email,
+    phone,
+    shippingAddress,
+    orderNotes,
+    products,
+    totalPrice,
+  } = orderDetails || {};
 
-  // Clear the cart when the page loads
   useEffect(() => {
     dispatch({ type: "CLEAR_CART" });
-  }, [dispatch]);
+
+    const createOrder = async () => {
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_API_URL}/api/orders`,
+          {
+            user: { name: clientName, email, phone },
+            products,
+            orderNumber,
+            totalPrice,
+            shippingAddress,
+            orderNotes,
+          }
+        );
+        console.log("Order created:", response.data);
+      } catch (error) {
+        console.error("Error creating order:", error);
+      }
+    };
+
+    createOrder();
+  }, [
+    dispatch,
+    clientName,
+    orderNumber,
+    email,
+    phone,
+    shippingAddress,
+    products,
+    totalPrice,
+    orderNotes,
+  ]);
+  console.log(
+    "Order details saved to localStorage:",
+    localStorage.getItem("orderDetails")
+  );
 
   return (
     <div className="payment-success-container">

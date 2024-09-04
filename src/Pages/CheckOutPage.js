@@ -10,7 +10,6 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import axios from "axios";
 import "../Style/CheckoutPage.css"; // Ensure this import is correct
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -68,15 +67,12 @@ export default function CheckoutPage() {
   const handleDecreaseQuantity = (id) => {
     dispatch({ type: "DECREASE_QUANTITY", id });
   };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     const formData = new FormData(event.target);
-    if (!formData.get("agreeTerms")) {
-      setShowAddedMessage(true);
-      setTimeout(() => setShowAddedMessage(false), 2000);
-      return;
-    }
+    const agreeTerms = formData.get("agreeTerms");
+
     const clientData = {
       firstName: formData.get("firstName"),
       lastName: formData.get("lastName"),
@@ -85,36 +81,136 @@ export default function CheckoutPage() {
       city: formData.get("city"),
       streetAddress: formData.get("streetAddress"),
       orderNotes: formData.get("orderNotes"),
-      totalQuantity: calculateTotalQuantity(),
       totalPrice: calculateTotalPrice(),
     };
-
+    if (!agreeTerms) {
+      setShowAddedMessage(true);
+    } else {
+      setShowAddedMessage(false);
+    }
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/clientInfoBeforePurchase`,
-        clientData
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/generate-payment-link`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            amount: clientData.totalPrice,
+            description: `Payment for ${clientData.firstName} ${clientData.lastName}`,
+            customer: {
+              customer_name: `${clientData.firstName} ${clientData.lastName}`,
+              email: clientData.email,
+              phone: clientData.phone,
+            },
+          }),
+        }
       );
-      if (response.status === 200) {
-        document.getElementById("root").scrollIntoView({
-          behavior: "smooth",
-        });
+      console.log("Response object:", response);
+
+      if (!response.ok) {
+        throw new Error("Failed to generate payment link");
+      }
+
+      const data = await response.json();
+      console.log("Response Data:", data);
+
+      if (data.data && data.data.payment_page_link) {
+        const orderNumber = Math.floor(1000 + Math.random() * 90000);
+        localStorage.setItem(
+          "orderDetails",
+          JSON.stringify({
+            clientName: `${clientData.firstName} ${clientData.lastName}`,
+            orderNumber: orderNumber,
+            email: clientData.email,
+            phone: clientData.phone,
+            shippingAddress: `${clientData.streetAddress}, ${clientData.city}`,
+            orderNotes: clientData.orderNotes,
+            totalPrice: calculateTotalPrice(),
+            cart: cart,
+          })
+        );
+        console.log(
+          "Order details saved to localStorage:",
+          localStorage.getItem("orderDetails")
+        );
+
         navigate("/card-details", {
           state: {
             cart,
             clientData,
             totalQuantity: calculateTotalQuantity(),
             totalPrice: calculateTotalPrice(),
+            paymentLink: data.data.payment_page_link,
           },
         });
       } else {
-        console.error("Failed to submit client information");
-        alert("Failed to submit client information");
+        console.error("Failed to get payment page link:", data);
+        alert("Failed to generate payment link");
       }
     } catch (error) {
-      console.error("Error processing the checkout:", error);
-      alert("An error occurred while processing the checkout.");
+      console.error("Error generating payment link:", error);
+      alert("Error generating payment link.");
     }
   };
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+
+  //   const formData = new FormData(event.target);
+  //   const clientData = {
+  //     firstName: formData.get("firstName"),
+  //     lastName: formData.get("lastName"),
+  //     phone: formData.get("phone"),
+  //     email: formData.get("email"),
+  //     city: formData.get("city"),
+  //     streetAddress: formData.get("streetAddress"),
+  //     orderNotes: formData.get("orderNotes"),
+  //     totalPrice: calculateTotalPrice(),
+  //   };
+
+  //   try {
+  //     const response = await fetch(
+  //       `${process.env.REACT_APP_API_URL}/api/generate-payment-link`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           amount: clientData.totalPrice,
+  //           description: `Payment for ${clientData.firstName} ${clientData.lastName}`,
+  //           customer: {
+  //             customer_name: `${clientData.firstName} ${clientData.lastName}`,
+  //             email: clientData.email,
+  //             phone: clientData.phone,
+  //           },
+  //         }),
+  //       }
+  //     );
+  //     console.log("Response object:", response);
+
+  //     // Check if response is okay
+  //     if (!response.ok) {
+  //       throw new Error("Failed to generate payment linkZZ");
+  //     }
+
+  //     const data = await response.json();
+  //     console.log("Response Data:", data);
+
+  //     if (data.data && data.data.payment_page_link) {
+  //       // Redirect to the generated payment link
+  //       window.location.href = data.data.payment_page_link;
+  //     } else {
+  //       console.error("Failed to get payment page link:", data);
+  //       alert("Failed to generate payment link");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error generating payment link:", error);
+  //     alert("Error generating payment link.");
+  //   }
+  // };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
