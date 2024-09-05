@@ -8,14 +8,14 @@ const PaymentSuccessPage = () => {
   const { dispatch } = useCart();
   const orderDetails = JSON.parse(localStorage.getItem("orderDetails"));
   const {
-    clientName,
-    orderNumber,
-    email,
-    phone,
-    shippingAddress,
-    orderNotes,
-    products,
-    totalPrice,
+    clientName = "",
+    orderNumber = "",
+    email = "",
+    phone = "",
+    shippingAddress = { streetAddress: "", city: "" }, // Ensure this matches backend
+    orderNotes = "",
+    products = [],
+    totalPrice = 0,
   } = orderDetails || {};
 
   useEffect(() => {
@@ -27,10 +27,13 @@ const PaymentSuccessPage = () => {
           `${process.env.REACT_APP_API_URL}/api/orders`,
           {
             user: { name: clientName, email, phone },
-            products,
+            products, // Ensure products is an array of { product: productId, quantity }
             orderNumber,
             totalPrice,
-            shippingAddress,
+            shippingAddress: {
+              streetAddress: shippingAddress.streetAddress,
+              city: shippingAddress.city,
+            }, // Correctly formatted shipping address
             orderNotes,
           }
         );
@@ -47,7 +50,8 @@ const PaymentSuccessPage = () => {
     orderNumber,
     email,
     phone,
-    shippingAddress,
+    shippingAddress.streetAddress, // Track changes to individual fields
+    shippingAddress.city,
     products,
     totalPrice,
     orderNotes,
