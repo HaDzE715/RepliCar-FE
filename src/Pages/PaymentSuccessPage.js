@@ -2,11 +2,19 @@ import React, { useEffect, useState } from "react";
 import "../Style/PaymentSuccessPage.css";
 import { useCart } from "../Components/CartContext";
 import axios from "axios";
+import { useNavigate, useLocation } from "react-router-dom"; // Import useNavigate and useLocation
 import ProgressBar from "../Components/ProgressBar";
 
 const PaymentSuccessPage = () => {
   const { dispatch } = useCart();
+  const navigate = useNavigate(); // Initialize useNavigate for redirection
+  const location = useLocation();
   const [orderCreated, setOrderCreated] = useState(false); // Flag to ensure order is created only once
+
+  const transactionUid = new URLSearchParams(location.search).get(
+    "transaction_uid"
+  ); // Get the transaction UID from the URL
+
   const orderDetails = JSON.parse(localStorage.getItem("orderDetails"));
   const {
     clientName = "",
@@ -20,9 +28,29 @@ const PaymentSuccessPage = () => {
   } = orderDetails || {};
 
   useEffect(() => {
-    const createOrder = async () => {
+    const verifyTransactionAndCreateOrder = async () => {
       try {
-        const response = await axios.post(
+        // Check transaction validity from the backend
+        const verifyResponse = await axios.post(
+          "https://restapi.payplus.co.il/api/v1.0/TransactionReports/TransactionsApproval",
+          {
+            terminal_uid: process.env.TERMINAL_UID,
+            filter: {
+              uuid: transactionUid,
+            },
+            currency_code: "ILS",
+          }
+        );
+
+        // If the transaction is invalid, redirect the user to the homepage
+        if (verifyResponse.data.transactions.length === 0) {
+          console.error("Transaction is invalid, redirecting to home");
+          navigate("/"); // Redirect to homepage
+          return;
+        }
+
+        // If the transaction is valid, create the order
+        const createOrderResponse = await axios.post(
           `${process.env.REACT_APP_API_URL}/api/orders`,
           {
             user: { name: clientName, email, phone },
@@ -34,9 +62,10 @@ const PaymentSuccessPage = () => {
               city: shippingAddress.city,
             }, // Correctly formatted shipping address
             orderNotes,
+            transactionUid, // Add the transactionUid to track the transaction
           }
         );
-        console.log("Order created:", response.data);
+        console.log("Order created:", createOrderResponse.data);
 
         // Clear the cart after the order is successfully created
         dispatch({ type: "CLEAR_CART" });
@@ -48,6 +77,7 @@ const PaymentSuccessPage = () => {
           "Error creating order:",
           error.response?.data || error.message
         );
+        navigate("/"); // Redirect to homepage if any error occurs
       }
     };
 
@@ -58,13 +88,15 @@ const PaymentSuccessPage = () => {
       phone &&
       products.length > 0 &&
       shippingAddress.streetAddress &&
-      shippingAddress.city && // Include the city check as well
+      shippingAddress.city &&
       orderNumber &&
+      transactionUid &&
       !orderCreated // Ensure the order is only created once
     ) {
-      createOrder();
+      verifyTransactionAndCreateOrder();
     } else if (!clientName || !orderNumber) {
       console.error("Missing required order details.");
+      navigate("/"); // Redirect if order details are missing
     }
   }, [
     dispatch,
@@ -73,11 +105,13 @@ const PaymentSuccessPage = () => {
     phone,
     products,
     shippingAddress.streetAddress,
-    shippingAddress.city, // Track changes to the individual fields in shippingAddress
+    shippingAddress.city,
     orderNumber,
     totalPrice,
     orderNotes,
-    orderCreated, // Include flag in dependency array
+    orderCreated,
+    transactionUid, // Track transaction UID changes
+    navigate, // Ensure navigate is in the dependency array
   ]);
 
   console.log(
