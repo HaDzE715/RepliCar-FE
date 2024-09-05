@@ -55,6 +55,7 @@ const PaymentSuccessPage = () => {
         shippingAddress,
         orderNotes,
         products,
+        transaction_uid,
       });
 
       try {
@@ -70,6 +71,7 @@ const PaymentSuccessPage = () => {
               city: shippingAddress.city,
             },
             orderNotes,
+            transaction_uid,
           }
         );
         console.log("Order created successfully:", response.data);
