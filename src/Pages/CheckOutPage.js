@@ -32,6 +32,7 @@ export default function CheckoutPage() {
   const [rtl] = useState(true);
   const navigate = useNavigate();
   const [showAddedMessage, setShowAddedMessage] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const calculateTotalQuantity = () => {
     return cart.reduce((total, item) => total + item.quantity, 0);
@@ -70,6 +71,11 @@ export default function CheckoutPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Prevent multiple submissions by disabling the submit button
+    if (isSubmitting) return;
+
+    setIsSubmitting(true); // Set submission in progress
+
     const formData = new FormData(event.target);
     const agreeTerms = formData.get("agreeTerms");
 
@@ -83,11 +89,15 @@ export default function CheckoutPage() {
       orderNotes: formData.get("orderNotes"),
       totalPrice: calculateTotalPrice(),
     };
+
     if (!agreeTerms) {
       setShowAddedMessage(true);
+      setIsSubmitting(false); // Re-enable submission
+      return;
     } else {
       setShowAddedMessage(false);
     }
+
     try {
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/api/generate-payment-link`,
@@ -107,6 +117,7 @@ export default function CheckoutPage() {
           }),
         }
       );
+
       console.log("Response object:", response);
 
       if (!response.ok) {
@@ -117,7 +128,10 @@ export default function CheckoutPage() {
       console.log("Response Data:", data);
 
       if (data.data && data.data.payment_page_link) {
-        const orderNumber = Math.floor(1000 + Math.random() * 90000);
+        const orderNumber =
+          (Date.now() % 100000) + Math.floor(Math.random() * 10000);
+
+        // Save products (cart items) and other details to localStorage
         localStorage.setItem(
           "orderDetails",
           JSON.stringify({
@@ -125,15 +139,17 @@ export default function CheckoutPage() {
             orderNumber: orderNumber,
             email: clientData.email,
             phone: clientData.phone,
-            shippingAddress: `${clientData.streetAddress}, ${clientData.city}`,
+            shippingAddress: {
+              streetAddress: clientData.streetAddress,
+              city: clientData.city,
+            },
             orderNotes: clientData.orderNotes,
-            totalPrice: calculateTotalPrice(),
-            cart: cart,
+            products: cart.map((item) => ({
+              product: item.productId, // Use the productId or whatever identifier you have
+              quantity: item.quantity,
+            })),
+            totalPrice: clientData.totalPrice,
           })
-        );
-        console.log(
-          "Order details saved to localStorage:",
-          localStorage.getItem("orderDetails")
         );
 
         navigate("/card-details", {
@@ -152,65 +168,10 @@ export default function CheckoutPage() {
     } catch (error) {
       console.error("Error generating payment link:", error);
       alert("Error generating payment link.");
+    } finally {
+      setIsSubmitting(false); // Re-enable submission after request completes
     }
   };
-
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-
-  //   const formData = new FormData(event.target);
-  //   const clientData = {
-  //     firstName: formData.get("firstName"),
-  //     lastName: formData.get("lastName"),
-  //     phone: formData.get("phone"),
-  //     email: formData.get("email"),
-  //     city: formData.get("city"),
-  //     streetAddress: formData.get("streetAddress"),
-  //     orderNotes: formData.get("orderNotes"),
-  //     totalPrice: calculateTotalPrice(),
-  //   };
-
-  //   try {
-  //     const response = await fetch(
-  //       `${process.env.REACT_APP_API_URL}/api/generate-payment-link`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           amount: clientData.totalPrice,
-  //           description: `Payment for ${clientData.firstName} ${clientData.lastName}`,
-  //           customer: {
-  //             customer_name: `${clientData.firstName} ${clientData.lastName}`,
-  //             email: clientData.email,
-  //             phone: clientData.phone,
-  //           },
-  //         }),
-  //       }
-  //     );
-  //     console.log("Response object:", response);
-
-  //     // Check if response is okay
-  //     if (!response.ok) {
-  //       throw new Error("Failed to generate payment linkZZ");
-  //     }
-
-  //     const data = await response.json();
-  //     console.log("Response Data:", data);
-
-  //     if (data.data && data.data.payment_page_link) {
-  //       // Redirect to the generated payment link
-  //       window.location.href = data.data.payment_page_link;
-  //     } else {
-  //       console.error("Failed to get payment page link:", data);
-  //       alert("Failed to generate payment link");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error generating payment link:", error);
-  //     alert("Error generating payment link.");
-  //   }
-  // };
 
   useEffect(() => {
     const handleClickOutside = (event) => {

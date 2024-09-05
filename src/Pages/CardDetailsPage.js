@@ -28,13 +28,16 @@ const CardDetailsPage = () => {
     totalPrice: 0,
   };
 
-  // const orderNumber = Math.floor(1000 + Math.random() * 90000);
+  // Retrieve orderDetails from localStorage
   const orderDetails = JSON.parse(localStorage.getItem("orderDetails")) || {};
-  const { orderNumber } = orderDetails;
-  console.log(
-    "Order details saved to localStorage:",
-    localStorage.getItem("orderDetails")
-  );
+
+  // Add console logs to check if orderDetails is correctly retrieved
+  console.log("Retrieved order details from localStorage:", orderDetails);
+
+  const {
+    orderNumber = "",
+  } = orderDetails;
+
 
   return (
     <div className="card-details-page">

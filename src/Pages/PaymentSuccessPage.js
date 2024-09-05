@@ -19,8 +19,6 @@ const PaymentSuccessPage = () => {
   } = orderDetails || {};
 
   useEffect(() => {
-    dispatch({ type: "CLEAR_CART" });
-
     const createOrder = async () => {
       try {
         const response = await axios.post(
@@ -38,24 +36,44 @@ const PaymentSuccessPage = () => {
           }
         );
         console.log("Order created:", response.data);
+
+        // Clear the cart after the order is successfully created
+        dispatch({ type: "CLEAR_CART" });
       } catch (error) {
-        console.error("Error creating order:", error);
+        console.error(
+          "Error creating order:",
+          error.response?.data || error.message
+        );
       }
     };
 
-    createOrder();
+    // Only create the order if all the necessary data is present
+    if (
+      clientName &&
+      email &&
+      phone &&
+      products.length > 0 &&
+      shippingAddress.streetAddress &&
+      shippingAddress.city && // Include the city check as well
+      orderNumber
+    ) {
+      createOrder();
+    } else {
+      console.error("Missing required order details.");
+    }
   }, [
     dispatch,
     clientName,
-    orderNumber,
     email,
     phone,
-    shippingAddress.streetAddress, // Track changes to individual fields
-    shippingAddress.city,
     products,
+    shippingAddress.streetAddress,
+    shippingAddress.city, // Track changes to the individual fields in shippingAddress
+    orderNumber,
     totalPrice,
     orderNotes,
   ]);
+
   console.log(
     "Order details saved to localStorage:",
     localStorage.getItem("orderDetails")
