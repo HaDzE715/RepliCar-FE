@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom"; // Import navigate to redirect
 import "../Style/PaymentSuccessPage.css";
 import { useCart } from "../Components/CartContext";
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom"; // Import useNavigate and useLocation
 import ProgressBar from "../Components/ProgressBar";
 
 const PaymentSuccessPage = () => {
   const { dispatch } = useCart();
-  const navigate = useNavigate(); // Initialize useNavigate for redirection
+  const [orderCreated, setOrderCreated] = useState(false);
   const location = useLocation();
-  const [orderCreated, setOrderCreated] = useState(false); // Flag to ensure order is created only once
-
-  const transactionUid = new URLSearchParams(location.search).get(
-    "transaction_uid"
-  ); // Get the transaction UID from the URL
+  const navigate = useNavigate();
 
   const orderDetails = JSON.parse(localStorage.getItem("orderDetails"));
   const {
@@ -21,67 +17,74 @@ const PaymentSuccessPage = () => {
     orderNumber = "",
     email = "",
     phone = "",
-    shippingAddress = { streetAddress: "", city: "" }, // Ensure this matches backend
+    shippingAddress = { streetAddress: "", city: "" },
     orderNotes = "",
     products = [],
     totalPrice = 0,
   } = orderDetails || {};
 
   useEffect(() => {
-    const verifyTransactionAndCreateOrder = async () => {
+    const getQueryParams = (param) => {
+      const value = new URLSearchParams(location.search).get(param);
+      console.log(`Query param ${param}:`, value);
+      return value;
+    };
+
+    const transaction_uid = getQueryParams("transaction_uid");
+    const status = getQueryParams("status");
+
+    console.log("Transaction UID:", transaction_uid);
+    console.log("Status:", status);
+
+    // Redirect to homepage if transaction_uid is missing or status is not 'approved'
+    if (!transaction_uid || status !== "approved") {
+      console.warn(
+        "Transaction UID missing or status not approved. Redirecting..."
+      );
+      navigate("/"); // Redirect to homepage
+      return;
+    }
+
+    const createOrder = async () => {
+      console.log("Creating order with details:", {
+        clientName,
+        email,
+        phone,
+        orderNumber,
+        totalPrice,
+        shippingAddress,
+        orderNotes,
+        products,
+      });
+
       try {
-        // Check transaction validity from the backend
-        const verifyResponse = await axios.post(
-          "https://restapi.payplus.co.il/api/v1.0/TransactionReports/TransactionsApproval",
-          {
-            terminal_uid: process.env.TERMINAL_UID,
-            filter: {
-              uuid: transactionUid,
-            },
-            currency_code: "ILS",
-          }
-        );
-
-        // If the transaction is invalid, redirect the user to the homepage
-        if (verifyResponse.data.transactions.length === 0) {
-          console.error("Transaction is invalid, redirecting to home");
-          navigate("/"); // Redirect to homepage
-          return;
-        }
-
-        // If the transaction is valid, create the order
-        const createOrderResponse = await axios.post(
+        const response = await axios.post(
           `${process.env.REACT_APP_API_URL}/api/orders`,
           {
             user: { name: clientName, email, phone },
-            products, // Ensure products is an array of { product: productId, quantity }
+            products,
             orderNumber,
             totalPrice,
             shippingAddress: {
               streetAddress: shippingAddress.streetAddress,
               city: shippingAddress.city,
-            }, // Correctly formatted shipping address
+            },
             orderNotes,
-            transactionUid, // Add the transactionUid to track the transaction
           }
         );
-        console.log("Order created:", createOrderResponse.data);
+        console.log("Order created successfully:", response.data);
 
         // Clear the cart after the order is successfully created
         dispatch({ type: "CLEAR_CART" });
-
-        // Mark order as created to avoid multiple requests
         setOrderCreated(true);
       } catch (error) {
         console.error(
           "Error creating order:",
           error.response?.data || error.message
         );
-        navigate("/"); // Redirect to homepage if any error occurs
       }
     };
 
-    // Only create the order if all the necessary data is present and the order hasn't been created yet
     if (
       clientName &&
       email &&
@@ -90,13 +93,14 @@ const PaymentSuccessPage = () => {
       shippingAddress.streetAddress &&
       shippingAddress.city &&
       orderNumber &&
-      transactionUid &&
-      !orderCreated // Ensure the order is only created once
+      !orderCreated
     ) {
-      verifyTransactionAndCreateOrder();
-    } else if (!clientName || !orderNumber) {
-      console.error("Missing required order details.");
-      navigate("/"); // Redirect if order details are missing
+      console.log(
+        "All required order details present. Proceeding to create order..."
+      );
+      createOrder();
+    } else {
+      console.error("Missing required order details. Cannot create order.");
     }
   }, [
     dispatch,
@@ -104,20 +108,18 @@ const PaymentSuccessPage = () => {
     email,
     phone,
     products,
+    shippingAddress,
     shippingAddress.streetAddress,
     shippingAddress.city,
     orderNumber,
     totalPrice,
     orderNotes,
     orderCreated,
-    transactionUid, // Track transaction UID changes
-    navigate, // Ensure navigate is in the dependency array
+    navigate, // Track changes in navigate for redirects
+    location.search, // Track changes in query parameters
   ]);
 
-  console.log(
-    "Order details saved to localStorage:",
-    localStorage.getItem("orderDetails")
-  );
+  console.log("Order details retrieved from localStorage:", orderDetails);
 
   return (
     <div className="payment-success-container">
