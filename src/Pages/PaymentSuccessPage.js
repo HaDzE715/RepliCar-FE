@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../Style/PaymentSuccessPage.css";
 import { useCart } from "../Components/CartContext";
 import axios from "axios";
@@ -6,6 +6,7 @@ import ProgressBar from "../Components/ProgressBar";
 
 const PaymentSuccessPage = () => {
   const { dispatch } = useCart();
+  const [orderCreated, setOrderCreated] = useState(false); // Flag to ensure order is created only once
   const orderDetails = JSON.parse(localStorage.getItem("orderDetails"));
   const {
     clientName = "",
@@ -39,6 +40,9 @@ const PaymentSuccessPage = () => {
 
         // Clear the cart after the order is successfully created
         dispatch({ type: "CLEAR_CART" });
+
+        // Mark order as created to avoid multiple requests
+        setOrderCreated(true);
       } catch (error) {
         console.error(
           "Error creating order:",
@@ -47,7 +51,7 @@ const PaymentSuccessPage = () => {
       }
     };
 
-    // Only create the order if all the necessary data is present
+    // Only create the order if all the necessary data is present and the order hasn't been created yet
     if (
       clientName &&
       email &&
@@ -55,10 +59,11 @@ const PaymentSuccessPage = () => {
       products.length > 0 &&
       shippingAddress.streetAddress &&
       shippingAddress.city && // Include the city check as well
-      orderNumber
+      orderNumber &&
+      !orderCreated // Ensure the order is only created once
     ) {
       createOrder();
-    } else {
+    } else if (!clientName || !orderNumber) {
       console.error("Missing required order details.");
     }
   }, [
@@ -72,6 +77,7 @@ const PaymentSuccessPage = () => {
     orderNumber,
     totalPrice,
     orderNotes,
+    orderCreated, // Include flag in dependency array
   ]);
 
   console.log(
