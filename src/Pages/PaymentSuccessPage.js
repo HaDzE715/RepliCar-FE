@@ -33,9 +33,6 @@ const PaymentSuccessPage = () => {
     const transaction_uid = getQueryParams("transaction_uid");
     const status = getQueryParams("status");
 
-    console.log("Transaction UID:", transaction_uid);
-    console.log("Status:", status);
-
     // Redirect to homepage if transaction_uid is missing or status is not 'approved'
     if (!transaction_uid || status !== "approved") {
       console.warn(
@@ -120,8 +117,6 @@ const PaymentSuccessPage = () => {
     navigate, // Track changes in navigate for redirects
     location.search, // Track changes in query parameters
   ]);
-
-  console.log("Order details retrieved from localStorage:", orderDetails);
 
   return (
     <div className="payment-success-container">

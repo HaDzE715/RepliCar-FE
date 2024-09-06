@@ -125,7 +125,6 @@ export default function CheckoutPage() {
       }
 
       const data = await response.json();
-      console.log("Response Data:", data);
 
       if (data.data && data.data.payment_page_link) {
         const orderNumber =

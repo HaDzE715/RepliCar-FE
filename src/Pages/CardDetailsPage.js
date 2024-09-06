@@ -31,9 +31,6 @@ const CardDetailsPage = () => {
   // Retrieve orderDetails from localStorage
   const orderDetails = JSON.parse(localStorage.getItem("orderDetails")) || {};
 
-  // Add console logs to check if orderDetails is correctly retrieved
-  console.log("Retrieved order details from localStorage:", orderDetails);
-
   const {
     orderNumber = "",
   } = orderDetails;
