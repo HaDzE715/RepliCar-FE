@@ -25,39 +25,40 @@ const PaymentSuccessPage = () => {
 
   useEffect(() => {
     const getQueryParams = (param) => {
-      return new URLSearchParams(location.search).get(param);
+      const value = new URLSearchParams(location.search).get(param);
+      console.log(`Query param ${param}:`, value);
+      return value;
     };
 
     const transaction_uid = getQueryParams("transaction_uid");
     const status = getQueryParams("status");
 
-    console.log("Query param transaction_uid:", transaction_uid);
-    console.log("Query param status:", status);
+    console.log("Transaction UID:", transaction_uid);
+    console.log("Status:", status);
 
     // Redirect to homepage if transaction_uid is missing or status is not 'approved'
     if (!transaction_uid || status !== "approved") {
-      console.error(
-        "Missing transaction_uid or status not approved. Redirecting to homepage."
+      console.warn(
+        "Transaction UID missing or status not approved. Redirecting..."
       );
       navigate("/"); // Redirect to homepage
       return;
     }
 
-    console.log("Transaction UID:", transaction_uid);
-    console.log("Status:", status);
-
     const createOrder = async () => {
-      try {
-        console.log("Creating order with details:", {
-          clientName,
-          email,
-          phone,
-          orderNumber,
-          totalPrice,
-          shippingAddress,
-          products,
-        });
+      console.log("Creating order with details:", {
+        clientName,
+        email,
+        phone,
+        orderNumber,
+        totalPrice,
+        shippingAddress,
+        orderNotes,
+        products,
+        transaction_uid,
+      });
 
+      try {
         const response = await axios.post(
           `${process.env.REACT_APP_API_URL}/api/orders`,
           {
@@ -70,6 +71,7 @@ const PaymentSuccessPage = () => {
               city: shippingAddress.city,
             },
             orderNotes,
+            transaction_uid,
           }
         );
         console.log("Order created successfully:", response.data);
@@ -85,7 +87,6 @@ const PaymentSuccessPage = () => {
       }
     };
 
-    // Only create the order if all the necessary data is present and the order hasn't been created yet
     if (
       clientName &&
       email &&
@@ -116,9 +117,11 @@ const PaymentSuccessPage = () => {
     totalPrice,
     orderNotes,
     orderCreated,
-    navigate,
+    navigate, // Track changes in navigate for redirects
     location.search, // Track changes in query parameters
   ]);
+
+  console.log("Order details retrieved from localStorage:", orderDetails);
 
   return (
     <div className="payment-success-container">
