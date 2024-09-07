@@ -78,6 +78,7 @@ export default function CheckoutPage() {
 
     const formData = new FormData(event.target);
     const agreeTerms = formData.get("agreeTerms");
+    console.log("Cart items:", cart); // Log the cart items
 
     const clientData = {
       firstName: formData.get("firstName"),

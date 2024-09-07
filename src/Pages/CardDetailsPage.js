@@ -9,6 +9,7 @@ import { prefixer } from "stylis";
 import "../Style/CardDetailsPage.css";
 import ProgressBar from "../Components/ProgressBar";
 
+
 const rtlCache = createCache({
   key: "muirtl",
   stylisPlugins: [prefixer, rtlPlugin],
@@ -31,9 +32,7 @@ const CardDetailsPage = () => {
   // Retrieve orderDetails from localStorage
   const orderDetails = JSON.parse(localStorage.getItem("orderDetails")) || {};
 
-  const {
-    orderNumber = "",
-  } = orderDetails;
+  const { orderNumber = "" } = orderDetails;
 
 
   return (

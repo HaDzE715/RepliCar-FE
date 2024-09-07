@@ -6,12 +6,12 @@ import axios from "axios";
 import ProgressBar from "../Components/ProgressBar";
 
 const PaymentSuccessPage = () => {
-  const { dispatch } = useCart();
+  const { cart, dispatch } = useCart(); // Use the cart from context
   const [orderCreated, setOrderCreated] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
-  const orderDetails = JSON.parse(localStorage.getItem("orderDetails"));
+  const orderDetails = JSON.parse(localStorage.getItem("orderDetails")) || {}; // Default to empty object if not found
   const {
     clientName = "",
     orderNumber = "",
@@ -19,14 +19,12 @@ const PaymentSuccessPage = () => {
     phone = "",
     shippingAddress = { streetAddress: "", city: "" },
     orderNotes = "",
-    products = [],
     totalPrice = 0,
-  } = orderDetails || {};
+  } = orderDetails;
 
   useEffect(() => {
     const getQueryParams = (param) => {
       const value = new URLSearchParams(location.search).get(param);
-      console.log(`Query param ${param}:`, value);
       return value;
     };
 
@@ -43,24 +41,15 @@ const PaymentSuccessPage = () => {
     }
 
     const createOrder = async () => {
-      console.log("Creating order with details:", {
-        clientName,
-        email,
-        phone,
-        orderNumber,
-        totalPrice,
-        shippingAddress,
-        orderNotes,
-        products,
-        transaction_uid,
-      });
-
       try {
         const response = await axios.post(
           `${process.env.REACT_APP_API_URL}/api/orders`,
           {
             user: { name: clientName, email, phone },
-            products,
+            products: cart.map((item) => ({
+              product: item._id, // Assuming each product in the cart has an _id
+              quantity: item.quantity,
+            })), // Use the cart for products
             orderNumber,
             totalPrice,
             shippingAddress: {
@@ -88,7 +77,7 @@ const PaymentSuccessPage = () => {
       clientName &&
       email &&
       phone &&
-      products.length > 0 &&
+      cart.length > 0 && // Check if the cart has items
       shippingAddress.streetAddress &&
       shippingAddress.city &&
       orderNumber &&
@@ -106,7 +95,7 @@ const PaymentSuccessPage = () => {
     clientName,
     email,
     phone,
-    products,
+    cart, // Include cart in dependency array
     shippingAddress,
     shippingAddress.streetAddress,
     shippingAddress.city,
