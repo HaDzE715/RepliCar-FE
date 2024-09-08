@@ -98,7 +98,10 @@ export default function CheckoutPage() {
     } else {
       setShowAddedMessage(false);
     }
-
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     try {
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/api/generate-payment-link`,
@@ -151,16 +154,21 @@ export default function CheckoutPage() {
             totalPrice: clientData.totalPrice,
           })
         );
-
-        navigate("/card-details", {
-          state: {
-            cart,
-            clientData,
-            totalQuantity: calculateTotalQuantity(),
-            totalPrice: calculateTotalPrice(),
-            paymentLink: data.data.payment_page_link,
-          },
-        });
+        const element = document.getElementById("checkout-page");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        setTimeout(() => {
+          navigate("/card-details", {
+            state: {
+              cart,
+              clientData,
+              totalQuantity: calculateTotalQuantity(),
+              totalPrice: calculateTotalPrice(),
+              paymentLink: data.data.payment_page_link,
+            },
+          });
+        }, 100);
       } else {
         console.error("Failed to get payment page link:", data);
         alert("Failed to generate payment link");
@@ -200,7 +208,7 @@ export default function CheckoutPage() {
   }, [isCartVisible]);
 
   return (
-    <div className="checkout-page">
+    <div id="checkout-page" className="checkout-page">
       <div className={`checkout-header ${isCartVisible ? "expanded" : ""}`}>
         <div className="checkout-summary">
           <span className="product-quantity">
