@@ -3,7 +3,7 @@ import axios from "axios";
 import Skeleton from "@mui/material/Skeleton";
 import Product from "../Components/Product";
 import "../Style/FramesPage.css";
-import FrameBanner from "../Pictures/Frames.jpg";
+import FrameBanner from "../Pictures/Frames2.jpg";
 
 const FramesPage = () => {
   const [frames, setFrames] = useState([]);

@@ -62,7 +62,7 @@
 
 .frames-products-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two columns layout */
+  grid-template-columns: repeat(3, 1fr); /* Two columns layout */
   gap: 20px;
   width: 100%;
   padding: 20px;
@@ -96,5 +96,10 @@
 @media (max-width: 380px) {
   .frames-products-container {
     margin-right: 40px;
+  }
+}
+@media (max-width: 760px) {
+  .frames-products-container {
+    grid-template-columns: repeat(2, 1fr); /* Two columns layout */
   }
 }

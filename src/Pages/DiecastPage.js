@@ -3,7 +3,7 @@ import axios from "axios";
 import Skeleton from "@mui/material/Skeleton";
 import Product from "../Components/Product";
 import "../Style/DiecastPage.css";
-import DiecastBanner from "../Pictures/diecast-cat.jpg";
+import DiecastBanner from "../Pictures/diecast-cat2.jpeg";
 
 const DiecastPage = () => {
   const [diecast, setDiecast] = useState([]);
@@ -25,7 +25,6 @@ const DiecastPage = () => {
 
     fetchDiecast();
   }, []);
-  
 
   return (
     <div className="diecast-page">
