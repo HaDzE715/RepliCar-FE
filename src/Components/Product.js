@@ -49,7 +49,22 @@ const Product = ({
       image,
       quantity: 1,
     };
-
+    window.dataLayer.push({
+      event: "add_to_cart",
+      ecommerce: {
+        currencyCode: "ILS", // Use your local currency
+        add: {
+          products: [
+            {
+              id: id,
+              name: name,
+              price: price,
+              quantity: 1,
+            },
+          ],
+        },
+      },
+    });
     // Get existing cart from local storage
     let existingCart = JSON.parse(localStorage.getItem("cart")) || [];
     const existingItemIndex = existingCart.findIndex(

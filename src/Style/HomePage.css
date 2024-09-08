@@ -477,7 +477,7 @@ body {
     gap: 0px;
   }
   .homepage-category-image {
-    height: 250px;
+    height: 220px;
   }
   .banner1-section {
     width: 100%;
@@ -504,6 +504,9 @@ body {
   }
   .category-description {
     margin-right: 0px;
+  }
+  .homepage-category-image {
+    height: 200px;
   }
 }
 .product-with-sold-number {

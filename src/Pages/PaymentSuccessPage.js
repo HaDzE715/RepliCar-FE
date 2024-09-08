@@ -116,7 +116,7 @@ const PaymentSuccessPage = () => {
             היי {clientName} 👋, ההזמנה שלך התקבלה!
           </h1>
           <h2 className="delivery-info">
-            השליח יתקשר אליך לפני הגעה, זה בערך תוך 3-7 ימים עסקים.
+            השליח יצור איתך קשר לפני ההגעה, וזמן האספקה הוא בין 3 ל-7 ימי עסקים.
           </h2>
           <p className="success-message-text">
             מספר ההזמנה שלך הוא {orderNumber}.

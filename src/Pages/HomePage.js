@@ -5,12 +5,13 @@ import "../Style/HomePage.css";
 import { useDrawer } from "../Components/DrawerContext";
 import Banner1 from "../Pictures/Banner1.jpeg";
 import Banner2 from "../Pictures/Banner21.jpeg";
-import Diecast from "../Pictures/diecast-cat.jpg";
-import Frames from "../Pictures/Frames.jpg";
+import Diecast from "../Pictures/diecast-cat2.jpeg";
+import Frames from "../Pictures/Frames3.jpeg";
 import ServiceSection from "../Components/ServiceSection";
 import BestSeller from "../Pictures/BestSeller.jpeg";
 import HotBanner2 from "../Pictures/HotBanner2.jpeg";
 import HeroSection from "../Components/HeroSection";
+import CookieConsent from "../Components/CookieConsent";
 
 const Product = lazy(() => import("../Components/Product")); // Lazy load Product component
 
@@ -157,6 +158,7 @@ const HomePage = () => {
     <div className="homepage">
       <HeroSection />
       <div className="content-wrapper" style={{ overflow: "hidden" }}>
+        <CookieConsent />
         <section className="discounts-section" style={{ overflow: "hidden" }}>
           <section className="skid-marks-section">
             <LazyImage
