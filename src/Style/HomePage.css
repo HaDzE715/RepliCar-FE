@@ -31,6 +31,18 @@ body {
   position: relative;
   animation: zoomIn 1s ease-out; /* Add the zoomIn animation */
 }
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+.hero-content {
+  z-index: 1;
+}
 
 /* Additional styling for hero button */
 .hero-button {

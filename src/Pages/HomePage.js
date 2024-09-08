@@ -10,6 +10,7 @@ import Frames from "../Pictures/Frames.jpg";
 import ServiceSection from "../Components/ServiceSection";
 import BestSeller from "../Pictures/BestSeller.jpeg";
 import HotBanner2 from "../Pictures/HotBanner2.jpeg";
+import HeroSection from "../Components/HeroSection";
 
 const Product = lazy(() => import("../Components/Product")); // Lazy load Product component
 
@@ -154,7 +155,7 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-      <section className="hero" />
+      <HeroSection />
       <div className="content-wrapper" style={{ overflow: "hidden" }}>
         <section className="discounts-section" style={{ overflow: "hidden" }}>
           <section className="skid-marks-section">
