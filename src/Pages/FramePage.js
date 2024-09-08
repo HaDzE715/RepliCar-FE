@@ -13,7 +13,7 @@ const FramesPage = () => {
     const fetchFrames = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/products?category=Frames`
+          `${process.env.REACT_APP_API_URL}/api/products?category=Frame`
         );
         setFrames(response.data);
         setLoading(false);
