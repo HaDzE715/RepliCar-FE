@@ -516,6 +516,9 @@ body {
   .progress-bar-container {
     display: none;
   }
+  .scroll-progress-bar {
+    display: none;
+  }
 }
 .progress-bar-container {
   position: relative;
@@ -526,7 +529,7 @@ body {
 
 .progress-bar {
   height: 100%;
-  background-color: #000000; /* Orange color for the progress bar */
+  background-color: #000000; 
   transition: width 0.3s ease;
 }
 .most-sold-section {
@@ -541,7 +544,7 @@ body {
 }
 
 .product-with-sold-number {
-  flex: 0 0 45%; /* Adjust width of each product to fit two per row */
+  flex: 0 0 5%; /* Adjust width of each product to fit two per row */
   box-sizing: border-box; /* Ensure padding and border are included in width */
   display: inline-block; /* Ensure each product behaves like a block in a row */
 }

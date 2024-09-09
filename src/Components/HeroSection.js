@@ -1,17 +1,25 @@
-// src/Components/HeroSection.js
 import React, { useEffect, useState } from "react";
 import BannerVid from "../Pictures/BannerVid.mp4";
 
 const HeroSection = () => {
   const [showContent, setShowContent] = useState(false);
+  const [showButton, setShowButton] = useState(false); // New state for button visibility
 
-  // After 2 seconds, show the text
+  // Show text after 2 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowContent(true);
     }, 2000);
 
-    return () => clearTimeout(timer);
+    // Show the button after text animations (4 seconds total)
+    const buttonTimer = setTimeout(() => {
+      setShowButton(true);
+    }, 6500);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(buttonTimer); // Clear the timers on unmount
+    };
   }, []);
 
   const videoStyle = {
@@ -79,6 +87,21 @@ const HeroSection = () => {
       : "none",
   };
 
+  // Button style with fade-in transition
+  const buttonStyle = {
+    position: "relative",
+    top: "100px",
+    padding: "10px 20px",
+    backgroundColor: "white",
+    color: "black",
+    border: "2px solid black",
+    fontSize: "1rem",
+    cursor: "pointer",
+    opacity: showButton ? 1 : 0, // Fade in with opacity
+    transition: "opacity 2s ease-in-out", // Smooth fade-in
+    fontFamily: "Noto sans hebrew",
+  };
+
   const mobileStyle = `
     @media (max-width: 768px) {
       .hero-section {
@@ -103,6 +126,11 @@ const HeroSection = () => {
       from, to { border-color: transparent; }
       50% { border-color: white; }
     }
+    @media (min-width: 768px){
+    .hero-text{
+    display: none;
+    }
+    }
   `;
 
   return (
@@ -118,6 +146,13 @@ const HeroSection = () => {
         <p style={firstSentenceStyle}>ברוכים הבאים לרפליקאר!</p>
         {/* Second sentence */}
         <p style={secondSentenceStyle}>היעד המוביל לכל חובבי הרכב </p>
+        {/* Button that appears after animation with fade effect */}
+        <button
+          style={buttonStyle}
+          onClick={() => (window.location.href = "/diecast")}
+        >
+          לאוסף הרכבים
+        </button>
       </div>
     </section>
   );
