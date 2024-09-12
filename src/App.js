@@ -20,6 +20,7 @@ import AdminDashboard from "./AdminPages/AdminDashboard";
 import ProductManagement from "./AdminPages/ProductManagement";
 
 function App() {
+  console.log("API:", process.env.REACT_APP_API_URL);
   return (
     <CartProvider>
       <DrawerProvider>
