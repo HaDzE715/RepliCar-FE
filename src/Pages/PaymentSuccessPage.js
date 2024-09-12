@@ -61,6 +61,17 @@ const PaymentSuccessPage = () => {
           }
         );
         console.log("Order created successfully:", response.data);
+        window.gtag("event", "purchase", {
+          transaction_id: orderNumber, // Unique order number
+          value: totalPrice, // Total price of the order
+          currency: "ILS", // Your currency code
+          items: cart.map((item) => ({
+            item_name: item.name, // Product name
+            item_id: item._id, // Product ID
+            price: item.price, // Product price
+            quantity: item.quantity, // Quantity purchased
+          })),
+        });
 
         // Clear the cart after the order is successfully created
         dispatch({ type: "CLEAR_CART" });
