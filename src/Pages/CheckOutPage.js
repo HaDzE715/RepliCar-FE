@@ -79,6 +79,8 @@ export default function CheckoutPage() {
     const formData = new FormData(event.target);
     const agreeTerms = formData.get("agreeTerms");
     console.log("Cart items:", cart); // Log the cart items
+    const totalQuantity = calculateTotalQuantity();
+    const totalPrice = calculateTotalPrice();
 
     const clientData = {
       firstName: formData.get("firstName"),
@@ -88,7 +90,8 @@ export default function CheckoutPage() {
       city: formData.get("city"),
       streetAddress: formData.get("streetAddress"),
       orderNotes: formData.get("orderNotes"),
-      totalPrice: calculateTotalPrice(),
+      totalQuantity: totalQuantity, // Add totalQuantity to the request body
+      totalPrice: totalPrice, // Add totalPrice to the request body
     };
 
     if (!agreeTerms) {
@@ -102,7 +105,27 @@ export default function CheckoutPage() {
       top: 0,
       behavior: "smooth",
     });
+
     try {
+      // Send client info before purchase to your server
+      const clientInfoResponse = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/clientInfoBeforePurchase`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(clientData), // Send the clientData object with totalQuantity and totalPrice
+        }
+      );
+
+      if (!clientInfoResponse.ok) {
+        throw new Error("Failed to submit client information");
+      }
+
+      console.log("Client information successfully submitted.");
+
+      // Continue with payment link generation
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/api/generate-payment-link`,
         {
@@ -111,7 +134,7 @@ export default function CheckoutPage() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            amount: clientData.totalPrice,
+            amount: totalPrice,
             description: `Payment for ${clientData.firstName} ${clientData.lastName}`,
             customer: {
               customer_name: `${clientData.firstName} ${clientData.lastName}`,
@@ -122,14 +145,11 @@ export default function CheckoutPage() {
         }
       );
 
-      console.log("Response object:", response);
-
       if (!response.ok) {
         throw new Error("Failed to generate payment link");
       }
 
       const data = await response.json();
-
       if (data.data && data.data.payment_page_link) {
         const orderNumber =
           (Date.now() % 100000) + Math.floor(Math.random() * 10000);
