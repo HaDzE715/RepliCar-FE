@@ -18,9 +18,15 @@ import AdminLogin from "./AdminPages/AdminLogin";
 import Layout from "./Components/Layout"; // Import the Layout component
 import AdminDashboard from "./AdminPages/AdminDashboard";
 import ProductManagement from "./AdminPages/ProductManagement";
+import TagManager from "react-gtm-module";
+import { useEffect } from "react";
+
 
 function App() {
   console.log("API:", process.env.REACT_APP_API_URL);
+  useEffect(() => {
+    TagManager.initialize({ gtmId: 'GTM-TSSSFJNT' }); // Your GTM container ID
+  }, []);
   return (
     <CartProvider>
       <DrawerProvider>

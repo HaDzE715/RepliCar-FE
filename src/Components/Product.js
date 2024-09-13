@@ -49,20 +49,18 @@ const Product = ({
       image,
       quantity: 1,
     };
+    window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
       event: "add_to_cart",
       ecommerce: {
-        currencyCode: "ILS", // Use your local currency
-        add: {
-          products: [
-            {
-              id: id,
-              name: name,
-              price: price,
-              quantity: 1,
-            },
-          ],
-        },
+        items: [
+          {
+            item_id: item._id,
+            item_name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+          },
+        ],
       },
     });
     // Get existing cart from local storage

@@ -53,7 +53,18 @@ const CartPage = () => {
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "begin_checkout",
+      ecommerce: {
+        items: cart.map((item) => ({
+          item_name: item.name,
+          item_id: item._id,
+          price: item.price,
+          quantity: item.quantity,
+        })),
+      },
+    });
     // Navigate to the checkout page after the scroll
     setTimeout(() => {
       navigate("/checkout");
