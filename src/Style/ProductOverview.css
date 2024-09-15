@@ -250,6 +250,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    --bs-gutter-x: 0rem !important;
   }
 
   .main-image {

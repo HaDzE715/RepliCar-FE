@@ -130,3 +130,33 @@
 .checkout-button-link {
   text-decoration: none;
 }
+.error-popup {
+  direction: rtl;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ff4d4d; /* Red background for error */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-family: "Noto Sans Hebrew", sans-serif;
+  font-size: 16px;
+  z-index: 1000;
+  animation: fadeInOut 3s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

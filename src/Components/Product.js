@@ -126,7 +126,7 @@ const Product = ({
   };
 
   return (
-    <div className="product-link">
+    <div className="product-link" >
       <div
         className={`product-card ${quantity === 0 ? "sold-out" : ""}`}
         onClick={handleClick}
