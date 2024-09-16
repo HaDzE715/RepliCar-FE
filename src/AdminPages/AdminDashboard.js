@@ -70,7 +70,10 @@ const AdminDashboard = () => {
             >
               Dashboard
             </MenuItem>
-            <MenuItem icon={<FaDesktop style={styles.icon} />}>
+            <MenuItem
+              icon={<FaDesktop style={styles.icon} />}
+              onClick={() => navigate("/")}
+            >
               Visit Website
             </MenuItem>
             <MenuItem icon={<FaChartLine style={styles.icon} />}>

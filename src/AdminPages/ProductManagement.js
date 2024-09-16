@@ -19,11 +19,29 @@ const ProductManagement = () => {
     description: "",
     image: "",
     quantity: "",
-    discount: false, // Ensure this is a boolean
+    discount: false,
     discount_price: "",
-    sold: "",
-    category: "",
+    additionalImages: [],
+    colors: "",
   });
+
+  const [showAddModal, setShowAddModal] = useState(false); // New state for Add Product modal
+  const handleAddProduct = () => {
+    setCurrentProduct({
+      name: "",
+      price: "",
+      brand: "",
+      size: "",
+      description: "",
+      image: "",
+      quantity: "",
+      discount: false,
+      discount_price: "",
+      additionalImages: [],
+      colors: "",
+    });
+    setShowAddModal(true); // Open modal
+  };
 
   useEffect(() => {
     const fetchTotalProducts = async () => {
@@ -109,6 +127,27 @@ const ProductManagement = () => {
       });
     }
   };
+  const handleSaveNewProduct = async () => {
+    try {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/products`, {
+        name: currentProduct.name,
+        brand: currentProduct.brand,
+        size: currentProduct.size,
+        price: currentProduct.price,
+        discount: currentProduct.discount,
+        discount_price: currentProduct.discount_price,
+        description: currentProduct.description,
+        image: currentProduct.image,
+        additionalImages: currentProduct.additionalImages,
+        color: currentProduct.color, // Single color as a string
+        quantity: currentProduct.quantity,
+      });
+      setShowAddModal(false);
+      fetchProductsByCategory(category); // Refresh product list after adding
+    } catch (error) {
+      console.error("Error adding new product:", error);
+    }
+  };
 
   return (
     <div style={styles.container}>
@@ -118,13 +157,20 @@ const ProductManagement = () => {
         <h2>Total Products</h2>
         <p>{totalProducts}</p>
       </div>
+      <Button
+        variant="success"
+        onClick={handleAddProduct}
+        style={{ marginBottom: "15px" }}
+      >
+        Add New Product
+      </Button>
 
       <div style={styles.buttonContainer}>
         <button
           style={category === "Frame" ? styles.activeButton : styles.button}
           onClick={() => handleCategoryClick("Frame")}
         >
-          Frame
+          Frames
         </button>
         <button
           style={category === "Diecast" ? styles.activeButton : styles.button}
@@ -166,6 +212,137 @@ const ProductManagement = () => {
             ))
           : !loading && <p>No products available in this category.</p>}
       </div>
+      {/* Add Product Modal */}
+      <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add New Product</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="formProductName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="name"
+                value={currentProduct.name}
+                onChange={handleFieldChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="formProductBrand">
+              <Form.Label>Brand</Form.Label>
+              <Form.Control
+                type="text"
+                name="brand"
+                value={currentProduct.brand}
+                onChange={handleFieldChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="formProductSize">
+              <Form.Label>Size</Form.Label>
+              <Form.Control
+                type="text"
+                name="size"
+                value={currentProduct.size}
+                onChange={handleFieldChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="formProductPrice">
+              <Form.Label>Price</Form.Label>
+              <Form.Control
+                type="number"
+                name="price"
+                value={currentProduct.price}
+                onChange={handleFieldChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="formProductDiscount">
+              <Form.Label>Discount</Form.Label>
+              <Form.Check
+                type="checkbox"
+                name="discount"
+                checked={currentProduct.discount}
+                onChange={handleFieldChange}
+              />
+            </Form.Group>
+            {currentProduct.discount && (
+              <Form.Group controlId="formProductDiscountPrice">
+                <Form.Label>Discount Price</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="discount_price"
+                  value={currentProduct.discount_price || ""}
+                  onChange={handleFieldChange}
+                />
+              </Form.Group>
+            )}
+            <Form.Group controlId="formProductDescription">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                name="description"
+                value={currentProduct.description}
+                onChange={handleFieldChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="formProductImage">
+              <Form.Label>Image</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                name="image"
+                value={currentProduct.image}
+                onChange={handleFieldChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="formProductAdditionalImages">
+              <Form.Label>
+                Additional Images (each URL on a new line)
+              </Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={4}
+                name="additionalImages"
+                value={currentProduct.additionalImages.join("\n")} // Display new-line-separated URLs
+                onChange={(e) =>
+                  setCurrentProduct({
+                    ...currentProduct,
+                    additionalImages: e.target.value
+                      .split("\n")
+                      .map((url) => url.trim()), // Convert new-line-separated string into array
+                  })
+                }
+              />
+            </Form.Group>
+            <Form.Group controlId="formProductColor">
+              <Form.Label>Color</Form.Label>
+              <Form.Control
+                type="text"
+                name="color"
+                value={currentProduct.color} // Use a simple string for color
+                onChange={handleFieldChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="formProductQuantity">
+              <Form.Label>Quantity</Form.Label>
+              <Form.Control
+                type="number"
+                name="quantity"
+                value={currentProduct.quantity}
+                onChange={handleFieldChange}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowAddModal(false)}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleSaveNewProduct}>
+            Add Product
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
       {/* Edit Product Modal */}
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
@@ -231,6 +408,26 @@ const ProductManagement = () => {
                   onChange={handleFieldChange}
                 />
               </Form.Group>
+              <Form.Group controlId="formProductAdditionalImages">
+                <Form.Label>
+                  Additional Images (each URL on a new line)
+                </Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={5} // Adjust rows to show more lines
+                  name="additionalImages"
+                  value={currentProduct.additionalImages.join("\n")} // Join array into new-line-separated string
+                  onChange={(e) =>
+                    setCurrentProduct({
+                      ...currentProduct,
+                      additionalImages: e.target.value
+                        .split("\n")
+                        .map((url) => url.trim()), // Split by new line and trim whitespace
+                    })
+                  }
+                />
+              </Form.Group>
+
               <Form.Group controlId="formProductQuantity">
                 <Form.Label>Quantity</Form.Label>
                 <Form.Control
@@ -364,7 +561,7 @@ const styles = {
     justifyContent: "center",
     gap: "20px",
     width: "100%",
-    maxHeight: "600px",
+    maxHeight: "520px",
     overflowY: "auto",
   },
   productCard: {
