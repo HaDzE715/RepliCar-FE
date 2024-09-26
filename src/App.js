@@ -39,7 +39,7 @@ function AppContent() {
     };
 
     // Initialize Facebook Pixel with your Pixel ID
-    ReactPixel.init("YOUR_PIXEL_ID", {}, options); // Replace with your Pixel ID
+    ReactPixel.init("1497154014273282", {}, options); // Replace with your Pixel ID
     ReactPixel.pageView(); // Track page view when the app loads
 
     // Initialize Google Tag Manager
