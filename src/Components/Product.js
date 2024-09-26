@@ -6,7 +6,7 @@ import { Button } from "@mui/material";
 import { useCart } from "../Components/CartContext";
 import { useNavigate } from "react-router-dom";
 import { HiOutlineShoppingCart } from "react-icons/hi";
-
+import ReactPixel from "react-facebook-pixel";
 const Product = ({
   id,
   name,
@@ -62,6 +62,15 @@ const Product = ({
           },
         ],
       },
+    });
+
+    // Track Facebook Pixel Add to Cart event
+    ReactPixel.track("AddToCart", {
+      content_name: item.name,
+      content_ids: [item._id],
+      content_type: "product",
+      value: item.price,
+      currency: "USD", // Update with your currency if needed
     });
     // Get existing cart from local storage
     let existingCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -126,7 +135,7 @@ const Product = ({
   };
 
   return (
-    <div className="product-link" >
+    <div className="product-link">
       <div
         className={`product-card ${quantity === 0 ? "sold-out" : ""}`}
         onClick={handleClick}
