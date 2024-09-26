@@ -10,8 +10,8 @@ import Typography from "@mui/material/Typography";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
-import axios from "axios"; // Import axios
-import "../Style/ContactUs.css"; // Ensure this import is correct
+import axios from "axios"; 
+import "../Style/ContactUs.css";
 
 const rtlCache = createCache({
   key: "muirtl",
@@ -42,7 +42,7 @@ export default function ContactMeForm() {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/contact`,
         data
-      ); // Replace with your backend URL
+      );
       if (response.status === 200) {
         alert("Email sent successfully");
       } else {

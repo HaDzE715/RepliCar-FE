@@ -1,5 +1,5 @@
 import React from "react";
-import "../Style/Footer.css"; // Make sure to have the relevant CSS
+import "../Style/Footer.css";
 import logo from "../Pictures/logo.jpg";
 import instalogo from "../Pictures/instalogo.png";
 import emaillogo from "../Pictures/EmailLogo.png";

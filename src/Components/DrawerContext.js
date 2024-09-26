@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { Drawer, Slide, IconButton } from "@mui/material";
-import ProductOverview from "./ProductOverview"; // Adjust the import as necessary
+import ProductOverview from "./ProductOverview";
 import CloseIcon from "@mui/icons-material/Close";
 
 const DrawerContext = createContext();

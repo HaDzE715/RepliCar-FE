@@ -4,8 +4,8 @@ import axios from "axios";
 import Skeleton from "@mui/material/Skeleton";
 import Banner from "../Components/Banner";
 import ProductsPage from "./Productspage";
-import LogoButton from "../Components/LogoButton"; // Import the LogoButton component
-import { useDrawer } from "../Components/DrawerContext"; // Import useDrawer
+import LogoButton from "../Components/LogoButton"; 
+import { useDrawer } from "../Components/DrawerContext"; 
 
 const BrandPage = () => {
   const { brandname } = useParams();

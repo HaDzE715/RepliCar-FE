@@ -11,7 +11,7 @@ const HeroSection = () => {
       setShowContent(true);
     }, 2000);
 
-    // Show the button after text animations (4 seconds total)
+    // Show the button after text animations (6.5 seconds total)
     const buttonTimer = setTimeout(() => {
       setShowButton(true);
     }, 6500);
@@ -43,7 +43,7 @@ const HeroSection = () => {
     textAlign: "center",
     color: "white",
     padding: "0 20px",
-    fontFamily: "'Noto Sans Hebrew', sans-serif", // Ensure Noto Sans Hebrew is applied
+    fontFamily: "'Noto Sans Hebrew', sans-serif",
   };
 
   const overlayStyle = {
@@ -80,7 +80,7 @@ const HeroSection = () => {
     marginTop: "5px",
     whiteSpace: "nowrap",
     overflow: "hidden",
-    width: "0", // Initially hide the text
+    width: "0",
     opacity: 0,
     animation: showContent
       ? "typingSecond 2s steps(40, end) 3s forwards"

@@ -10,10 +10,10 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import Badge from "@mui/material/Badge"; // Import Badge component
+import Badge from "@mui/material/Badge";
 import logo from "../Pictures/logo.jpg";
 import { Link } from "react-router-dom";
-import { useCart } from "../Components/CartContext"; // Import useCart context
+import { useCart } from "../Components/CartContext"; 
 
 const pages = [
   { name: "מסגרות", link: "/frames" },

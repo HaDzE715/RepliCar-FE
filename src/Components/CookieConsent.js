@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../Style/HomePage.css"; // Assuming you have a CSS file
+import "../Style/HomePage.css"; 
 
 const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -14,13 +14,11 @@ const CookieConsent = () => {
   const handleAccept = () => {
     localStorage.setItem("cookieConsent", "accepted");
     setIsVisible(false);
-    // Place any code here that activates cookies for tracking or analytics
   };
 
   const handleDecline = () => {
     localStorage.setItem("cookieConsent", "declined");
     setIsVisible(false);
-    // Call the function to clear cookies
     clearCookies();
   };
   const clearCookies = () => {

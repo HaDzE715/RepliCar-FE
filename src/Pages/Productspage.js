@@ -102,16 +102,16 @@ const ProductsPage = ({ products, openDrawer }) => {
               ))
             : currentProducts.map((product) => (
                 <Product
-                  key={product._id} // Use MongoDB's _id as the unique key
+                  key={product._id} 
                   id={product._id}
                   name={product.name}
                   size={product.size}
                   price={product.price}
-                  discount={product.discount} // Pass discount prop
+                  discount={product.discount} 
                   discount_price={product.discount_price}
                   image={product.image}
                   quantity={product.quantity}
-                  openDrawer={openDrawer} // Pass openDrawer function
+                  openDrawer={openDrawer}
                 />
               ))}
         </div>

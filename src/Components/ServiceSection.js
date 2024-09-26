@@ -1,6 +1,6 @@
 import React from "react";
-import { TbTruckDelivery } from "react-icons/tb"; // Importing the Truck Delivery icon
-import { FaHeadset } from "react-icons/fa"; // Importing the Headset icon for customer service
+import { TbTruckDelivery } from "react-icons/tb"; 
+import { FaHeadset } from "react-icons/fa"; 
 
 const ServiceSection = () => {
   return (

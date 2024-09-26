@@ -70,7 +70,7 @@ const Product = ({
       content_ids: [item._id],
       content_type: "product",
       value: item.price,
-      currency: "USD", // Update with your currency if needed
+      currency: "ILS",
     });
     // Get existing cart from local storage
     let existingCart = JSON.parse(localStorage.getItem("cart")) || [];

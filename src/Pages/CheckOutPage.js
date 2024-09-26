@@ -10,7 +10,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import "../Style/CheckoutPage.css"; // Ensure this import is correct
+import "../Style/CheckoutPage.css";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import ProgressBar from "../Components/ProgressBar";
@@ -168,7 +168,7 @@ export default function CheckoutPage() {
             },
             orderNotes: clientData.orderNotes,
             products: cart.map((item) => ({
-              product: item.productId, // Use the productId or whatever identifier you have
+              product: item.productId,
               quantity: item.quantity,
             })),
             totalPrice: clientData.totalPrice,

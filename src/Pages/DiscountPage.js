@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DiscountBanner from "../Pictures/discountbanner.jpg";
 import "../Style/DiscountPage.css";
-import Product from "../Components/Product"; // Adjust the path to where your Product component is located
+import Product from "../Components/Product";
 
 const DiscountPage = () => {
   const [discountedProducts, setDiscountedProducts] = useState([]);

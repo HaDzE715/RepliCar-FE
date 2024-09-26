@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom"; // Import navigate to redirect
+import { useLocation, useNavigate } from "react-router-dom";
 import "../Style/PaymentSuccessPage.css";
 import { useCart } from "../Components/CartContext";
 import axios from "axios";
 import ProgressBar from "../Components/ProgressBar";
 
 const PaymentSuccessPage = () => {
-  const { cart, dispatch } = useCart(); // Use the cart from context
+  const { cart, dispatch } = useCart();
   const [orderCreated, setOrderCreated] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -47,9 +47,9 @@ const PaymentSuccessPage = () => {
           {
             user: { name: clientName, email, phone },
             products: cart.map((item) => ({
-              product: item._id, // Assuming each product in the cart has an _id
+              product: item._id,
               quantity: item.quantity,
-            })), // Use the cart for products
+            })),
             orderNumber,
             totalPrice,
             shippingAddress: {
@@ -62,14 +62,14 @@ const PaymentSuccessPage = () => {
         );
         console.log("Order created successfully:", response.data);
         window.gtag("event", "purchase", {
-          transaction_id: orderNumber, // Unique order number
-          value: totalPrice, // Total price of the order
-          currency: "ILS", // Your currency code
+          transaction_id: orderNumber, 
+          value: totalPrice, 
+          currency: "ILS", 
           items: cart.map((item) => ({
-            item_name: item.name, // Product name
-            item_id: item._id, // Product ID
-            price: item.price, // Product price
-            quantity: item.quantity, // Quantity purchased
+            item_name: item.name, 
+            item_id: item._id, 
+            price: item.price, 
+            quantity: item.quantity, 
           })),
         });
 

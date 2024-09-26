@@ -5,7 +5,7 @@ import Skeleton from "@mui/material/Skeleton";
 import "../Style/ProductDetails.css";
 import SizeTable from "./SizeTable";
 import { Button } from "@mui/material";
-import { useCart } from "../Components/CartContext"; // Assuming you have a CartContext
+import { useCart } from "../Components/CartContext"; 
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -14,7 +14,7 @@ const ProductDetails = () => {
   const [mainImageLoaded, setMainImageLoaded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showAddedMessage, setShowAddedMessage] = useState(false);
-  const { dispatch } = useCart(); // Using the same cart context as in ProductOverview
+  const { dispatch } = useCart();
 
   useEffect(() => {
     const fetchProduct = async () => {

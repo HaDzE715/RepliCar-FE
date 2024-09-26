@@ -31,7 +31,7 @@ const FramesPage = () => {
       <section className="frames-banner">
         <div className="banner-content">
           <img
-            src={FrameBanner} // Replace with the actual path to your image
+            src={FrameBanner}
             alt="Frames Collection"
             className="banner-image"
           />

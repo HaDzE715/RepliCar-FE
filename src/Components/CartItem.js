@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { useCart } from "../Components/CartContext";
-import "../Style/CartItem.css"; // Ensure you have appropriate styles
+import "../Style/CartItem.css"; 
 
 const CartItem = ({ item }) => {
   const { dispatch } = useCart();

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useCart } from "../Components/CartContext";
-import "../Style/CartPage.css"; // Make sure to create and import the CSS file
+import "../Style/CartPage.css";
 import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
@@ -12,7 +12,7 @@ const CartPage = () => {
 
   useEffect(() => {
     console.log("Current cart state after removal:", cart);
-  }, [cart]); // This will log the updated cart state whenever it changes
+  }, [cart]); 
 
   const handleRemoveFromCart = (_id) => {
     console.log("Removing item with id:", _id);
