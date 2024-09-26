@@ -28,21 +28,21 @@ import { useEffect } from "react";
 import DiscountPopup from "./Components/DiscountPopup"; // Import the DiscountPopup
 import DiscountPage from "./Pages/DiscountPage";
 import ReactPixel from "react-facebook-pixel";
-import ReactDOM from 'react-dom';
-
 
 function AppContent() {
   const location = useLocation(); // Get the current route path
-  const options = {
-    autoConfig: true, // Set this to false if you want to manually configure
-    debug: true, // Enable debug logging for development
-  };
-  // Initialize Facebook Pixel with your Pixel ID
-  ReactPixel.init("1497154014273282", {}, options);
-  ReactPixel.pageView(); // Track page view when the app loads
 
-  ReactDOM.render(<App />, document.getElementById("root"));
   useEffect(() => {
+    const options = {
+      autoConfig: true,
+      debug: true,
+    };
+
+    // Initialize Facebook Pixel with your Pixel ID
+    ReactPixel.init("YOUR_PIXEL_ID", {}, options); // Replace with your Pixel ID
+    ReactPixel.pageView(); // Track page view when the app loads
+
+    // Initialize Google Tag Manager
     TagManager.initialize({ gtmId: "GTM-TSSSFJNT" }); // Your GTM container ID
   }, []);
 
