@@ -18,6 +18,7 @@ import { useCart } from "../Components/CartContext"; // Import useCart context
 const pages = [
   { name: "מסגרות", link: "/frames" },
   { name: "רכבים", link: "/diecast" },
+  { name: "SALE", link: "/discounts" },
   { name: "קצת עלינו", link: "/about" },
   { name: "צרו קשר", link: "/contact" },
 ];

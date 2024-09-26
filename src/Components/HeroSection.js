@@ -149,9 +149,9 @@ const HeroSection = () => {
         {/* Button that appears after animation with fade effect */}
         <button
           style={buttonStyle}
-          onClick={() => (window.location.href = "/diecast")}
+          onClick={() => (window.location.href = "/discounts")}
         >
-          לאוסף הרכבים
+          לצפייה במבצעי ראש השנה{" "}
         </button>
       </div>
     </section>

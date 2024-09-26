@@ -156,6 +156,9 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
+      <div className="redline">
+        משלוח חינם לכל רחבי הארץ בתוך 3 עד 5 ימי עסקים בלבד!
+      </div>
       <HeroSection />
       <div className="content-wrapper" style={{ overflow: "hidden" }}>
         <CookieConsent />
