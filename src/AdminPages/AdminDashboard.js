@@ -7,7 +7,8 @@ import {
   FaShoppingCart,
   FaSignOutAlt,
 } from "react-icons/fa";
-import { useLocation, useNavigate, Outlet } from "react-router-dom"; // Add Outlet for nested routes
+import { useLocation, useNavigate, Outlet } from "react-router-dom";
+import axios from "axios";
 
 const AdminDashboard = () => {
   const [admin, setAdmin] = useState(null);
@@ -41,6 +42,26 @@ const AdminDashboard = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [collapsed]);
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/admin/logout`
+      );
+
+      if (response.data.message === "Logout successful") {
+        // Clear admin information from localStorage
+        localStorage.removeItem("admin");
+
+        // Redirect to the login page or homepage after logout
+        navigate("/");
+      }
+    } catch (err) {
+      console.log("Error during logout:", err);
+    }
+  };
 
   return (
     <div style={styles.container}>
@@ -93,7 +114,10 @@ const AdminDashboard = () => {
 
           <div style={styles.logoutContainer}>
             <Menu iconShape="circle">
-              <MenuItem icon={<FaSignOutAlt style={styles.icon} />}>
+              <MenuItem
+                icon={<FaSignOutAlt style={styles.icon} />}
+                onClick={handleLogout}
+              >
                 Logout
               </MenuItem>
             </Menu>

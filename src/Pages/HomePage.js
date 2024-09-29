@@ -12,6 +12,7 @@ import BestSeller from "../Pictures/BestSeller.jpeg";
 import HotBanner2 from "../Pictures/HotBanner2.jpeg";
 import HeroSection from "../Components/HeroSection";
 import CookieConsent from "../Components/CookieConsent";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Product = lazy(() => import("../Components/Product")); // Lazy load Product component
 
@@ -57,6 +58,7 @@ const HomePage = () => {
   const [loadingMostSoldProducts, setLoadingMostSoldProducts] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0); // New state for active product index
   const [mostSoldScrollProgress, setMostSoldScrollProgress] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchDiscountedProducts = async () => {
@@ -122,14 +124,16 @@ const HomePage = () => {
 
   const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
-      await axios.post(`${apiUrl}/subscribe`, { email });
+      await axios.post(`${apiUrl}/api/subscribe`, { email });
       setNewsletterMessage("תודה לך על ההרשמה!");
       setEmail("");
     } catch (error) {
       setNewsletterMessage("Subscription failed. Please try again.");
       console.error("Error subscribing to newsletter:", error);
     }
+    setLoading(false);
   };
   useEffect(() => {
     const mostSoldContainer = document.querySelector(
@@ -337,7 +341,11 @@ const HomePage = () => {
               className="newsletter-button"
               style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}
             >
-              להירשם
+              {loading ? (
+                <CircularProgress size={22} color="inherit" /> // Use CircularProgress from Material-UI
+              ) : (
+                "להירשם"
+              )}
             </button>
             <input
               type="email"

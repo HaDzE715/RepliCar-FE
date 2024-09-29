@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import image from "../Pictures/diecast-cat2.jpeg";
-
+import CircularProgress from "@mui/material/CircularProgress";
 const DiscountPopup = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [email, setEmail] = useState("");
   const [newsletterMessage, setNewsletterMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
-      await axios.post(`${apiUrl}/subscribe`, { email });
+      await axios.post(`${apiUrl}/api/subscribe`, { email });
       setNewsletterMessage("תודה לך על ההרשמה");
       setEmail("");
     } catch (error) {
       setNewsletterMessage("Subscription failed. Please try again.");
       console.error("Error subscribing to newsletter:", error);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -103,7 +106,7 @@ const DiscountPopup = () => {
             {/* Content section - taking up the remaining space */}
             <div
               style={{
-                height: "60%", // Reduced to fit the remaining space
+                height: "65%", // Reduced to fit the remaining space
                 padding: "20px",
                 display: "flex",
                 flexDirection: "column",
@@ -170,8 +173,13 @@ const DiscountPopup = () => {
                       width: "100%", // Full-width button
                       maxWidth: "300px", // Same width as input field
                     }}
+                    disabled={loading}
                   >
-                    להירשם
+                    {loading ? (
+                      <CircularProgress size={22} color="inherit" /> // Use CircularProgress from Material-UI
+                    ) : (
+                      "להירשם"
+                    )}
                   </button>
                 </form>
                 {newsletterMessage && (
