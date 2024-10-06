@@ -14,6 +14,7 @@ import "../Style/CheckoutPage.css";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import ProgressBar from "../Components/ProgressBar";
+import CouponCodeField from "../Components/CouponCodeField";
 
 const rtlCache = createCache({
   key: "muirtl",
@@ -33,6 +34,15 @@ export default function CheckoutPage() {
   const navigate = useNavigate();
   const [showAddedMessage, setShowAddedMessage] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [discountAmount, setDiscountAmount] = useState(0);
+
+  const handleApplyCoupon = (couponCode) => {
+    if (couponCode === "DIECAST10") {
+      setDiscountAmount(10);
+    } else {
+      setDiscountAmount(0);
+    }
+  };
 
   const calculateTotalQuantity = () => {
     return cart.reduce((total, item) => total + item.quantity, 0);
@@ -50,7 +60,11 @@ export default function CheckoutPage() {
   };
 
   const calculateTotalPrice = () => {
-    return calculateSubtotal() + calculateShipping();
+    const subtotal = calculateSubtotal();
+    const discount = (discountAmount / 100) * subtotal;
+    const total = subtotal + calculateShipping() - discount;
+
+    return total.toFixed(2);
   };
 
   const toggleCartVisibility = () => {
@@ -469,6 +483,7 @@ export default function CheckoutPage() {
                     sx: { fontFamily: "Noto Sans Hebrew" },
                   }}
                 />
+                <CouponCodeField handleApplyCoupon={handleApplyCoupon} />
                 <Box
                   className="checkout-cart-totals"
                   style={{
