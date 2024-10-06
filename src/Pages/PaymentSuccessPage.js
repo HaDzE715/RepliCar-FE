@@ -4,6 +4,7 @@ import "../Style/PaymentSuccessPage.css";
 import { useCart } from "../Components/CartContext";
 import axios from "axios";
 import ProgressBar from "../Components/ProgressBar";
+import ReactGA from "react-ga";
 
 const PaymentSuccessPage = () => {
   const { cart, dispatch } = useCart();
@@ -62,14 +63,14 @@ const PaymentSuccessPage = () => {
         );
         console.log("Order created successfully:", response.data);
         window.gtag("event", "purchase", {
-          transaction_id: orderNumber, 
-          value: totalPrice, 
-          currency: "ILS", 
+          transaction_id: orderNumber,
+          value: totalPrice,
+          currency: "ILS",
           items: cart.map((item) => ({
-            item_name: item.name, 
-            item_id: item._id, 
-            price: item.price, 
-            quantity: item.quantity, 
+            item_name: item.name,
+            item_id: item._id,
+            price: item.price,
+            quantity: item.quantity,
           })),
         });
 
@@ -118,6 +119,9 @@ const PaymentSuccessPage = () => {
     location.search, // Track changes in query parameters
   ]);
 
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+  });
   return (
     <div className="payment-success-container">
       <ProgressBar currentStep="3" />

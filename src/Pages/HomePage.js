@@ -13,11 +13,16 @@ import HotBanner2 from "../Pictures/HotBanner2.jpeg";
 import HeroSection from "../Components/HeroSection";
 import CookieConsent from "../Components/CookieConsent";
 import CircularProgress from "@mui/material/CircularProgress";
+import ReactGA from "react-ga";
 
 const Product = lazy(() => import("../Components/Product")); // Lazy load Product component
 
 const LazyImage = ({ src, alt, ...props }) => {
   const [loadedSrc, setLoadedSrc] = useState(null);
+
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+  });
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {

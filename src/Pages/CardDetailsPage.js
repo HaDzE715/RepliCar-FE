@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import { useLocation } from "react-router-dom";
@@ -8,7 +8,7 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import "../Style/CardDetailsPage.css";
 import ProgressBar from "../Components/ProgressBar";
-
+import ReactGA from "react-ga";
 
 const rtlCache = createCache({
   key: "muirtl",
@@ -34,7 +34,9 @@ const CardDetailsPage = () => {
 
   const { orderNumber = "" } = orderDetails;
 
-
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+  });
   return (
     <div className="card-details-page">
       <ProgressBar currentStep="2" />

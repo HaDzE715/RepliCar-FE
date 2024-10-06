@@ -7,6 +7,8 @@ import { useCart } from "../Components/CartContext";
 import { useNavigate } from "react-router-dom";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import ReactPixel from "react-facebook-pixel";
+import ReactGA from "react-ga";
+
 const Product = ({
   id,
   name,
@@ -72,6 +74,12 @@ const Product = ({
       value: item.price,
       currency: "ILS",
     });
+    // React Google Analytics Module
+    ReactGA.event({
+      category: item.name,
+      action:"Add to Cart",
+      value: item.price,
+    })
     // Get existing cart from local storage
     let existingCart = JSON.parse(localStorage.getItem("cart")) || [];
     const existingItemIndex = existingCart.findIndex(

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useCart } from "../Components/CartContext";
 import "../Style/CartPage.css";
 import { useNavigate } from "react-router-dom";
+import ReactGA from "react-ga";
 
 const CartPage = () => {
   const { cart, dispatch } = useCart();
@@ -12,7 +13,10 @@ const CartPage = () => {
 
   useEffect(() => {
     console.log("Current cart state after removal:", cart);
-  }, [cart]); 
+  }, [cart]);
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+  });
 
   const handleRemoveFromCart = (_id) => {
     console.log("Removing item with id:", _id);

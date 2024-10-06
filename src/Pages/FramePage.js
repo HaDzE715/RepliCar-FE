@@ -4,6 +4,7 @@ import Skeleton from "@mui/material/Skeleton";
 import Product from "../Components/Product";
 import "../Style/FramesPage.css";
 import FrameBanner from "../Pictures/Frames2.jpg";
+import ReactGA from "react-ga";
 
 const FramesPage = () => {
   const [frames, setFrames] = useState([]);
@@ -25,6 +26,10 @@ const FramesPage = () => {
 
     fetchFrames();
   }, []);
+
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+  });
 
   return (
     <div className="frames-page">

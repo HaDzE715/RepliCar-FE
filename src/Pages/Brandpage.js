@@ -4,8 +4,9 @@ import axios from "axios";
 import Skeleton from "@mui/material/Skeleton";
 import Banner from "../Components/Banner";
 import ProductsPage from "./Productspage";
-import LogoButton from "../Components/LogoButton"; 
-import { useDrawer } from "../Components/DrawerContext"; 
+import LogoButton from "../Components/LogoButton";
+import { useDrawer } from "../Components/DrawerContext";
+import ReactGA from "react-ga";
 
 const BrandPage = () => {
   const { brandname } = useParams();
@@ -16,6 +17,9 @@ const BrandPage = () => {
   const [animateFab, setAnimateFab] = useState(false); // State to control animation
   const { openDrawer } = useDrawer(); // Use openDrawer from DrawerContext
 
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+  });
   useEffect(() => {
     const fetchBrandDetails = async () => {
       setLoading(true); // Ensure loading state is true before fetching

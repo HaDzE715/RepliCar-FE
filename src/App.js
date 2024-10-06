@@ -28,7 +28,10 @@ import { useEffect } from "react";
 import DiscountPopup from "./Components/DiscountPopup"; // Import the DiscountPopup
 import DiscountPage from "./Pages/DiscountPage";
 import ReactPixel from "react-facebook-pixel";
+import ReactGA from "react-ga";
 
+const TRACKING_ID = "G-N2GX693398";
+ReactGA.initialize(TRACKING_ID);
 function AppContent() {
   const location = useLocation(); // Get the current route path
 

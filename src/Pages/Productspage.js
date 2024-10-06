@@ -2,12 +2,17 @@ import React, { useState, useEffect } from "react";
 import Product from "../Components/Product";
 import Skeleton from "@mui/material/Skeleton";
 import "../Style/Productspage.css";
+import ReactGA from "react-ga";
 
 const ProductsPage = ({ products, openDrawer }) => {
   const [productsPerPage, setProductsPerPage] = useState(9);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+  });
+  
   useEffect(() => {
     const handleResize = () => {
       const screenWidth = window.innerWidth;
@@ -102,12 +107,12 @@ const ProductsPage = ({ products, openDrawer }) => {
               ))
             : currentProducts.map((product) => (
                 <Product
-                  key={product._id} 
+                  key={product._id}
                   id={product._id}
                   name={product.name}
                   size={product.size}
                   price={product.price}
-                  discount={product.discount} 
+                  discount={product.discount}
                   discount_price={product.discount_price}
                   image={product.image}
                   quantity={product.quantity}

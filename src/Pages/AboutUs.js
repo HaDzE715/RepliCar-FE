@@ -1,7 +1,12 @@
 import React from "react";
 import "../Style/AboutUs.css";
+import ReactGA from "react-ga";
+import { useEffect } from "react";
 
 const AboutUs = () => {
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+  });
   return (
     <div className="about-us-container">
       <h1 className="about-us-title">קצת עלינו</h1>

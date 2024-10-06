@@ -4,6 +4,7 @@ import Skeleton from "@mui/material/Skeleton";
 import Product from "../Components/Product";
 import "../Style/DiecastPage.css";
 import DiecastBanner from "../Pictures/diecast-cat2.jpeg";
+import ReactGA from "react-ga";
 
 const DiecastPage = () => {
   const [diecast, setDiecast] = useState([]);
@@ -26,6 +27,9 @@ const DiecastPage = () => {
     fetchDiecast();
   }, []);
 
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+  });
   return (
     <div className="diecast-page">
       <section className="diecast-banner">

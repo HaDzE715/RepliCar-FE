@@ -10,8 +10,10 @@ import Typography from "@mui/material/Typography";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
-import axios from "axios"; 
+import axios from "axios";
 import "../Style/ContactUs.css";
+import ReactGA from "react-ga";
+import { useEffect } from "react";
 
 const rtlCache = createCache({
   key: "muirtl",
@@ -25,6 +27,10 @@ const ltrCache = createCache({
 export default function ContactMeForm() {
   const [rtl] = React.useState(true); // Set initial state to true for Hebrew RTL
   const [clientType, setClientType] = React.useState("private");
+
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+  });
 
   const handleSubmit = async (event) => {
     event.preventDefault();

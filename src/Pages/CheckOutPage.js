@@ -15,6 +15,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import ProgressBar from "../Components/ProgressBar";
 import CouponCodeField from "../Components/CouponCodeField";
+import ReactGA from "react-ga";
 
 const rtlCache = createCache({
   key: "muirtl",
@@ -35,6 +36,10 @@ export default function CheckoutPage() {
   const [showAddedMessage, setShowAddedMessage] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [discountAmount, setDiscountAmount] = useState(0);
+
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+  });
 
   const handleApplyCoupon = (couponCode) => {
     if (couponCode === "DIECAST10") {

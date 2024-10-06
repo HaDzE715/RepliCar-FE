@@ -1,10 +1,14 @@
 import React, { useEffect } from "react";
 import "../Style/TermsAndConditions.css";
+import ReactGA from "react-ga";
 
 const TermsAndConditions = () => {
   useEffect(() => {
     window.scrollTo(0, 0); // Scroll to the top of the page on mount
   }, []);
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+  });
 
   return (
     <div className="terms-container">
