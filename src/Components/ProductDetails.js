@@ -5,7 +5,7 @@ import Skeleton from "@mui/material/Skeleton";
 import "../Style/ProductDetails.css";
 import SizeTable from "./SizeTable";
 import { Button } from "@mui/material";
-import { useCart } from "../Components/CartContext"; 
+import { useCart } from "../Components/CartContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -111,6 +111,9 @@ const ProductDetails = () => {
       <div className="product-details-info">
         <h1 className="product-details-title">{product.name}</h1>
         <p className="product-details-size">{product.size}</p>
+        <h2 className="product-quantity-sentence2">
+          מלאי מוגבל נשאר {product.quantity} במלאי!
+        </h2>
         {product.discount ? (
           <div className="product-details-price">
             <span className="product-price original-price">
