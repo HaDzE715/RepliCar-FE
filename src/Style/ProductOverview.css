@@ -461,3 +461,13 @@
   font-weight: 500;
   font-family: "Darker Grotesque", sans-serif;
 }
+.product-quantity-sentence {
+  font-size: 14px;
+  color: red;
+  padding: 15px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  font-weight: 400;
+  direction: rtl;
+  text-align: left;
+}
