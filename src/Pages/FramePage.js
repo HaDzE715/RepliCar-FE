@@ -16,7 +16,10 @@ const FramesPage = () => {
         const response = await axios.get(
           `${process.env.REACT_APP_API_URL}/api/products?category=Frame`
         );
-        setFrames(response.data);
+        const sortedFrames = response.data.sort(
+          (a, b) => b.quantity - a.quantity
+        );
+        setFrames(sortedFrames);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching frames:", error);

@@ -16,7 +16,10 @@ const DiecastPage = () => {
         const response = await axios.get(
           `${process.env.REACT_APP_API_URL}/api/products?category=Diecast`
         );
-        setDiecast(response.data);
+        const sortedDiecast = response.data.sort(
+          (a, b) => b.quantity - a.quantity
+        );
+        setDiecast(sortedDiecast);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching diecast products:", error);

@@ -71,14 +71,22 @@ const DiscountPopup = () => {
               onClick={closePopup}
               style={{
                 position: "absolute",
-                color: "white",
+                color: "black",
                 top: "10px",
                 right: "10px",
-                background: "none",
+                background: "#d3d3d3", // Set the background to grey
                 border: "none",
-                fontSize: "24px",
+                borderRadius: "50%", // Make the background rounded
+                width: "30px", // Set a fixed width for the button
+                height: "30px", // Set a fixed height for the button
+                fontSize: "26px",
                 cursor: "pointer",
                 zIndex: 10, // Ensure the close button is above the image
+                display: "flex", // Flexbox for centering the "X"
+                alignItems: "center", // Vertically center the "X"
+                justifyContent: "center", // Horizontally center the "X"
+                textAlign: "center", // Ensure the text is centered
+                lineHeight: "1", // Fine-tune line height for centering
               }}
             >
               &times;
