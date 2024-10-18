@@ -65,7 +65,6 @@ const Product = ({
         ],
       },
     });
-
     // Track Facebook Pixel Add to Cart event
     ReactPixel.track("AddToCart", {
       content_name: item.name,

@@ -324,9 +324,6 @@ const ProductOverview = ({ productId }) => {
           </Slider>
           <h2 className="product-info">{product.name}</h2>
           <h2 className="product-size-overview">{product.size}</h2>
-          <h2 className="product-quantity-sentence">
-            מלאי מוגבל נשאר {product.quantity} במלאי!
-          </h2>
           {product.discount ? (
             <div className="price-section">
               <p className="product-price original-price">{product.price}₪</p>

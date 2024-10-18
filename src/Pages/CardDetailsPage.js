@@ -37,6 +37,7 @@ const CardDetailsPage = () => {
   useEffect(() => {
     ReactGA.pageview(window.location.pathname);
   });
+  console.log(paymentLink);
   return (
     <div className="card-details-page">
       <ProgressBar currentStep="2" />
