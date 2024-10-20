@@ -87,6 +87,7 @@ export default function CheckoutPage() {
   const handleDecreaseQuantity = (id) => {
     dispatch({ type: "DECREASE_QUANTITY", id });
   };
+  console.log("cart", cart);
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -101,6 +102,15 @@ export default function CheckoutPage() {
     const totalQuantity = calculateTotalQuantity();
     const totalPrice = calculateTotalPrice();
 
+    const cartItems = cart.map((item) => ({
+      _id: item._id,
+      name: item.name,
+      size: item.size,
+      price: item.price,
+      discount: item.discount,
+      quantity: item.quantity, // Assuming you have a quantity field, adjust if needed
+    }));
+
     const clientData = {
       firstName: formData.get("firstName"),
       lastName: formData.get("lastName"),
@@ -111,6 +121,7 @@ export default function CheckoutPage() {
       orderNotes: formData.get("orderNotes"),
       totalQuantity: totalQuantity, // Add totalQuantity to the request body
       totalPrice: totalPrice, // Add totalPrice to the request body
+      cart: cartItems,
     };
 
     if (!agreeTerms) {

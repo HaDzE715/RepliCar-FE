@@ -118,6 +118,10 @@ const CartPage = () => {
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+    if (cart.length === 0) {
+      setErrorMessage("לא ניתן להמשיך, הסל ריק.");
+      return;
+    }
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
       event: "begin_checkout",
