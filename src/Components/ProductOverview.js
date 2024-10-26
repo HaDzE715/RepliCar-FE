@@ -316,7 +316,7 @@ const ProductOverview = ({ productId }) => {
                   style={{
                     display: additionalImagesLoaded[index] ? "block" : "none",
                     width: "100%",
-                    height: "auto",
+                    height: "550px",
                   }}
                 />
               </div>
