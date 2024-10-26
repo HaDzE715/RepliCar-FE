@@ -76,9 +76,9 @@ const Product = ({
     // React Google Analytics Module
     ReactGA.event({
       category: item.name,
-      action:"Add to Cart",
+      action: "Add to Cart",
       value: item.price,
-    })
+    });
     // Get existing cart from local storage
     let existingCart = JSON.parse(localStorage.getItem("cart")) || [];
     const existingItemIndex = existingCart.findIndex(
@@ -171,13 +171,20 @@ const Product = ({
           <div className="product-price-container">
             {discount ? (
               <>
-                <p className="product-price1 original-price">{price}₪</p>
+                <p className="product-price1 original-price">
+                  {price.toString().includes(".99") ? price : `${price}.99`}₪
+                </p>
                 <p className="product-price discount-price-comp">
-                  {discount_price}₪
+                  {discount_price.toString().includes(".99")
+                    ? discount_price
+                    : `${discount_price}.99`}
+                  ₪
                 </p>
               </>
             ) : (
-              <p className="product-price">{price}₪</p>
+              <p className="product-price">
+                {price.toString().includes(".99") ? price : `${price}.99`}₪
+              </p>
             )}
           </div>
           {quantity > 0 && (

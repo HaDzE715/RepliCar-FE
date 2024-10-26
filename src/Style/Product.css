@@ -189,7 +189,7 @@ a.product-link:visited {
 .product-custom-buy-now-button {
   font-family: "Noto Sans Hebrew", sans-serif !important;
   direction: rtl;
-  background-color: black !important;
+  background-color: #2e7d32 !important;
   margin-top: 10px !important;
   color: white !important; /* Ensure text is visible */
   padding: 8px 16px;

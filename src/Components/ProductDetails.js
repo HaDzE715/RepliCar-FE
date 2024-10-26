@@ -6,6 +6,9 @@ import "../Style/ProductDetails.css";
 import SizeTable from "./SizeTable";
 import { Button } from "@mui/material";
 import { useCart } from "../Components/CartContext";
+import { useSwipeable } from "react-swipeable";
+import ServiceSection from "./ServiceSection";
+import SecureCheckoutSection from "./SecureCheckoutSection";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -13,7 +16,7 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true);
   const [mainImageLoaded, setMainImageLoaded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [showAddedMessage, setShowAddedMessage] = useState(false);
+  const [animationDirection, setAnimationDirection] = useState("");
   const { dispatch } = useCart();
 
   useEffect(() => {
@@ -44,8 +47,6 @@ const ProductDetails = () => {
       ...JSON.parse(localStorage.getItem("cart") || "[]"),
       item,
     ]);
-    setShowAddedMessage(true);
-    setTimeout(() => setShowAddedMessage(false), 3000);
   };
 
   const handleBuyNow = () => {
@@ -57,8 +58,38 @@ const ProductDetails = () => {
     ]);
     setTimeout(() => {
       window.location.href = "/checkout";
-    }, 100); // Slight delay to ensure state update
+    }, 100);
   };
+
+  const handleImageChange = (direction) => {
+    // Set animation direction for smooth transition
+    setAnimationDirection(direction);
+
+    // Trigger re-render for transition effect
+    setTimeout(() => {
+      setCurrentImageIndex((prevIndex) => {
+        if (direction === "left") {
+          return prevIndex === product.additionalImages.length - 1
+            ? 0
+            : prevIndex + 1;
+        } else {
+          return prevIndex === 0
+            ? product.additionalImages.length - 1
+            : prevIndex - 1;
+        }
+      });
+
+      // Reset animation direction for seamless transitions
+      setAnimationDirection("");
+    }, 500); // Matches the CSS transition duration
+  };
+
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => handleImageChange("left"),
+    onSwipedRight: () => handleImageChange("right"),
+    trackTouch: true,
+    preventScrollOnSwipe: true,
+  });
 
   if (loading) {
     return (
@@ -76,7 +107,7 @@ const ProductDetails = () => {
 
   return (
     <div className="product-details-container">
-      <div className="product-details-image-slider">
+      <div {...swipeHandlers} className="product-details-image-slider">
         {!mainImageLoaded && (
           <Skeleton variant="rectangular" width="100%" height={350} />
         )}
@@ -84,36 +115,18 @@ const ProductDetails = () => {
           src={product.additionalImages[currentImageIndex] || product.image}
           alt={product.name}
           onLoad={() => setMainImageLoaded(true)}
-          style={{ display: mainImageLoaded ? "block" : "none" }}
-          className="main-image"
+          className={`main-image ${
+            animationDirection === "left"
+              ? "slide-left"
+              : animationDirection === "right"
+              ? "slide-right"
+              : ""
+          }`}
         />
-        <button
-          className="slider-button prev-button"
-          onClick={() =>
-            setCurrentImageIndex((prevIndex) =>
-              prevIndex === 0
-                ? product.additionalImages.length - 1
-                : prevIndex - 1
-            )
-          }
-        ></button>
-        <button
-          className="slider-button next-button"
-          onClick={() =>
-            setCurrentImageIndex((prevIndex) =>
-              prevIndex === product.additionalImages.length - 1
-                ? 0
-                : prevIndex + 1
-            )
-          }
-        ></button>
       </div>
       <div className="product-details-info">
         <h1 className="product-details-title">{product.name}</h1>
         <p className="product-details-size">{product.size}</p>
-        <h2 className="product-quantity-sentence2">
-          מלאי מוגבל נשאר {product.quantity} במלאי!
-        </h2>
         {product.discount ? (
           <div className="product-details-price">
             <span className="product-price original-price">
@@ -148,12 +161,21 @@ const ProductDetails = () => {
         ) : (
           <span className="product-details-sold-out">המוצר אזל מהמלאי</span>
         )}
+        <SecureCheckoutSection />
+        <h3
+          style={{
+            fontFamily: "Noto Sans Hebrew",
+            direction: "rtl",
+            textAlign: "right",
+            marginBottom: "-20px",
+          }}
+        >
+          תיאור:
+        </h3>
         <p className="product-details-description">{product.description}</p>
+        <ServiceSection />
         <SizeTable />
       </div>
-      {showAddedMessage && (
-        <div className="added-message">המוצר נוסף לסל הקניות!</div>
-      )}
     </div>
   );
 };

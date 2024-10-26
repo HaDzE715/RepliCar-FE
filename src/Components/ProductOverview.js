@@ -11,6 +11,8 @@ import axios from "axios";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import ServiceSection from "./ServiceSection";
+import SecureCheckoutSection from "./SecureCheckoutSection";
 
 const settings = {
   dots: true,
@@ -209,6 +211,7 @@ const ProductOverview = ({ productId }) => {
             style={{ display: mainImageLoaded ? "block" : "none" }}
             className="drawer-main-image"
           />
+          <ServiceSection />
           <div className="product-info">
             <h3 style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}>
               תיאור:
@@ -485,6 +488,8 @@ const ProductOverview = ({ productId }) => {
             )}
           </>
         )}
+        <SecureCheckoutSection />
+
         <div className="product-info">
           <h3 style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}>
             תיאור:
@@ -492,7 +497,8 @@ const ProductOverview = ({ productId }) => {
           <p style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}>
             {product.description}
           </p>
-          <SizeTable />
+          <ServiceSection />
+          {product.category === "Diecast" && <SizeTable />}
         </div>
         {showAddedMessage && (
           <div className="added-message">המוצר נוסף לסל הקניות !</div>
