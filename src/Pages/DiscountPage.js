@@ -37,8 +37,8 @@ const DiscountPage = () => {
             className="banner-image"
           />
           <div className="banner-text">
-            <h1>מבצעי ראש השנה</h1>
-            <p>ההזדמנות להגשים את החלום לפני השנה החדשה.</p>
+            <h1>דף המבצעים שלנו</h1>
+            <p>ההזדמנות להגשים את החלום עכשיו!</p>
           </div>
         </div>
       </section>

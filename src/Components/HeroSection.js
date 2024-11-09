@@ -151,7 +151,7 @@ const HeroSection = () => {
           style={buttonStyle}
           onClick={() => (window.location.href = "/discounts")}
         >
-          לצפייה במבצעי ראש השנה{" "}
+         עמוד המבצעים{" "}
         </button>
       </div>
     </section>
