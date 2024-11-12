@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import image from "../Pictures/diecast-cat2.jpeg";
+import image from "../Pictures/diecast-cat41.jpeg";
 import CircularProgress from "@mui/material/CircularProgress";
 const DiscountPopup = () => {
   const [showPopup, setShowPopup] = useState(false);

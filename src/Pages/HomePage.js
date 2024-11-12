@@ -5,7 +5,7 @@ import "../Style/HomePage.css";
 import { useDrawer } from "../Components/DrawerContext";
 import Banner1 from "../Pictures/Banner1.jpeg";
 import Banner2 from "../Pictures/Banner21.jpeg";
-import Diecast from "../Pictures/diecast-cat2.jpeg";
+import Diecast from "../Pictures/diecast-cat4.jpeg";
 import Frames from "../Pictures/Frames3.jpeg";
 import ServiceSection from "../Components/ServiceSection";
 import BestSeller from "../Pictures/BestSeller.jpeg";
