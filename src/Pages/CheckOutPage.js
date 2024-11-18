@@ -44,6 +44,8 @@ export default function CheckoutPage() {
   const handleApplyCoupon = (couponCode) => {
     if (couponCode === "DIECAST10") {
       setDiscountAmount(10);
+    } else if (couponCode === "FRIENDS13") {
+      setDiscountAmount(13);
     } else {
       setDiscountAmount(0);
     }
