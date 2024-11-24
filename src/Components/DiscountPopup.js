@@ -26,7 +26,7 @@ const DiscountPopup = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowPopup(true);
-    }, 5000);
+    }, 15000);
 
     return () => clearTimeout(timer);
   }, []);

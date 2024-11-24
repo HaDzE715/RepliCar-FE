@@ -1,3 +1,9 @@
+html,
+body {
+  overflow-x: hidden !important; /* Prevent horizontal overflow */
+  margin: 0; /* Remove default margins */
+  padding: 0; /* Remove default paddings */
+}
 .discount-page {
   display: flex;
   flex-direction: column;
@@ -12,4 +18,56 @@
   padding: 15px 0;
   overflow: hidden; /* Ensure that the content doesn't overflow during the animation */
   position: relative;
+}
+
+/* Balloon container */
+.balloon-container {
+  position: absolute;
+  bottom: -200px; /* Start balloons below the viewport */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: rise 6s linear infinite; /* Balloons rise independently */
+  z-index: 10;
+  transition: opacity 1s ease-in-out; /* Smooth fade-out transition */
+}
+
+/* Balloon */
+.balloon {
+  width: 40px;
+  height: 50px;
+  background-color: red;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Balloon line (string) */
+.balloon-line {
+  width: 2px;
+  height: 60px;
+  background-color: black;
+  margin-top: -5px; /* Adjust for better alignment */
+}
+.balloon-line-svg {
+  margin-top: -5px; /* Adjust positioning relative to balloon */
+}
+.balloon-svg {
+  display: block;
+  width: 50px; /* Matches the balloonWidth logic in JS */
+  height: auto;
+}
+.fade-out {
+  opacity: 0; /* Make balloons invisible */
+}
+/* Rise animation */
+@keyframes rise {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-110vh); /* Move above viewport */
+    opacity: 0; /* Fade out */
+  }
 }
