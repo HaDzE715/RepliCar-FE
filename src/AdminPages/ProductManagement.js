@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Modal, Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const ProductManagement = () => {
   const [products, setProducts] = useState([]);
@@ -390,12 +392,32 @@ const ProductManagement = () => {
               </Form.Group>
               <Form.Group controlId="formProductDescription">
                 <Form.Label>Description</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  name="description"
-                  value={currentProduct.description}
-                  onChange={handleFieldChange}
+                <ReactQuill
+                  value={currentProduct.description || ""}
+                  onChange={(value) =>
+                    handleFieldChange({
+                      target: { name: "description", value },
+                    })
+                  }
+                  modules={{
+                    toolbar: [
+                      [{ header: [1, 2, 3, false] }], // Header styles
+                      ["bold", "italic", "underline"], // Text styles
+                      [{ list: "ordered" }, { list: "bullet" }], // Lists
+                      ["link", "image"], // Links and images
+                      ["clean"], // Remove formatting
+                    ],
+                  }}
+                  formats={[
+                    "header",
+                    "bold",
+                    "italic",
+                    "underline",
+                    "list",
+                    "bullet",
+                    "link",
+                    "image",
+                  ]}
                 />
               </Form.Group>
               <Form.Group controlId="formProductImage">

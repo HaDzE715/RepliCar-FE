@@ -54,7 +54,7 @@ const DiscountPage = () => {
       setTimeout(() => {
         setBalloons([]); // Clear balloons after fade-out completes
       }, 1000); // Matches the CSS fade-out duration
-    }, 9000);
+    }, 4000);
 
     return () => clearTimeout(timeout); // Cleanup timeout on component unmount
   }, []);

@@ -494,9 +494,14 @@ const ProductOverview = ({ productId }) => {
           <h3 style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}>
             תיאור:
           </h3>
-          <p style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}>
-            {product.description}
-          </p>
+          <div
+            style={{
+              fontFamily: "Noto Sans Hebrew",
+              direction: "rtl",
+              marginRight: "10px",
+            }}
+            dangerouslySetInnerHTML={{ __html: product.description }}
+          ></div>
           <ServiceSection />
           {product.category === "Diecast" && <SizeTable />}
         </div>

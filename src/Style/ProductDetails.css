@@ -158,7 +158,7 @@
     text-align: left;
   }
   .product-details-price {
-    margin-left: -15px;
+    /* margin-left: -15px; */
   }
 
   .product-details-size,

@@ -163,7 +163,11 @@ const ProductDetails = () => {
             </span>
           </div>
         ) : (
-          <p className="product-details-price">{product.price}₪</p>
+          <p
+            className="product-details-price"
+          >
+            {product.price}₪
+          </p>
         )}
         {product.quantity > 0 ? (
           <div className="button-group-product-details">
@@ -193,12 +197,20 @@ const ProductDetails = () => {
             fontFamily: "Noto Sans Hebrew",
             direction: "rtl",
             textAlign: "right",
-            marginBottom: "-20px",
+            marginBottom: "20px",
           }}
         >
           תיאור:
         </h3>
-        <p className="product-details-description">{product.description}</p>
+        <div
+          style={{
+            fontFamily: "Noto Sans Hebrew",
+            direction: "rtl",
+            textAlign: "right",
+            marginRight: "20px",
+          }}
+          dangerouslySetInnerHTML={{ __html: product.description }}
+        ></div>
         <ServiceSection />
         {product.category === "Diecast" && <SizeTable />}
       </div>
