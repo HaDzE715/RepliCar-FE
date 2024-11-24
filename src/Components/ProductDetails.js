@@ -111,6 +111,22 @@ const ProductDetails = () => {
         {!mainImageLoaded && (
           <Skeleton variant="rectangular" width="100%" height={350} />
         )}
+        {product.additionalImages.length > 1 && (
+          <>
+            <button
+              className="arrow-button left-arrow"
+              onClick={() => handleImageChange("right")}
+            >
+              &#8592;
+            </button>
+            <button
+              className="arrow-button right-arrow"
+              onClick={() => handleImageChange("left")}
+            >
+              &#8594;
+            </button>
+          </>
+        )}
         <img
           src={product.additionalImages[currentImageIndex] || product.image}
           alt={product.name}
@@ -123,6 +139,16 @@ const ProductDetails = () => {
               : ""
           }`}
         />
+        <div className="image-indicator">
+          {product.additionalImages.map((_, index) => (
+            <span
+              key={index}
+              className={`indicator-dot ${
+                index === currentImageIndex ? "active" : ""
+              }`}
+            ></span>
+          ))}
+        </div>
       </div>
       <div className="product-details-info">
         <h1 className="product-details-title">{product.name}</h1>
@@ -174,7 +200,7 @@ const ProductDetails = () => {
         </h3>
         <p className="product-details-description">{product.description}</p>
         <ServiceSection />
-        <SizeTable />
+        {product.category === "Diecast" && <SizeTable />}
       </div>
     </div>
   );

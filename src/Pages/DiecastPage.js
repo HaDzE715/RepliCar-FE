@@ -3,7 +3,7 @@ import axios from "axios";
 import Skeleton from "@mui/material/Skeleton";
 import Product from "../Components/Product";
 import "../Style/DiecastPage.css";
-import DiecastBanner from "../Pictures/diecast-cat2.jpeg";
+// import DiecastBanner from "../Pictures/diecast-cat2.jpeg";
 import ReactGA from "react-ga";
 
 const DiecastPage = () => {
@@ -35,19 +35,20 @@ const DiecastPage = () => {
   });
   return (
     <div className="diecast-page">
-      <section className="diecast-banner">
-        <div className="banner-content">
+      {/* <section className="diecast-banner">
+        <div className="banner-image-container">
           <img
             src={DiecastBanner}
             alt="Diecast Collection"
             className="banner-image"
           />
-          <div className="banner-text">
-            <h1>רכבי הדייקאסט המובילים שלנו</h1>
-            <p>גלו את האוסף המרהיב שלנו של רכבי דייקאסט.</p>
-          </div>
         </div>
-      </section>
+        <div className="banner-text">
+          <h1>רכבי הדייקאסט המובילים שלנו</h1>
+          <p>גלו את האוסף המרהיב שלנו של רכבי דייקאסט.</p>
+        </div>
+      </section> */}
+
       <h1 className="page-title">רכבים</h1>
       <div className="diecast-products-container">
         {loading ? (

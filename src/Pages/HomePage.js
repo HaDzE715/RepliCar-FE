@@ -10,7 +10,7 @@ import Frames from "../Pictures/Frames3.jpeg";
 import ServiceSection from "../Components/ServiceSection";
 import BestSeller from "../Pictures/BestSeller.jpeg";
 import HotBanner2 from "../Pictures/HotBanner2.jpeg";
-import HeroSection from "../Components/HeroSection";
+import HeroSection from "../Components/HeroSection2";
 import CookieConsent from "../Components/CookieConsent";
 import CircularProgress from "@mui/material/CircularProgress";
 import ReactGA from "react-ga";

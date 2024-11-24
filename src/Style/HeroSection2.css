@@ -1,0 +1,30 @@
+/* Full container for the banner */
+.responsive-banner {
+  width: 100%;
+  height: 70vh !important; /* Full viewport height */
+  position: relative;
+  display: flex; /* Center the content inside if needed */
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Prevent scrolling from extra content */
+  background-color: black; /* Fallback background color */
+}
+
+/* Image styling for full responsiveness */
+.responsive-banner-image {
+  width: 100%;
+  height: auto; /* Keep aspect ratio */
+  max-height: 100%; /* Prevent the image from exceeding container height */
+  object-fit: cover; /* Ensure the image scales properly and fills the container */
+}
+
+/* Mobile responsiveness for better scaling */
+@media (max-width: 768px) {
+  .responsive-banner {
+    height: 176px !important; /* Full viewport height */
+  }
+
+  .responsive-banner-image {
+    object-fit: contain; /* Ensure no cropping on smaller screens */
+  }
+}

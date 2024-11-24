@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import DiscountBanner from "../Pictures/discountbanner.jpg";
+import DiscountBanner from "../Pictures/bf2.jpeg";
 import "../Style/DiscountPage.css";
 import Product from "../Components/Product";
 import ReactGA from "react-ga";
@@ -36,10 +36,10 @@ const DiscountPage = () => {
             alt="Discounts Collection"
             className="banner-image"
           />
-          <div className="banner-text">
+          {/* <div className="banner-text">
             <h1>דף המבצעים שלנו</h1>
             <p>ההזדמנות להגשים את החלום עכשיו!</p>
-          </div>
+          </div> */}
         </div>
       </section>
       <h2 className="page-title" style={{ justifyContent: "center" }}>

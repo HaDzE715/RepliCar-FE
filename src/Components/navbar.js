@@ -13,12 +13,12 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
 import logo from "../Pictures/logo.jpg";
 import { Link } from "react-router-dom";
-import { useCart } from "../Components/CartContext"; 
+import { useCart } from "../Components/CartContext";
 
 const pages = [
   { name: "מסגרות", link: "/frames" },
   { name: "רכבים", link: "/diecast" },
-  { name: "SALE", link: "/discounts" },
+  { name: "BLACKFRIDAY", link: "/discounts" },
   { name: "קצת עלינו", link: "/about" },
   { name: "צרו קשר", link: "/contact" },
 ];

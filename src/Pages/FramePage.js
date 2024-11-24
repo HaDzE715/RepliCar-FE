@@ -3,7 +3,7 @@ import axios from "axios";
 import Skeleton from "@mui/material/Skeleton";
 import Product from "../Components/Product";
 import "../Style/FramesPage.css";
-import FrameBanner from "../Pictures/Frames2.jpg";
+// import FrameBanner from "../Pictures/Frames5.JPG";
 import ReactGA from "react-ga";
 
 const FramesPage = () => {
@@ -36,19 +36,19 @@ const FramesPage = () => {
 
   return (
     <div className="frames-page">
-      <section className="frames-banner">
-        <div className="banner-content">
+      {/* <section className="frames-banner">
+        <div className="banner-content2">
           <img
             src={FrameBanner}
             alt="Frames Collection"
-            className="banner-image"
+            className="banner-image2"
           />
-          <div className="banner-text">
+          <div className="banner-text2">
             <h1>המסגרות המובילות שלנו</h1>
             <p>החלום היחדי שרואים לפני שינה.</p>
           </div>
         </div>
-      </section>
+      </section> */}
       <h1 className="page-title">מסגרות</h1>
       <div className="frames-products-container">
         {loading ? (

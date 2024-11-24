@@ -6,52 +6,52 @@
 }
 
 .frames-banner {
+  position: relative;
   background-color: black;
   color: white;
   width: 100%;
-  padding: 15px 0;
   overflow: hidden; /* Ensure that the content doesn't overflow during the animation */
 }
 
-.banner-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.banner-content2 {
+  display: flex; /* Enable Flexbox */
+  flex-direction: row-reverse; /* Ensure the text is on the right */
+  align-items: center; /* Vertically align items */
+  justify-content: center; /* Ensure proper spacing */
   max-width: 1000px;
   margin: 0 auto;
-  padding: 15px;
+  gap: 20px; /* Add space between the image and text */
 }
 
-.banner-image {
-  width: 170px;
+.banner-image2 {
+  width: 100%; /* Adjust the image size */
   height: auto;
-  margin-right: 15px;
-  border-radius: 8px;
   opacity: 0; /* Start with image hidden */
   transform: translateX(-100%); /* Start image off-screen */
   animation: slideInLeft 1s forwards 0.5s; /* Slide in with delay */
 }
 
-.banner-text {
-  max-width: 500px;
-  text-align: right;
-  direction: rtl;
-  opacity: 0; /* Start with text hidden */
-  transform: translateX(-100%); /* Start text off-screen */
-  animation: slideInLeft 1s forwards; /* Slide in without delay */
+.banner-text2 {
+  position: absolute; /* Position text relative to the banner */
+  top: 0%; /* Position near the top (adjust as needed) */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Adjust for perfect horizontal centering */
+  text-align: center; /* Align text content to the center */
+  direction: rtl; /* Ensure proper Hebrew text flow */
+  color: white; /* Ensure visibility over the image */
+  z-index: 2; /* Ensure text appears above the image */
 }
 
-.banner-text h1 {
+.banner-text2 h1 {
   font-size: 2em;
   margin-bottom: 8px;
   font-family: "Noto Sans Hebrew", sans-serif;
 }
 
-.banner-text p {
+.banner-text2 p {
   font-size: 1em;
   font-family: "Noto Sans Hebrew", sans-serif;
 }
-
 /* Keyframes for sliding in from the left */
 @keyframes slideInLeft {
   to {

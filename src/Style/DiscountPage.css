@@ -11,4 +11,5 @@
   width: 100%;
   padding: 15px 0;
   overflow: hidden; /* Ensure that the content doesn't overflow during the animation */
+  position: relative;
 }
