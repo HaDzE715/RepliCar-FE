@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  useLocation,
 } from "react-router-dom";
 import BrandPage from "./Pages/Brandpage";
 import ProductDetails from "./Components/ProductDetails";
@@ -25,7 +24,7 @@ import AdminDashboard from "./AdminPages/AdminDashboard";
 import ProductManagement from "./AdminPages/ProductManagement";
 import TagManager from "react-gtm-module";
 import { useEffect } from "react";
-import DiscountPopup from "./Components/DiscountPopup"; // Import the DiscountPopup
+// import DiscountPopup from "./Components/DiscountPopup";
 import DiscountPage from "./Pages/DiscountPage";
 import ReactPixel from "react-facebook-pixel";
 import ReactGA from "react-ga";
@@ -33,7 +32,7 @@ import ReactGA from "react-ga";
 const TRACKING_ID = "G-N2GX693398";
 ReactGA.initialize(TRACKING_ID);
 function AppContent() {
-  const location = useLocation(); // Get the current route path
+  // const location = useLocation();
 
   useEffect(() => {
     const options = {
@@ -50,12 +49,12 @@ function AppContent() {
   }, []);
 
   // Check if the current route is an admin route
-  const isAdminRoute = location.pathname.startsWith("/admin");
+  // const isAdminRoute = location.pathname.startsWith("/admin");
 
   return (
     <>
       {/* Conditionally render the popup only if not on admin routes */}
-      {!isAdminRoute && <DiscountPopup />}
+      {/* {!isAdminRoute && <DiscountPopup />} */}
 
       <Routes>
         {/* Wrap pages that need Navbar and Footer with Layout */}
