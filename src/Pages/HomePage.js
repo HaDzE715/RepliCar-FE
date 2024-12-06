@@ -10,7 +10,7 @@ import Frames from "../Pictures/Frames3.jpeg";
 import ServiceSection from "../Components/ServiceSection";
 import BestSeller from "../Pictures/BestSeller.jpeg";
 import HotBanner2 from "../Pictures/HotBanner2.jpeg";
-import HeroSection from "../Components/HeroSection2";
+import HeroSection from "../Components/HeroSection";
 import CookieConsent from "../Components/CookieConsent";
 import CircularProgress from "@mui/material/CircularProgress";
 import ReactGA from "react-ga";
@@ -166,7 +166,7 @@ const HomePage = () => {
   return (
     <div className="homepage">
       <div className="redline">
-        משלוח חינם לכל רחבי הארץ בתוך 3 עד 5 ימי עסקים בלבד!
+        משלוח חינם לכל רחבי הארץ בתוך 5 עד 7 ימי עסקים בלבד!
       </div>
       <HeroSection />
       <div className="content-wrapper" style={{ overflow: "hidden" }}>
