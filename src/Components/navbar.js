@@ -18,7 +18,7 @@ import { useCart } from "../Components/CartContext";
 const pages = [
   { name: "מסגרות", link: "/frames" },
   { name: "רכבים", link: "/diecast" },
-  { name: "BLACKFRIDAY", link: "/discounts" },
+  { name: "מבצעים", link: "/discounts" },
   { name: "קצת עלינו", link: "/about" },
   { name: "צרו קשר", link: "/contact" },
 ];

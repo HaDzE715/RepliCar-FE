@@ -1,4 +1,5 @@
 import React, { useEffect, useState, Suspense, lazy } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Skeleton from "@mui/material/Skeleton";
 import "../Style/HomePage.css";
@@ -64,6 +65,7 @@ const HomePage = () => {
   const [activeIndex, setActiveIndex] = useState(0); // New state for active product index
   const [mostSoldScrollProgress, setMostSoldScrollProgress] = useState(0);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDiscountedProducts = async () => {
@@ -172,7 +174,10 @@ const HomePage = () => {
       <div className="content-wrapper" style={{ overflow: "hidden" }}>
         <CookieConsent />
         <section className="discounts-section" style={{ overflow: "hidden" }}>
-          <section className="skid-marks-section">
+          <section
+            className="skid-marks-section"
+            onClick={() => navigate("/discounts")}
+          >
             <LazyImage
               src={HotBanner2}
               alt="Promotional Banner"

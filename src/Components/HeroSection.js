@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import BannerVid from "../Pictures/BannerVid.mp4";
+import BannerVid from "../Pictures/BannerVid2.mp4";
 
 const HeroSection = () => {
   const [showContent, setShowContent] = useState(false);
@@ -151,7 +151,7 @@ const HeroSection = () => {
           style={buttonStyle}
           onClick={() => (window.location.href = "/discounts")}
         >
-         עמוד המבצעים{" "}
+          עמוד המבצעים{" "}
         </button>
       </div>
     </section>
