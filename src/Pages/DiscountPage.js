@@ -35,7 +35,7 @@ const DiscountPage = () => {
           <img
             src={DiscountBanner}
             alt="Discounts Collection"
-            className="banner-image"
+            className="banner-image-discount"
           />
         </div>
       </section>

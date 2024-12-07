@@ -40,7 +40,7 @@ function ResponsiveAppBar() {
 
   return (
     <AppBar
-      position="static"
+      position="sticky"
       sx={{ backgroundColor: "black", direction: "rtl" }}
     >
       <Container maxWidth="xl">
