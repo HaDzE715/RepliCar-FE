@@ -28,6 +28,7 @@ import { useEffect } from "react";
 import DiscountPage from "./Pages/DiscountPage";
 import ReactPixel from "react-facebook-pixel";
 import ReactGA from "react-ga";
+import PostersPage from "./Pages/PostersPage";
 
 const TRACKING_ID = "G-N2GX693398";
 ReactGA.initialize(TRACKING_ID);
@@ -63,6 +64,7 @@ function AppContent() {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/frames" element={<FramePage />} />
           <Route path="/diecast" element={<DiecastPage />} />
+          <Route path="/posters" element={<PostersPage />} />
           <Route path="/discounts" element={<DiscountPage />} />
           <Route path="/payment-success" element={<PaymentSuccessPage />} />
           <Route path="/product-details/:id" element={<ProductDetails />} />

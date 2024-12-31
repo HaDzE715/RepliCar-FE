@@ -11,11 +11,12 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
-import logo from "../Pictures/logo.jpg";
+import logo from "../Pictures/logo1.jpeg";
 import { Link } from "react-router-dom";
 import { useCart } from "../Components/CartContext";
 
 const pages = [
+  { name: "פוסטרים", link: "/posters"},
   { name: "מסגרות", link: "/frames" },
   { name: "רכבים", link: "/diecast" },
   { name: "מבצעים", link: "/discounts" },
@@ -41,7 +42,7 @@ function ResponsiveAppBar() {
   return (
     <AppBar
       position="sticky"
-      sx={{ backgroundColor: "black", direction: "rtl" }}
+      sx={{ backgroundColor: "#1b2e51", direction: "rtl" }}
     >
       <Container maxWidth="xl">
         <Toolbar
