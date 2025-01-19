@@ -6,10 +6,10 @@ const ServiceSection = () => {
   return (
     <div style={styles.serviceSection}>
       <div style={styles.servicesContainer}>
-        <div style={styles.serviceItem}>
+        {/* <div style={styles.serviceItem}>
           <TbTruckDelivery style={styles.outlinedIcon} />
           <div style={styles.serviceText}>משלוחים חינם לכל הארץ</div>
-        </div>
+        </div> */}
         <div style={styles.serviceItem}>
           <FaHeadset style={styles.outlinedIcon} />
           <div style={styles.serviceText}>שירות לקוחות 24/7</div>
