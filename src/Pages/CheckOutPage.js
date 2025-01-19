@@ -63,7 +63,7 @@ export default function CheckoutPage() {
   };
 
   const calculateShipping = () => {
-    return 0; // Shipping cost set to zero
+    return 29.99; // Shipping cost set to zero
   };
 
   const calculateTotalPrice = () => {
@@ -325,7 +325,7 @@ export default function CheckoutPage() {
               </div>
               <div className="totals-row">
                 <span>משלוח:</span>
-                <span>חינם!</span>
+                <span>29.99</span>
               </div>
               <div className="totals-row">
                 <span>סך הכל:</span>
@@ -515,7 +515,7 @@ export default function CheckoutPage() {
                   </div>
                   <div className="totals-row">
                     <span>משלוח:</span>
-                    <span>חינם!</span>
+                    <span>29.99₪</span>
                   </div>
                   <div className="totals-row">
                     <span>סך הכל:</span>
