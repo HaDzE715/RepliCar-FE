@@ -1,8 +1,8 @@
 import React from "react";
 import "../Style/Footer.css";
-import logo from "../Pictures/logo.jpg";
-import instalogo from "../Pictures/instalogo.png";
-import emaillogo from "../Pictures/EmailLogo.png";
+import logo from "../Pictures/logo1.jpeg";
+// import instalogo from "../Pictures/instalogo.png";
+// import emaillogo from "../Pictures/EmailLogo.png";
 import visaLogo from "../Pictures/visa.png";
 import mastercardLogo from "../Pictures/mastercard.png";
 import amexLogo from "../Pictures/amex.png";
@@ -36,13 +36,13 @@ const Footer = () => {
               rel="noopener noreferrer"
             >
               <span>אינסטגרם בצאט</span>
-              <img src={instalogo} alt="Instagram" className="instagram-logo" />
+              {/* <img src={instalogo} alt="Instagram" className="instagram-logo" /> */}
             </a>
           </div>
           <div className="contact-item">
             <a href="mailto:Repli.car911@gmail.com">
               <span>Repli.car911@gmail.com</span>
-              <img src={emaillogo} alt="Email" className="contact-logo-email" />
+              {/* <img src={emaillogo} alt="Email" className="contact-logo-email" /> */}
             </a>
           </div>
         </div>
