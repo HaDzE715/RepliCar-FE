@@ -4,7 +4,14 @@ import { useParams } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import "../Style/ProductDetails.css";
 import SizeTable from "./SizeTable";
-import { Button } from "@mui/material";
+import {
+  Button,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
+
 import { useCart } from "../Components/CartContext";
 import { useSwipeable } from "react-swipeable";
 import ServiceSection from "./ServiceSection";
@@ -17,6 +24,7 @@ const ProductDetails = () => {
   const [mainImageLoaded, setMainImageLoaded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [animationDirection, setAnimationDirection] = useState("");
+  const [selectedVariant, setSelectedVariant] = useState("");
   const { dispatch } = useCart();
 
   useEffect(() => {
@@ -25,7 +33,16 @@ const ProductDetails = () => {
         const response = await axios.get(
           `${process.env.REACT_APP_API_URL}/api/products/${id}`
         );
+        const fetchedProduct = response.data;
         setProduct(response.data);
+
+        const defaultVariant = fetchedProduct.variants?.find(
+          (variant) => variant.name === "A2"
+        );
+        if (defaultVariant) {
+          setSelectedVariant(defaultVariant);
+        }
+
         setLoading(false);
       } catch (error) {
         console.error("Error fetching product details:", error);
@@ -39,9 +56,12 @@ const ProductDetails = () => {
   const updateLocalStorageCart = (updatedCart) => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
-
   const handleAddToCart = () => {
-    const item = { ...product };
+    if (!selectedVariant && product.variants?.length > 0) {
+      alert("Please select a size before adding to cart.");
+      return;
+    }
+    const item = { ...product, selectedVariant };
     dispatch({ type: "ADD_TO_CART", item });
     updateLocalStorageCart([
       ...JSON.parse(localStorage.getItem("cart") || "[]"),
@@ -50,7 +70,11 @@ const ProductDetails = () => {
   };
 
   const handleBuyNow = () => {
-    const item = { ...product };
+    if (!selectedVariant && product.variants?.length > 0) {
+      alert("Please select a size before purchasing.");
+      return;
+    }
+    const item = { ...product, selectedVariant };
     dispatch({ type: "ADD_TO_CART", item });
     updateLocalStorageCart([
       ...JSON.parse(localStorage.getItem("cart") || "[]"),
@@ -59,6 +83,12 @@ const ProductDetails = () => {
     setTimeout(() => {
       window.location.href = "/checkout";
     }, 100);
+  };
+  const handleVariantChange = (event) => {
+    const selected = product.variants.find(
+      (variant) => variant.name === event.target.value
+    );
+    setSelectedVariant(selected); // Update state with the selected variant
   };
 
   const handleImageChange = (direction) => {
@@ -152,8 +182,22 @@ const ProductDetails = () => {
       </div>
       <div className="product-details-info">
         <h1 className="product-details-title">{product.name}</h1>
-        <p className="product-details-size">{product.size}</p>
-        {product.discount ? (
+        {product.category !== "Poster" && (
+          <p className="product-details-size">{product.size}</p>
+        )}
+        {selectedVariant ? (
+          <p
+            className="product-details-price"
+            style={{
+              fontFamily: "Noto Sans Hebrew",
+              direction: "rtl",
+              fontSize: "18px",
+              marginBottom: "20px",
+            }}
+          >
+            {selectedVariant.price}₪
+          </p>
+        ) : product.discount ? (
           <div className="product-details-price">
             <span className="product-price original-price">
               {product.price}₪
@@ -163,11 +207,7 @@ const ProductDetails = () => {
             </span>
           </div>
         ) : (
-          <p
-            className="product-details-price"
-          >
-            {product.price}₪
-          </p>
+          <p className="product-details-price">{product.price}₪</p>
         )}
         {product.quantity > 0 ? (
           <div className="button-group-product-details">
@@ -190,6 +230,51 @@ const ProductDetails = () => {
           </div>
         ) : (
           <span className="product-details-sold-out">המוצר אזל מהמלאי</span>
+        )}
+        {product.variants && product.variants.length > 0 && (
+          <FormControl
+            fullWidth
+            style={{
+              marginBottom: "20px",
+              textAlign: "right",
+            }}
+          >
+            <InputLabel
+              id="variant-select-label"
+              style={{
+                fontFamily: "Noto Sans Hebrew",
+                direction: "rtl",
+                right: "10px",
+                transformOrigin: "top right",
+                zIndex: 1,
+                backgroundColor: "white",
+                padding: "0 5px",
+              }}
+            >
+              בחר גודל
+            </InputLabel>
+            <Select
+              labelId="variant-select-label"
+              id="variant-select"
+              value={selectedVariant?.name || ""} // Use the variant name as the value
+              onChange={handleVariantChange}
+              style={{
+                fontFamily: "Noto Sans Hebrew",
+                direction: "rtl",
+                textAlign: "right",
+              }}
+            >
+              {product.variants.map((variant, index) => (
+                <MenuItem
+                  key={index}
+                  value={variant.name}
+                  style={{ direction: "rtl", textAlign: "right" }}
+                >
+                  {variant.name} - {variant.dimensions} - {variant.price}₪
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         )}
         <SecureCheckoutSection />
         <h3

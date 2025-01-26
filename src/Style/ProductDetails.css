@@ -281,3 +281,94 @@
 .indicator-dot.active {
   background: black;
 }
+/* Variant selection container */
+.variant-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  direction: rtl;
+}
+
+.variant-selection label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.variant-selection select {
+  width: 200px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+/* Image upload section */
+.image-upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Aligns label and input to the right */
+  gap: 10px;
+  text-align: right;
+}
+
+.image-upload-section label {
+  font-size: 16px;
+  font-weight: bold;
+  direction: rtl;
+}
+
+.image-upload-section input {
+  padding: 10px;
+  font-size: 14px;
+  text-align: right; /* Aligns text inside the input to the right */
+  direction: rtl; /* Ensures the text flow is correct for Hebrew */
+  width: 100%; /* Ensure it spans the width for responsiveness */
+  max-width: 400px; /* Limit the width to keep it tidy */
+}
+
+.uploaded-images-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.uploaded-image-container {
+  position: relative; /* Enables absolute positioning for the "X" button */
+  width: 100px;
+  height: 100px;
+}
+
+.uploaded-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.remove-image-button {
+  position: absolute; /* Position it relative to the image container */
+  top: 5px; /* Top margin */
+  right: 5px; /* Right margin */
+  background-color: black;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 19px; /* Adjust button size */
+  height: 19px; /* Adjust button size */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px; /* Adjust font size for icon */
+}
+
+.remove-image-button:hover {
+  background-color: white;
+}

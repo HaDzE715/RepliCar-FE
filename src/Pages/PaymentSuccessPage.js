@@ -50,6 +50,7 @@ const PaymentSuccessPage = () => {
             products: cart.map((item) => ({
               product: item._id,
               quantity: item.quantity,
+              variant: item.selectedVariant ? item.selectedVariant : null,
             })),
             orderNumber,
             totalPrice,
@@ -61,22 +62,10 @@ const PaymentSuccessPage = () => {
             transaction_uid,
           }
         );
+        setOrderCreated(true);
         console.log("Order created successfully:", response.data);
-        window.gtag("event", "purchase", {
-          transaction_id: orderNumber,
-          value: totalPrice,
-          currency: "ILS",
-          items: cart.map((item) => ({
-            item_name: item.name,
-            item_id: item._id,
-            price: item.price,
-            quantity: item.quantity,
-          })),
-        });
 
         // Clear the cart after the order is successfully created
-        dispatch({ type: "CLEAR_CART" });
-        setOrderCreated(true);
       } catch (error) {
         console.error(
           "Error creating order:",
@@ -99,6 +88,7 @@ const PaymentSuccessPage = () => {
         "All required order details present. Proceeding to create order..."
       );
       createOrder();
+      dispatch({ type: "CLEAR_CART" });
     } else {
       console.error("Missing required order details. Cannot create order.");
     }
@@ -107,7 +97,7 @@ const PaymentSuccessPage = () => {
     clientName,
     email,
     phone,
-    cart, // Include cart in dependency array
+    cart,
     shippingAddress,
     shippingAddress.streetAddress,
     shippingAddress.city,

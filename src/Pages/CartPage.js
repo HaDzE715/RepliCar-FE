@@ -98,7 +98,11 @@ const CartPage = () => {
   const calculateSubtotal = () => {
     return cart
       .reduce((total, item) => {
-        const itemPrice = item.discount ? item.discount_price : item.price;
+        const itemPrice = item.selectedVariant
+          ? item.selectedVariant.price // Use variant price if available
+          : item.discount
+          ? item.discount_price
+          : item.price;
         return total + itemPrice * item.quantity;
       }, 0)
       .toFixed(2); // Ensure two decimal places
@@ -162,7 +166,15 @@ const CartPage = () => {
               <img src={item.image} alt={item.name} />
               <div className="cart-item-details">
                 <h3>{item.name}</h3>
-                {item.discount ? (
+                {item.selectedVariant ? (
+                  <div>
+                    <p>{item.selectedVariant.price}₪</p>
+                    <p>
+                      {item.selectedVariant.name} -&nbsp;
+                      {item.selectedVariant.dimensions}
+                    </p>
+                  </div>
+                ) : item.discount ? (
                   <div>
                     <p className="cart-original-price">{item.price}₪</p>
                     <p className="cart-discount-price">

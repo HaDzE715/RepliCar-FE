@@ -56,21 +56,27 @@ export default function CheckoutPage() {
   };
 
   const calculateSubtotal = () => {
-    return cart.reduce((total, item) => {
-      const itemPrice = item.discount ? item.discount_price : item.price;
-      return total + itemPrice * item.quantity;
-    }, 0);
+    return cart
+      .reduce((total, item) => {
+        const itemPrice = item.selectedVariant
+          ? item.selectedVariant.price // Use variant price if available
+          : item.discount
+          ? item.discount_price
+          : item.price;
+        return total + itemPrice * item.quantity;
+      }, 0)
+      .toFixed(2); // Ensure two decimal places
   };
-
   const calculateShipping = () => {
     return 29.99; // Shipping cost set to zero
   };
 
   const calculateTotalPrice = () => {
-    const subtotal = calculateSubtotal();
-    const discount = (discountAmount / 100) * subtotal;
-    const total = subtotal + calculateShipping() - discount;
+    const subtotal = parseFloat(calculateSubtotal());
+    const shipping = parseFloat(calculateShipping());
+    const discount = discountAmount ? (discountAmount / 100) * subtotal : 0;
 
+    const total = subtotal + shipping - discount;
     return total.toFixed(2);
   };
 
@@ -109,6 +115,12 @@ export default function CheckoutPage() {
       name: item.name,
       size: item.size,
       price: item.price,
+      variant: item.selectedVariant
+        ? {
+            name: item.selectedVariant.name,
+            price: item.selectedVariant.price,
+          }
+        : null,
       discount: item.discount,
       quantity: item.quantity, // Assuming you have a quantity field, adjust if needed
     }));
@@ -173,6 +185,7 @@ export default function CheckoutPage() {
               email: clientData.email,
               phone: clientData.phone,
             },
+            refURL: `${window.location.origin}/payment-success`,
           }),
         }
       );
@@ -202,6 +215,10 @@ export default function CheckoutPage() {
             products: cart.map((item) => ({
               product: item.productId,
               quantity: item.quantity,
+              price: item.selectedVariant
+                ? item.selectedVariant.price
+                : item.price,
+              selectedVariant: item.selectedVariant || null, // Full variant details
             })),
             totalPrice: clientData.totalPrice,
           })
@@ -288,8 +305,19 @@ export default function CheckoutPage() {
                     <img src={item.image} alt={item.name} />
                     <div className="checkout-cart-item-details">
                       <h3>{item.name}</h3>
+                      {item.selectedVariant && (
+                        <p>
+                          גודל: {item.selectedVariant.name} (
+                          {item.selectedVariant.dimensions})
+                        </p>
+                      )}
                       <p>כמות: {item.quantity}</p>
-                      <p>מחיר: {item.price}₪</p>
+                      <p>
+                        מחיר:{" "}
+                        {item.selectedVariant
+                          ? `${item.selectedVariant.price}₪`
+                          : `${item.price}₪`}
+                      </p>
                       <div className="checkout-cart-action-section">
                         <div className="checkout-cart-quantity-section">
                           <button

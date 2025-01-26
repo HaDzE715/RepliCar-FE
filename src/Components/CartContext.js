@@ -6,11 +6,13 @@ const cartReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART": {
       const existingItemIndex = state.findIndex(
-        (item) => item._id === action.item._id
+        (item) =>
+          item._id === action.item._id &&
+          item.selectedVariant?.name === action.item.selectedVariant?.name // Match by variant
       );
 
       if (existingItemIndex >= 0) {
-        // If item exists, increase its quantity by 1
+        // If the same product with the same variant exists, increase its quantity
         const updatedCart = [...state];
         updatedCart[existingItemIndex] = {
           ...updatedCart[existingItemIndex],
@@ -18,11 +20,17 @@ const cartReducer = (state, action) => {
         };
         return updatedCart;
       } else {
-        // If item does not exist, add it to the cart with quantity 1
-        return [...state, { ...action.item, quantity: 1 }];
+        // Add new product with the selected variant
+        return [
+          ...state,
+          {
+            ...action.item,
+            quantity: 1,
+            selectedVariant: action.item.selectedVariant,
+          },
+        ];
       }
     }
-
     case "REMOVE_FROM_CART":
       return state.filter((item) => item._id !== action.id);
 
@@ -56,6 +64,10 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
+    console.log("Updated cart state:", cart);
   }, [cart]);
 
   return (

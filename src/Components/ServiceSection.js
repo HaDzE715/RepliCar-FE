@@ -1,5 +1,5 @@
 import React from "react";
-import { TbTruckDelivery } from "react-icons/tb";
+// import { TbTruckDelivery } from "react-icons/tb";
 import { FaHeadset, FaLock } from "react-icons/fa"; // Import FaLock for secure payment
 
 const ServiceSection = () => {
