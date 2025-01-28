@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
+import React, { useState, useEffect } from "react";
 import {
   FaHome,
   FaDesktop,
@@ -9,13 +8,17 @@ import {
 } from "react-icons/fa";
 import { useLocation, useNavigate, Outlet } from "react-router-dom";
 import axios from "axios";
+import SalesChart from "../AdminComponents/SalesChart";
+import { Box, Typography } from "@mui/material";
+// import DailySalesSummary from "../AdminComponents/DailySalesSummary";
+import DailyRevenueDonut from "../AdminComponents/DailyRevenueDonut";
 
 const AdminDashboard = () => {
   const [admin, setAdmin] = useState(null);
-  const [collapsed, setCollapsed] = useState(true); // Sidebar collapse state
-  const sidebarRef = useRef(null); // Reference for sidebar to detect outside clicks
   const location = useLocation(); // Get current path
   const navigate = useNavigate(); // For navigating between routes
+  const [isMobile, setIsMobile] = useState(false);
+  const isDashboard = location.pathname === "/admin-dashboard";
 
   useEffect(() => {
     const storedAdmin = localStorage.getItem("admin");
@@ -23,26 +26,18 @@ const AdminDashboard = () => {
       setAdmin(JSON.parse(storedAdmin));
     }
   }, []);
-
-  const handleSidebarClick = () => {
-    if (collapsed) {
-      setCollapsed(false); // Expand sidebar on click
-    }
-  };
-
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-        setCollapsed(true); // Collapse sidebar if clicked outside
-      }
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Set mobile if screen width <= 768px
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    // Check on initial load and listen for resize events
+    handleResize();
+    window.addEventListener("resize", handleResize);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("resize", handleResize);
     };
-  }, [collapsed]);
-
+  }, []);
   const handleLogout = async (e) => {
     e.preventDefault();
 
@@ -65,69 +60,93 @@ const AdminDashboard = () => {
 
   return (
     <div style={styles.container}>
-      <div
-        ref={sidebarRef}
-        onClick={handleSidebarClick}
-        style={styles.sidebarContainer}
-      >
-        <Sidebar collapsed={collapsed} style={styles.sidebar}>
-          <div style={styles.profileContainer}>
-            {admin && (
-              <img
-                src={admin.profilePicture}
-                alt="Profile"
-                style={
-                  collapsed ? styles.profilePicSmall : styles.profilePicLarge
-                }
-              />
-            )}
-          </div>
-
-          <Menu iconShape="circle">
-            <MenuItem
-              icon={<FaHome style={styles.icon} />}
-              active={location.pathname === "/admin-dashboard"}
-              onClick={() => navigate("/admin-dashboard")}
-            >
-              Dashboard
-            </MenuItem>
-            <MenuItem
-              icon={<FaDesktop style={styles.icon} />}
-              onClick={() => navigate("/")}
-            >
-              Visit Website
-            </MenuItem>
-            <MenuItem icon={<FaChartLine style={styles.icon} />}>
-              Orders
-            </MenuItem>
-            <div
-              style={{ ...styles.divider, width: collapsed ? "50%" : "80%" }}
-            ></div>
-            <MenuItem
-              icon={<FaShoppingCart style={styles.icon} />}
-              active={location.pathname === "/admin-dashboard/products"}
-              onClick={() => navigate("/admin-dashboard/products")}
-            >
-              Products
-            </MenuItem>
-          </Menu>
-
-          <div style={styles.logoutContainer}>
-            <Menu iconShape="circle">
-              <MenuItem
-                icon={<FaSignOutAlt style={styles.icon} />}
-                onClick={handleLogout}
-              >
-                Logout
-              </MenuItem>
-            </Menu>
-          </div>
-        </Sidebar>
-      </div>
+      {/* Top Navbar */}
+      <nav style={styles.navbar}>
+        <div style={styles.navLeft}>
+          {admin && (
+            <img
+              src={admin.profilePicture}
+              alt="Profile"
+              style={styles.profilePic}
+            />
+          )}
+        </div>
+        <ul style={styles.navMenu}>
+          <li
+            style={
+              location.pathname === "/admin-dashboard"
+                ? styles.activeNavItem
+                : styles.navItem
+            }
+            onClick={() => navigate("/admin-dashboard")}
+          >
+            <FaHome style={styles.icon} />
+            {!isMobile && <span style={styles.navItemText}>Dashboard</span>}
+          </li>
+          <li style={styles.navItem} onClick={() => navigate("/")}>
+            <FaDesktop style={styles.icon} />
+            {!isMobile && <span style={styles.navItemText}>Visit Website</span>}
+          </li>
+          <li style={styles.navItem}>
+            <FaChartLine style={styles.icon} />
+            {!isMobile && <span style={styles.navItemText}>Orders</span>}
+          </li>
+          <li
+            style={
+              location.pathname === "/admin-dashboard/products"
+                ? styles.activeNavItem
+                : styles.navItem
+            }
+            onClick={() => navigate("/admin-dashboard/products")}
+          >
+            <FaShoppingCart style={styles.icon} />
+            {!isMobile && <span style={styles.navItemText}>Products</span>}
+          </li>
+        </ul>
+        <div style={styles.navRight}>
+          <button style={styles.logoutButton} onClick={handleLogout}>
+            <FaSignOutAlt style={styles.icon} />
+            {!isMobile && <span>Logout</span>}
+          </button>
+        </div>
+      </nav>
 
       {/* Main content area where nested routes will render */}
       <div style={styles.mainContent}>
-        <Outlet /> {/* Renders the ProductManagement component */}
+        {isDashboard && (
+          <Box>
+            {/* Greeting Section */}
+            <Box display="flex" alignItems="center" gap="15px" mb={3}>
+              <img
+                src={admin?.profilePicture || "/default-avatar.png"}
+                alt="Profile"
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                }}
+              />
+              <Typography
+                variant="h4"
+                sx={{
+                  fontWeight: 600,
+                  fontFamily: "'Poppins', sans-serif",
+                  color: "#333",
+                }}
+              >
+                Hello, {admin?.name || "Admin"} 👋
+              </Typography>
+            </Box>
+
+            {/* Dashboard Widgets */}
+            <Box>
+              <DailyRevenueDonut />
+              <SalesChart />
+            </Box>
+          </Box>
+        )}
+        <Outlet />
       </div>
     </div>
   );
@@ -137,50 +156,84 @@ const AdminDashboard = () => {
 const styles = {
   container: {
     display: "flex",
-    height: "100vh", // Ensure the entire viewport height is used
+    flexDirection: "column",
+    height: "100vh",
   },
-  sidebarContainer: {
-    height: "100%", // Ensure the sidebar fills the height of the container
+  navbar: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#333",
+    padding: "10px 20px",
+    color: "white",
+    position: "sticky",
+    top: 0,
+    zIndex: 1000,
   },
-  sidebar: {
-    height: "100%", // Ensure the sidebar itself takes the full height
+  navLeft: {
+    display: "flex",
+    alignItems: "center",
   },
-  profileContainer: {
-    padding: "20px",
-    textAlign: "center",
+  navMenu: {
+    display: "flex",
+    listStyle: "none",
+    gap: "20px",
+    margin: 0,
+    padding: 0,
   },
-  profilePicSmall: {
-    width: "50px",
-    height: "50px",
+  navItem: {
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    gap: "5px",
+    color: "#ccc",
+    fontSize: "16px",
+    textDecoration: "none",
+  },
+  activeNavItem: {
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    gap: "5px",
+    color: "white",
+    fontSize: "16px",
+    textDecoration: "none",
+    fontWeight: "bold",
+  },
+  navRight: {
+    display: "flex",
+    alignItems: "center",
+  },
+  profilePic: {
+    width: "40px",
+    height: "40px",
     borderRadius: "50%",
+    marginRight: "10px",
   },
-  profilePicLarge: {
-    width: "80px",
-    height: "80px",
-    borderRadius: "50%",
+  logoutButton: {
+    background: "none",
+    border: "none",
+    color: "white",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    gap: "5px",
+    fontSize: "16px",
+  },
+  icon: {
+    fontSize: "18px",
   },
   mainContent: {
     flex: 1,
     padding: "20px",
     backgroundColor: "#f4f4f4",
   },
-  logoutMenu: {
-    marginTop: "auto", // Push logout menu to the bottom
+  // Responsive styles
+  navItemText: {
+    display: "inline", // Default is to show the text
   },
-  logoutContainer: {
-    position: "absolute",
-    bottom: 0, // Ensure the logout icon stays at the bottom
-    width: "100%", // Ensure it spans the entire width of the sidebar
-  },
-  icon: {
-    fontSize: "24px", // Increase the size of the icons
-    color: "#000", // Slightly off-white for the icons
-  },
-  divider: {
-    margin: "20px auto", // Center the divider with margin
-    height: "1px", // Set the height for the divider
-    backgroundColor: "#cccccc", // Light grey color for the divider
-    width: "80%", // Divider width adjusts based on collapsed state
+  navItemTextHidden: {
+    display: "none", // Hide text for mobile screens
   },
 };
 

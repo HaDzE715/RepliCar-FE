@@ -41,6 +41,7 @@ const ProductManagement = () => {
       discount_price: "",
       additionalImages: [],
       colors: "",
+      category: "",
     });
     setShowAddModal(true); // Open modal
   };
@@ -143,6 +144,7 @@ const ProductManagement = () => {
         additionalImages: currentProduct.additionalImages,
         color: currentProduct.color, // Single color as a string
         quantity: currentProduct.quantity,
+        category: currentProduct.category,
       });
       setShowAddModal(false);
       fetchProductsByCategory(category); // Refresh product list after adding
@@ -179,6 +181,12 @@ const ProductManagement = () => {
           onClick={() => handleCategoryClick("Diecast")}
         >
           Diecast
+        </button>
+        <button
+          style={category === "Poster" ? styles.activeButton : styles.button}
+          onClick={() => handleCategoryClick("Poster")}
+        >
+          Posters
         </button>
       </div>
 
@@ -229,6 +237,20 @@ const ProductManagement = () => {
                 value={currentProduct.name}
                 onChange={handleFieldChange}
               />
+            </Form.Group>
+            <Form.Group controlId="formProductCategory">
+              <Form.Label>Category</Form.Label>
+              <Form.Control
+                as="select"
+                name="category"
+                value={currentProduct.category || ""}
+                onChange={handleFieldChange}
+              >
+                <option value="">Select Category</option>
+                <option value="Diecast">Diecast</option>
+                <option value="Frame">Frame</option>
+                <option value="Poster">Poster</option>
+              </Form.Control>
             </Form.Group>
             <Form.Group controlId="formProductBrand">
               <Form.Label>Brand</Form.Label>
@@ -491,11 +513,16 @@ const ProductManagement = () => {
               <Form.Group controlId="formProductCategory">
                 <Form.Label>Category</Form.Label>
                 <Form.Control
-                  type="text"
+                  as="select"
                   name="category"
-                  value={currentProduct.category}
+                  value={currentProduct.category || ""}
                   onChange={handleFieldChange}
-                />
+                >
+                  <option value="">Select Category</option>
+                  <option value="Diecast">Diecast</option>
+                  <option value="Frame">Frame</option>
+                  <option value="Poster">Poster</option>
+                </Form.Control>
               </Form.Group>
 
               {/* Add more fields as needed */}
@@ -556,7 +583,9 @@ const styles = {
   buttonContainer: {
     display: "flex",
     justifyContent: "center",
+    flexDirection: "column", // Align everything in a column
     marginBottom: "20px",
+    alignItems: "center", // Center buttons horizontally
   },
   button: {
     border: "2px solid #ccc",
