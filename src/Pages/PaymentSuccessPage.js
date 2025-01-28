@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../Style/PaymentSuccessPage.css";
 import { useCart } from "../Components/CartContext";
@@ -13,6 +13,10 @@ const PaymentSuccessPage = () => {
   const navigate = useNavigate();
 
   const orderDetails = JSON.parse(localStorage.getItem("orderDetails")) || {}; // Default to empty object if not found
+  const storedImages = useMemo(() => {
+    return JSON.parse(localStorage.getItem("uploadedImages")) || [];
+  }, []);
+  const uploadedImages = storedImages.map((image) => image.url);
   const {
     clientName = "",
     orderNumber = "",
@@ -42,6 +46,7 @@ const PaymentSuccessPage = () => {
     }
 
     const createOrder = async () => {
+      if(orderCreated) return;
       try {
         const response = await axios.post(
           `${process.env.REACT_APP_API_URL}/api/orders`,
@@ -60,6 +65,7 @@ const PaymentSuccessPage = () => {
             },
             orderNotes,
             transaction_uid,
+            uploadedImages,
           }
         );
         setOrderCreated(true);
@@ -88,6 +94,7 @@ const PaymentSuccessPage = () => {
         "All required order details present. Proceeding to create order..."
       );
       createOrder();
+      localStorage.removeItem("uploadedImages");
       dispatch({ type: "CLEAR_CART" });
     } else {
       console.error("Missing required order details. Cannot create order.");
@@ -107,6 +114,7 @@ const PaymentSuccessPage = () => {
     orderCreated,
     navigate, // Track changes in navigate for redirects
     location.search, // Track changes in query parameters
+    uploadedImages,
   ]);
 
   useEffect(() => {

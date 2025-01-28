@@ -68,7 +68,7 @@ export default function CheckoutPage() {
       .toFixed(2); // Ensure two decimal places
   };
   const calculateShipping = () => {
-    return 29.99; // Shipping cost set to zero
+    return 0; // Shipping cost set to zero
   };
 
   const calculateTotalPrice = () => {

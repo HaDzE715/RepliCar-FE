@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
 import "../Style/Product.css";
-import { useDrawer } from "../Components/DrawerContext";
+// import { useDrawer } from "../Components/DrawerContext";
 import { Button } from "@mui/material";
 import { useCart } from "../Components/CartContext";
 import { useNavigate } from "react-router-dom";
@@ -21,22 +21,30 @@ const Product = ({
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showAddedMessage, setShowAddedMessage] = useState(false);
-  const { openDrawer } = useDrawer();
+  // const { openDrawer } = useDrawer();
   const { dispatch } = useCart();
   const navigate = useNavigate();
 
   const finalPrice = discount ? discount_price : price;
 
+  // const handleClick = () => {
+  //   if (window.innerWidth >= 1024) {
+  //     navigate(`/product-details/${id}`);
+  //     setTimeout(() => {
+  //       document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
+  //       document.body.scrollTo({ top: 0, behavior: "smooth" }); // For Safari
+  //     }, 100);
+  //   } else {
+  //     openDrawer(id);
+  //   }
+  // };
+
   const handleClick = () => {
-    if (window.innerWidth >= 1024) {
-      navigate(`/product-details/${id}`);
-      setTimeout(() => {
-        document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
-        document.body.scrollTo({ top: 0, behavior: "smooth" }); // For Safari
-      }, 100);
-    } else {
-      openDrawer(id);
-    }
+    navigate(`/product-details/${id}`);
+    setTimeout(() => {
+      document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
+      document.body.scrollTo({ top: 0, behavior: "smooth" }); // For Safari
+    }, 100);
   };
 
   const handleAddToCart = (event) => {
