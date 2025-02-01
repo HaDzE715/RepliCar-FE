@@ -124,7 +124,6 @@ const ValentineBanner = () => {
             valueFormat="d"
             labelFontSize="10px"
             valueTextFontSize="12px"
-            paddingHorizontal="15"
           />
         </div>
       </div>
