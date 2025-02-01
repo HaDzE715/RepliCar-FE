@@ -26,7 +26,7 @@ const pages = [
       { name: "רכבים", link: "/diecast" },
     ],
   },
-  { name: "מבצעים", link: "/discounts" },
+  { name: "VALENTINE", link: "/discounts" },
   { name: "קצת עלינו", link: "/about" },
   { name: "צרו קשר", link: "/contact" },
 ];

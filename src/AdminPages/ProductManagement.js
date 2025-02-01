@@ -152,6 +152,25 @@ const ProductManagement = () => {
       console.error("Error adding new product:", error);
     }
   };
+  const handleDuplicateProduct = async (product) => {
+    try {
+      const duplicatedProduct = {
+        ...product,
+        name: `${product.name} (Copy)`, // Mark it as a duplicate
+      };
+
+      delete duplicatedProduct._id; // Remove old _id so MongoDB generates a new one
+
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/products`,
+        duplicatedProduct
+      );
+
+      fetchProductsByCategory(category); // Refresh product list
+    } catch (error) {
+      console.error("Error duplicating product:", error);
+    }
+  };
 
   return (
     <div style={styles.container}>
@@ -210,6 +229,16 @@ const ProductManagement = () => {
                     onClick={() => handleEdit(product)}
                   >
                     Edit
+                  </Button>
+                  <Button
+                    style={{
+                      backgroundColor: "#1976D2", // MUI primary blue
+                      color: "white", // White text
+                      borderColor: "#1976D2",
+                    }} // Matching border color
+                    onClick={() => handleDuplicateProduct(product)}
+                  >
+                    Duplicate
                   </Button>
                   <Button
                     variant="outline-danger"
@@ -524,7 +553,89 @@ const ProductManagement = () => {
                   <option value="Poster">Poster</option>
                 </Form.Control>
               </Form.Group>
-
+              {/* Variants Input */}
+              {/* <Form.Group controlId="formProductVariants">
+                <Form.Label>Variants</Form.Label>
+                {currentProduct.variants &&
+                currentProduct.variants.length > 0 ? (
+                  currentProduct.variants.map((variant, index) => (
+                    <div key={index} style={{ marginBottom: "10px" }}>
+                      <Form.Control
+                        type="text"
+                        placeholder="Variant Name"
+                        value={variant.name}
+                        onChange={(e) => {
+                          let updatedVariants = [...currentProduct.variants];
+                          updatedVariants[index].name = e.target.value;
+                          setCurrentProduct({
+                            ...currentProduct,
+                            variants: updatedVariants,
+                          });
+                        }}
+                      />
+                      <Form.Control
+                        type="text"
+                        placeholder="Dimensions"
+                        value={variant.dimensions}
+                        onChange={(e) => {
+                          let updatedVariants = [...currentProduct.variants];
+                          updatedVariants[index].dimensions = e.target.value;
+                          setCurrentProduct({
+                            ...currentProduct,
+                            variants: updatedVariants,
+                          });
+                        }}
+                      />
+                      <Form.Control
+                        type="number"
+                        placeholder="Price"
+                        value={variant.price}
+                        onChange={(e) => {
+                          let updatedVariants = [...currentProduct.variants];
+                          updatedVariants[index].price = parseFloat(
+                            e.target.value
+                          );
+                          setCurrentProduct({
+                            ...currentProduct,
+                            variants: updatedVariants,
+                          });
+                        }}
+                      />
+                      <Button
+                        variant="danger"
+                        onClick={() => {
+                          let updatedVariants = [...currentProduct.variants];
+                          updatedVariants.splice(index, 1);
+                          setCurrentProduct({
+                            ...currentProduct,
+                            variants: updatedVariants,
+                          });
+                        }}
+                      >
+                        Remove
+                      </Button>
+                    </div>
+                  ))
+                ) : (
+                  <p>No variants added.</p>
+                )}
+                <Button
+                  variant="success"
+                  onClick={() => {
+                    setCurrentProduct((prevProduct) => ({
+                      ...prevProduct,
+                      variants: prevProduct.variants
+                        ? [
+                            ...prevProduct.variants,
+                            { name: "", dimensions: "", price: 0 },
+                          ]
+                        : [{ name: "", dimensions: "", price: 0 }], // ✅ Create array if it doesn't exist
+                    }));
+                  }}
+                >
+                  Add Variant
+                </Button> */}
+              {/* </Form.Group> */}
               {/* Add more fields as needed */}
             </Form>
           )}
