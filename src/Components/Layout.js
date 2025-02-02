@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import Navbar from "./navbar";
+import Navbar from "./navbar2";
 import ConditionalFooter from "./ConditionalFooter";
 
 const Layout = () => {

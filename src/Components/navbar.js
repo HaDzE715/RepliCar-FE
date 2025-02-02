@@ -37,6 +37,7 @@ function ResponsiveAppBar() {
   const [anchorElDesktopProducts, setAnchorElDesktopProducts] =
     React.useState(null); // State for desktop dropdown
   const { cart } = useCart(); // Get the cart from the context
+  const [openProductsSubMenu, setOpenProductsSubMenu] = React.useState(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -299,7 +300,12 @@ function ResponsiveAppBar() {
             </MenuItem>
 
             {/* Render "מוצרים" with an arrow */}
-            <MenuItem key="מוצרים" onClick={handleOpenProductsMenu}>
+            <MenuItem
+              onClick={(event) => {
+                event.stopPropagation(); // Prevents closing the menu
+                setOpenProductsSubMenu((prev) => !prev); // Toggle submenu
+              }}
+            >
               <Box
                 sx={{
                   display: "flex",
@@ -308,13 +314,17 @@ function ResponsiveAppBar() {
                   width: "100%",
                 }}
               >
-                <Typography
-                  textAlign="center"
-                  sx={{ fontFamily: "Noto Sans Hebrew" }}
-                >
+                <Typography sx={{ fontFamily: "Noto Sans Hebrew" }}>
                   מוצרים
                 </Typography>
-                <ArrowDropDownIcon /> {/* Arrow icon */}
+                <ArrowDropDownIcon
+                  sx={{
+                    transform: openProductsSubMenu
+                      ? "rotate(180deg)"
+                      : "rotate(0deg)",
+                    transition: "transform 0.3s ease-in-out",
+                  }}
+                />
               </Box>
             </MenuItem>
 
@@ -329,10 +339,7 @@ function ResponsiveAppBar() {
                     width: "100%",
                   }}
                 >
-                  <Typography
-                    textAlign="center"
-                    sx={{ fontFamily: "Noto Sans Hebrew" }}
-                  >
+                  <Typography sx={{ fontFamily: "Noto Sans Hebrew" }}>
                     {page.name}
                   </Typography>
                 </Link>
@@ -354,27 +361,29 @@ function ResponsiveAppBar() {
               direction: "rtl",
             }}
           >
-            {pages
-              .find((page) => page.name === "מוצרים")
-              .subItems.map((subItem) => (
-                <MenuItem key={subItem.name} onClick={handleCloseProductsMenu}>
-                  <Link
-                    to={subItem.link}
-                    style={{
-                      textDecoration: "none",
-                      color: "black",
-                      width: "100%",
-                    }}
+            {openProductsSubMenu &&
+              pages
+                .find((page) => page.name === "מוצרים")
+                .subItems.map((subItem) => (
+                  <MenuItem
+                    key={subItem.name}
+                    onClick={handleCloseNavMenu} // Close menu when clicking a subitem
+                    sx={{ pl: 4 }} // Indent submenu items
                   >
-                    <Typography
-                      textAlign="center"
-                      sx={{ fontFamily: "Noto Sans Hebrew" }}
+                    <Link
+                      to={subItem.link}
+                      style={{
+                        textDecoration: "none",
+                        color: "black",
+                        width: "100%",
+                      }}
                     >
-                      {subItem.name}
-                    </Typography>
-                  </Link>
-                </MenuItem>
-              ))}
+                      <Typography sx={{ fontFamily: "Noto Sans Hebrew" }}>
+                        {subItem.name}
+                      </Typography>
+                    </Link>
+                  </MenuItem>
+                ))}
           </Menu>
         </Toolbar>
       </Container>
