@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../Style/DiscountPage.css";
 import Product from "../Components/Product";
 import ReactGA from "react-ga";
-import Speedometer from "../Components/Speedometer";
+// import Speedometer from "../Components/Speedometer";
 
 const DiscountPage = () => {
   const [discountedProducts, setDiscountedProducts] = useState([]);
@@ -30,7 +30,7 @@ const DiscountPage = () => {
 
   return (
     <div className="discount-page">
-      <Speedometer />
+      {/* <Speedometer />
       <h2
         className="page-title"
         style={{ textAlign: "center", fontWeight: "bold" }}
@@ -42,7 +42,7 @@ const DiscountPage = () => {
         style={{ textAlign: "center", fontSize: "18px", marginTop: "10px" }}
       >
         מבצע בלעדי לוולנטיין - מגוון מוצרים החל מ-199.99₪!
-      </h3>
+      </h3> */}
       <div className="frames-products-container">
         {discountedProducts.length > 0 ? (
           discountedProducts.map((product, index) => (

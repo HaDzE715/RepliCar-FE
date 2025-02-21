@@ -34,7 +34,7 @@ const pages = [
       { name: "רכבים", link: "/diecast" },
     ],
   },
-  { name: "VALENTINE", link: "/discounts" },
+  { name: "SALE", link: "/discounts" },
 ];
 
 function CustomNavbar() {
