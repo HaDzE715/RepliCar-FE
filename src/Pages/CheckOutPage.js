@@ -68,7 +68,7 @@ export default function CheckoutPage() {
       .toFixed(2); // Ensure two decimal places
   };
   const calculateShipping = () => {
-    return 29.99; // Shipping cost set to zero
+    return 0; // Shipping cost set to zero
   };
 
   const calculateTotalPrice = () => {
@@ -169,84 +169,58 @@ export default function CheckoutPage() {
 
       console.log("Client information successfully submitted.");
 
-      // Continue with payment link generation
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/generate-payment-link`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+      const orderNumber =
+        (Date.now() % 100000) + Math.floor(Math.random() * 10000);
+
+      // ✅ Save order details in localStorage
+      localStorage.setItem(
+        "orderDetails",
+        JSON.stringify({
+          clientName: `${clientData.firstName} ${clientData.lastName}`,
+          orderNumber: orderNumber,
+          email: clientData.email,
+          phone: clientData.phone,
+          shippingAddress: {
+            streetAddress: clientData.streetAddress,
+            city: clientData.city,
           },
-          body: JSON.stringify({
-            amount: totalPrice,
-            description: `Payment for ${clientData.firstName} ${clientData.lastName}`,
-            customer: {
-              customer_name: `${clientData.firstName} ${clientData.lastName}`,
-              email: clientData.email,
-              phone: clientData.phone,
-            },
-            refURL: `${window.location.origin}/payment-success`,
-          }),
-        }
+          orderNotes: clientData.orderNotes,
+          products: cart.map((item) => ({
+            product: item.productId,
+            quantity: item.quantity,
+            price: item.selectedVariant
+              ? item.selectedVariant.price
+              : item.price,
+            selectedVariant: item.selectedVariant || null, // Full variant details
+          })),
+          totalPrice: clientData.totalPrice,
+        })
       );
 
-      if (!response.ok) {
-        throw new Error("Failed to generate payment link");
+      // ✅ Scroll to the checkout section smoothly
+      const element = document.getElementById("checkout-page");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
-      const data = await response.json();
-      if (data.data && data.data.payment_page_link) {
-        const orderNumber =
-          (Date.now() % 100000) + Math.floor(Math.random() * 10000);
-
-        // Save products (cart items) and other details to localStorage
-        localStorage.setItem(
-          "orderDetails",
-          JSON.stringify({
-            clientName: `${clientData.firstName} ${clientData.lastName}`,
-            orderNumber: orderNumber,
-            email: clientData.email,
-            phone: clientData.phone,
-            shippingAddress: {
-              streetAddress: clientData.streetAddress,
-              city: clientData.city,
-            },
-            orderNotes: clientData.orderNotes,
-            products: cart.map((item) => ({
-              product: item.productId,
-              quantity: item.quantity,
-              price: item.selectedVariant
-                ? item.selectedVariant.price
-                : item.price,
-              selectedVariant: item.selectedVariant || null, // Full variant details
-            })),
-            totalPrice: clientData.totalPrice,
-          })
-        );
-        const element = document.getElementById("checkout-page");
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-        setTimeout(() => {
-          navigate("/card-details", {
-            state: {
-              cart,
-              clientData,
-              totalQuantity: calculateTotalQuantity(),
-              totalPrice: calculateTotalPrice(),
-              paymentLink: data.data.payment_page_link,
-            },
-          });
-        }, 100);
-      } else {
-        console.error("Failed to get payment page link:", data);
-        alert("Failed to generate payment link");
-      }
+      // ✅ Redirect user to `/card-details`
+      setTimeout(() => {
+        navigate("/card-details", {
+          state: {
+            cart,
+            clientData,
+            totalQuantity: calculateTotalQuantity(),
+            totalPrice: calculateTotalPrice(),
+          },
+        });
+      }, 100);
     } catch (error) {
-      console.error("Error generating payment link:", error);
-      alert("Error generating payment link.");
+      console.error("❌ Error processing order:", error);
+      alert(
+        "⚠️ An error occurred while processing your order. Please try again."
+      );
     } finally {
-      setIsSubmitting(false); // Re-enable submission after request completes
+      setIsSubmitting(false); // ✅ Always re-enable submission button
     }
   };
 
@@ -353,7 +327,7 @@ export default function CheckoutPage() {
               </div>
               <div className="totals-row">
                 <span>משלוח:</span>
-                <span>29.99</span>
+                <span>0.00</span>
               </div>
               <div className="totals-row">
                 <span>סך הכל:</span>
@@ -543,7 +517,7 @@ export default function CheckoutPage() {
                   </div>
                   <div className="totals-row">
                     <span>משלוח:</span>
-                    <span>29.99₪</span>
+                    <span>0.00₪</span>
                   </div>
                   <div className="totals-row">
                     <span>סך הכל:</span>

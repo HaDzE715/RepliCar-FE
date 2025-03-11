@@ -7,6 +7,11 @@ import ProgressBar from "../Components/ProgressBar";
 import ReactGA from "react-ga";
 
 const PaymentSuccessPage = () => {
+  if (window.top !== window.self) {
+    window.top.location.href = window.location.href;
+    // return null;
+  }
+
   const { cart, dispatch } = useCart();
   const [orderCreated, setOrderCreated] = useState(false);
   const location = useLocation();
@@ -46,7 +51,7 @@ const PaymentSuccessPage = () => {
     }
 
     const createOrder = async () => {
-      if(orderCreated) return;
+      if (orderCreated) return;
       try {
         const response = await axios.post(
           `${process.env.REACT_APP_API_URL}/api/orders`,

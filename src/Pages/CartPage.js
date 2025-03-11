@@ -109,7 +109,7 @@ const CartPage = () => {
   };
 
   const calculateShipping = () => {
-    return 29.99;
+    return 0;
   };
 
   const calculateTotal = () => {
@@ -221,7 +221,7 @@ const CartPage = () => {
         <div className="totals-row">
           <span className="totals-text">משלוח וטיפול:</span>
           <span className="totals-text" style={{ fontSize: "16px" }}>
-            29.99₪
+            0.00₪
           </span>
         </div>
         <div className="totals-row">
