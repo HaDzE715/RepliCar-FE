@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -15,14 +15,17 @@ import {
   ListItem,
   ListItemText,
   Collapse,
+  Container,
+  Divider,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import CloseIcon from "@mui/icons-material/Close";
 import logo from "../Pictures/logo1.jpeg";
-import logo1 from "../Pictures/logo2.jpeg";
 import { useCart } from "../Components/CartContext";
+import BusinessIcon from "@mui/icons-material/Business"; // Building icon for about us
+import { Phone } from "@mui/icons-material";
 
 const pages = [
   { name: "דף הבית", link: "/" },
@@ -43,145 +46,411 @@ function CustomNavbar() {
   const [openSubMenu, setOpenSubMenu] = useState(false);
   const { cart } = useCart();
   const totalItems = cart.length;
+  const location = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+
+  // Add scroll listener to create transition effect
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 10;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrolled]);
 
   const toggleMobileMenu = () => setMobileOpen(!mobileOpen);
+
+  // Close submenu when drawer closes
+  const handleDrawerClose = () => {
+    setMobileOpen(false);
+    setOpenSubMenu(false);
+  };
+
   const toggleSubMenu = () => setOpenSubMenu(!openSubMenu);
+
+  // Check if a page is active
+  const isActive = (path) => {
+    if (path === "/") {
+      return location.pathname === path;
+    }
+    return location.pathname.startsWith(path);
+  };
+
+  // Check if any subitem is active
+  const hasActiveSubItem = (subItems) => {
+    return subItems && subItems.some((item) => isActive(item.link));
+  };
 
   return (
     <AppBar
-      position="sticky"
-      sx={{ backgroundColor: "#1b2e51", boxShadow: "none" }}
+      position="fixed"
+      sx={{
+        backgroundColor: scrolled ? "rgba(27, 46, 81, 0.95)" : "#1b2e51",
+        boxShadow: scrolled ? "0 4px 20px rgba(0, 0, 0, 0.15)" : "none",
+        backdropFilter: "blur(10px)",
+        transition: "all 0.3s ease",
+        borderBottom: scrolled ? "1px solid rgba(255, 255, 255, 0.1)" : "none",
+      }}
     >
-      <Toolbar sx={{ justifyContent: "space-between", py: 1 }}>
-        {/* Cart Icon on the Left */}
-        <IconButton component={Link} to="/cart" color="inherit">
-          <Badge badgeContent={totalItems} color="error" showZero>
-            <ShoppingCartIcon sx={{ fontSize: 28 }} />
-          </Badge>
-        </IconButton>
-
-        {/* Desktop Menu Centered */}
-        <Box
+      <Container maxWidth="xl">
+        <Toolbar
           sx={{
-            display: { xs: "none", md: "flex" },
-            alignItems: "center",
-            flexGrow: 1,
-            justifyContent: "center",
+            justifyContent: "space-between",
+            py: scrolled ? 0.5 : 1.5,
+            transition: "padding 0.3s ease",
           }}
         >
-          {pages.map((page) =>
-            page.subItems ? (
-              <Box key={page.name} sx={{ position: "relative" }}>
-                <Button
-                  onClick={(e) => setAnchorElProducts(e.currentTarget)}
-                  sx={{
-                    color: "white",
-                    mx: 2,
-                    fontSize: "18px",
-                    fontFamily: "Noto Sans Hebrew",
-                  }}
-                >
-                  {page.name} <ArrowDropDownIcon />
-                </Button>
-                <Menu
-                  anchorEl={anchorElProducts}
-                  open={Boolean(anchorElProducts)}
-                  onClose={() => setAnchorElProducts(null)}
-                  sx={{ direction: "rtl" }}
-                >
-                  {page.subItems.map((sub) => (
-                    <MenuItem
-                      key={sub.name}
-                      component={Link}
-                      to={sub.link}
-                      sx={{
-                        textAlign: "right",
-                        fontSize: "16px",
-                        fontFamily: "Noto Sans Hebrew",
-                      }}
-                    >
-                      {sub.name}
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </Box>
-            ) : (
-              <Button
-                key={page.name}
-                component={Link}
-                to={page.link}
+          {/* Cart Icon on the Left with animated badge */}
+          <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
+            {" "}
+            {/* Increased gap from 1 to 3 */}
+            <IconButton
+              component={Link}
+              to="/cart"
+              sx={{
+                color: "#c0c0c0",
+                background:
+                  totalItems > 0 ? "rgba(255,255,255,0.1)" : "transparent",
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  background: "rgba(255,255,255,0.2)",
+                  transform: "scale(1.05)",
+                },
+              }}
+            >
+              <Badge
+                badgeContent={totalItems}
+                color="error"
+                showZero
                 sx={{
-                  color: "white",
-                  mx: 2,
-                  fontSize: "18px",
-                  fontFamily: "Noto Sans Hebrew",
+                  "& .MuiBadge-badge": {
+                    fontSize: "0.7rem",
+                    minWidth: "18px",
+                    height: "18px",
+                    padding: "0 4px",
+                    fontWeight: "bold",
+                    animation: totalItems > 0 ? "pulse 1.5s infinite" : "none",
+                    "@keyframes pulse": {
+                      "0%": { transform: "scale(1)" },
+                      "50%": { transform: "scale(1.2)" },
+                      "100%": { transform: "scale(1)" },
+                    },
+                  },
                 }}
               >
-                {page.name}
-              </Button>
-            )
-          )}
-        </Box>
+                <ShoppingCartIcon sx={{ fontSize: 28 }} />
+              </Badge>
+            </IconButton>
+            <Button
+              component={Link}
+              to="/contact"
+              sx={{
+                color: "white",
+                fontFamily: "Noto Sans Hebrew",
+                fontSize: "0.9rem",
+                fontWeight: "medium",
+                opacity: 0.85,
+                display: { xs: "none", sm: "block" },
+                "&:hover": {
+                  opacity: 1,
+                  background: "rgba(255,255,255,0.1)",
+                },
+              }}
+            >
+              <Phone fontSize="small" />
+              צרו קשר
+            </Button>
+          </Box>
 
-        {/* Logo on the Right */}
-        <Link to="/">
-          <img src={logo} alt="Logo" style={{ width: 100, height: "auto" }} />
-        </Link>
+          {/* Desktop Menu Centered */}
+          <Box
+            sx={{
+              display: { xs: "none", md: "flex" },
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 1,
+              direction: "rtl", // Ensuring RTL layout for desktop mode
+            }}
+          >
+            {pages.map((page) =>
+              page.subItems ? (
+                <Box key={page.name} sx={{ position: "relative" }}>
+                  <Button
+                    onClick={(e) => setAnchorElProducts(e.currentTarget)}
+                    sx={{
+                      color: hasActiveSubItem(page.subItems)
+                        ? "#ffd700"
+                        : "#c0c0c0",
+                      mx: 1,
+                      px: 2,
+                      fontSize: "1rem",
+                      fontFamily: "Noto Sans Hebrew",
+                      fontWeight: "bold",
+                      borderBottom: hasActiveSubItem(page.subItems)
+                        ? "2px solid #ffd700"
+                        : "2px solid transparent",
+                      borderRadius: "0",
+                      transition: "all 0.3s ease",
+                      "&:hover": {
+                        borderBottom: "2px solid #ffd700",
+                        backgroundColor: "rgba(255, 255, 255, 0.05)",
+                      },
+                    }}
+                  >
+                    {page.name}{" "}
+                    <KeyboardArrowDownIcon
+                      fontSize="small"
+                      sx={{
+                        ml: 0.5,
+                        transition: "transform 0.3s ease",
+                        transform: Boolean(anchorElProducts)
+                          ? "rotate(180deg)"
+                          : "rotate(0)",
+                      }}
+                    />
+                  </Button>
+                  <Menu
+                    anchorEl={anchorElProducts}
+                    open={Boolean(anchorElProducts)}
+                    onClose={() => setAnchorElProducts(null)}
+                    sx={{
+                      mt: 1.5,
+                      direction: "rtl",
+                      "& .MuiPaper-root": {
+                        backgroundImage:
+                          "linear-gradient(to bottom, #1b2e51, #162544)",
+                        boxShadow: "0 8px 16px rgba(0,0,0,0.3)",
+                        borderRadius: "4px",
+                        border: "1px solid rgba(255,255,255,0.1)",
+                      },
+                    }}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "center",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "center",
+                    }}
+                    keepMounted
+                  >
+                    {page.subItems.map((sub) => (
+                      <MenuItem
+                        key={sub.name}
+                        component={Link}
+                        to={sub.link}
+                        onClick={() => setAnchorElProducts(null)}
+                        sx={{
+                          textAlign: "right",
+                          fontSize: "0.95rem",
+                          fontFamily: "Noto Sans Hebrew",
+                          color: "#c0c0c0",
+                          padding: "10px 16px",
+                          borderBottom: "1px solid rgba(255,255,255,0.05)",
+                          "&:last-child": {
+                            borderBottom: "none",
+                          },
+                          backgroundColor: isActive(sub.link)
+                            ? "rgba(255, 215, 0, 0.1)"
+                            : "transparent",
+                          "&:hover": {
+                            backgroundColor: "rgba(255, 215, 0, 0.15)",
+                          },
+                        }}
+                      >
+                        {sub.name}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </Box>
+              ) : (
+                <Button
+                  key={page.name}
+                  component={Link}
+                  to={page.link}
+                  sx={{
+                    color: isActive(page.link) ? "#ffd700" : "#c0c0c0",
+                    mx: 1,
+                    px: 2,
+                    fontSize: "1rem",
+                    fontFamily: "Noto Sans Hebrew",
+                    fontWeight: "bold",
+                    borderBottom: isActive(page.link)
+                      ? "2px solid #ffd700"
+                      : "2px solid transparent",
+                    borderRadius: "0",
+                    transition: "all 0.3s ease",
+                    "&:hover": {
+                      borderBottom: "2px solid #ffd700",
+                      backgroundColor: "rgba(255, 255, 255, 0.05)",
+                    },
+                    ...(page.name === "SALE" && {
+                      color: "#ff3d3d",
+                      fontWeight: "bold",
+                      position: "relative",
+                      "&::after": {
+                        content: '""',
+                        position: "absolute",
+                        top: "-3px",
+                        right: "0",
+                        width: "100%",
+                        height: "2px",
+                        backgroundColor: "#ff3d3d",
+                        animation: "pulsate 2s infinite",
+                      },
+                      "@keyframes pulsate": {
+                        "0%": { opacity: 0.6 },
+                        "50%": { opacity: 1 },
+                        "100%": { opacity: 0.6 },
+                      },
+                    }),
+                  }}
+                >
+                  {page.name}
+                </Button>
+              )
+            )}
+          </Box>
 
-        {/* Mobile Menu Button on the Right */}
-        <IconButton sx={{ display: { md: "none" } }} onClick={toggleMobileMenu}>
-          <MenuIcon sx={{ fontSize: 32, color: "white" }} />
-        </IconButton>
-      </Toolbar>
+          {/* Logo on the Right with slight zoom on hover */}
+          <Link to="/" style={{ display: "flex", alignItems: "center" }}>
+            <Box
+              component="img"
+              src={logo}
+              alt="RepliCar Logo"
+              sx={{
+                width: { xs: 85, md: 110 },
+                height: "auto",
+                transition: "transform 0.3s ease",
+                "&:hover": {
+                  transform: "scale(1.05)",
+                },
+              }}
+            />
+          </Link>
 
-      {/* Mobile Drawer */}
+          {/* Mobile Menu Button on the Right */}
+          <IconButton
+            onClick={toggleMobileMenu}
+            sx={{
+              display: { md: "none" },
+              color: "white",
+              p: 1,
+              "&:hover": {
+                backgroundColor: "rgba(255,255,255,0.1)",
+              },
+            }}
+          >
+            <MenuIcon sx={{ fontSize: 28 }} />
+          </IconButton>
+        </Toolbar>
+      </Container>
+
+      {/* Mobile Drawer with enhanced styling */}
       <Drawer
         anchor="right"
         open={mobileOpen}
-        onClose={toggleMobileMenu}
-        sx={{ direction: "rtl" }}
+        onClose={handleDrawerClose}
+        PaperProps={{
+          sx: {
+            width: "80%",
+            maxWidth: "300px",
+            backgroundImage:
+              "linear-gradient(to bottom, #1b2e51 30%, #162544 100%)",
+            color: "#c0c0c0",
+            direction: "rtl",
+            boxShadow: "-5px 0 15px rgba(0,0,0,0.3)",
+          },
+        }}
       >
-        <Box sx={{ width: 250, p: 2, direction: "rtl" }}>
+        <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+          {/* Header with close button */}
           <Box
             sx={{
               display: "flex",
-              justifyContent: "flex-start", // Aligns to the left
+              justifyContent: "space-between",
               alignItems: "center",
-              width: "100%",
-              direction: "ltr !important",
+              p: 2.5 /* Increased padding from 2 to 2.5 to accommodate larger logo */,
+              borderBottom: "1px solid rgba(255,255,255,0.1)",
             }}
           >
+            <img
+              src={logo}
+              alt="RepliCar Logo"
+              style={{
+                height: "60px",
+                width: "auto",
+              }} /* Increased from 40px to 60px */
+            />
             <IconButton
-              onClick={toggleMobileMenu}
+              onClick={handleDrawerClose}
               sx={{
-                mb: 2,
-                ml: 1, // Adds small spacing from the edge
+                color: "white",
+                "&:hover": {
+                  backgroundColor: "rgba(255,255,255,0.1)",
+                },
               }}
             >
               <CloseIcon />
             </IconButton>
           </Box>
-          <List>
-            {pages.map((page) => (
-              <>
+
+          {/* Navigation Links */}
+          <List sx={{ pt: 1, flexGrow: 1 }}>
+            {pages.map((page, index) => (
+              <React.Fragment key={page.name}>
                 <ListItem
                   button
-                  key={page.name}
-                  component={Link}
-                  to={page.link}
-                  onClick={page.subItems ? toggleSubMenu : toggleMobileMenu}
+                  component={page.subItems ? "div" : Link}
+                  to={page.subItems ? undefined : page.link}
+                  onClick={page.subItems ? toggleSubMenu : handleDrawerClose}
+                  sx={{
+                    py: 1.5,
+                    backgroundColor:
+                      isActive(page.link) || hasActiveSubItem(page.subItems)
+                        ? "rgba(255, 215, 0, 0.1)"
+                        : "transparent",
+                    "&:hover": {
+                      backgroundColor: "rgba(255,255,255,0.05)",
+                    },
+                    ...(page.name === "SALE" && {
+                      color: "#ff3d3d",
+                      position: "relative",
+                      "&::after": {
+                        content: '""',
+                        position: "absolute",
+                        bottom: "0",
+                        right: "0",
+                        width: "100%",
+                        height: "1px",
+                        backgroundColor: "#ff3d3d",
+                        opacity: 0.6,
+                      },
+                    }),
+                  }}
                 >
                   <ListItemText
                     primary={page.name}
                     sx={{
                       textAlign: "right",
-                      fontSize: "18px",
-                      fontFamily: "Noto Sans Hebrew !important",
+                      "& .MuiTypography-root": {
+                        fontSize: "1.1rem",
+                        fontFamily: "Noto Sans Hebrew",
+                        fontWeight: "medium",
+                        color: page.name === "SALE" ? "#ff3d3d" : "#c0c0c0",
+                      },
                     }}
                   />
                   {page.subItems && (
-                    <ArrowDropDownIcon
+                    <KeyboardArrowDownIcon
                       sx={{
+                        transition: "transform 0.3s ease",
                         transform: openSubMenu
                           ? "rotate(180deg)"
                           : "rotate(0deg)",
@@ -189,38 +458,36 @@ function CustomNavbar() {
                     />
                   )}
                 </ListItem>
+
                 {page.subItems && (
                   <Collapse in={openSubMenu} timeout="auto" unmountOnExit>
-                    <List
-                      component="div"
-                      disablePadding
-                      sx={{
-                        direction: "rtl",
-                        textAlign: "right",
-                        fontFamily: "Noto Sans Hebrew !important",
-                        fontSize: "16px",
-                      }}
-                    >
+                    <List component="div" disablePadding>
                       {page.subItems.map((sub) => (
                         <ListItem
                           key={sub.name}
                           button
                           component={Link}
                           to={sub.link}
+                          onClick={handleDrawerClose}
                           sx={{
                             pl: 4,
-                            textAlign: "right",
-                            fontFamily: "Noto Sans Hebrew !important",
-                            fontSize: "16px",
+                            py: 1.2,
+                            backgroundColor: isActive(sub.link)
+                              ? "rgba(255, 215, 0, 0.1)"
+                              : "rgba(0,0,0,0.1)",
+                            "&:hover": {
+                              backgroundColor: "rgba(255,255,255,0.05)",
+                            },
                           }}
-                          onClick={toggleMobileMenu}
                         >
                           <ListItemText
                             primary={sub.name}
                             sx={{
                               textAlign: "right",
-                              fontSize: "18px",
-                              fontFamily: "Noto Sans Hebrew !important",
+                              "& .MuiTypography-root": {
+                                fontSize: "1rem",
+                                fontFamily: "Noto Sans Hebrew",
+                              },
                             }}
                           />
                         </ListItem>
@@ -228,68 +495,73 @@ function CustomNavbar() {
                     </List>
                   </Collapse>
                 )}
-              </>
+
+                {index < pages.length - 1 && (
+                  <Divider sx={{ backgroundColor: "rgba(255,255,255,0.05)" }} />
+                )}
+              </React.Fragment>
             ))}
           </List>
+
           {/* Bottom Section Inside Mobile Menu */}
           <Box
             sx={{
-              position: "absolute",
-              bottom: 0,
-              width: "90%",
-              backgroundColor: "white",
-              textAlign: "center",
-              py: 2,
+              borderTop: "1px solid rgba(255,255,255,0.1)",
+              p: 2,
+              backgroundColor: "rgba(0,0,0,0.2)",
             }}
           >
-            {/* Logo Above the Buttons */}
-            <img
-              src={logo1}
-              alt="RepliCar Logo"
-              style={{
-                width: "150px", // Adjust logo size
-                height: "auto",
-                display: "block",
-                margin: "0 auto",
-                marginBottom: "12px", // Space between logo and buttons
-              }}
-            />
-            <Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
+            <Box
+              sx={{ display: "flex", justifyContent: "space-around", mb: 2 }}
+            >
               <Button
                 component={Link}
                 to="/about"
+                onClick={handleDrawerClose}
                 sx={{
-                  color: "black",
-                  fontSize: "16px",
+                  color: "#c0c0c0",
+                  fontSize: "0.9rem",
                   fontFamily: "Noto Sans Hebrew",
+                  backgroundColor: "rgba(255,255,255,0.05)",
+                  borderRadius: "4px",
+                  padding: "8px 12px",
+                  "&:hover": {
+                    backgroundColor: "rgba(255,255,255,0.1)",
+                  },
                 }}
-                onClick={toggleMobileMenu}
               >
-                קצת עלינו
+                קצת עלינו &nbsp;
+                <BusinessIcon fontSize="small" />
               </Button>
               <Button
                 component={Link}
                 to="/contact"
+                onClick={handleDrawerClose}
                 sx={{
-                  color: "black",
-                  fontSize: "16px",
+                  color: "white",
+                  fontSize: "0.9rem",
                   fontFamily: "Noto Sans Hebrew",
+                  backgroundColor: "rgba(255,255,255,0.05)",
+                  borderRadius: "4px",
+                  padding: "8px 12px",
+                  "&:hover": {
+                    backgroundColor: "rgba(255,255,255,0.1)",
+                  },
                 }}
-                onClick={toggleMobileMenu}
               >
-                צרו קשר
+                צרו קשר &nbsp;
+                <Phone fontSize="small" direction="rtl" />
               </Button>
             </Box>
             <Typography
               sx={{
-                fontSize: "14px",
-                mt: 1,
+                fontSize: "0.8rem",
+                textAlign: "center",
                 fontFamily: "Noto Sans Hebrew",
-                color: "black",
-                direction: "rtl !important",
+                color: "rgba(255,255,255,0.6)",
               }}
             >
-              כל זכויות שמורות רפליקאר 2024 ©
+              כל הזכויות שמורות רפליקאר 2024 ©
             </Typography>
           </Box>
         </Box>
