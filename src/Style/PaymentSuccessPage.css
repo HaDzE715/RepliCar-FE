@@ -71,3 +71,61 @@
     stroke-dashoffset: 0;
   }
 }
+
+/*Fail CSS*/
+/* Add these styles to your existing PaymentSuccessPage.css file */
+
+/* Error-specific styles for payment failed page */
+.success-box.error {
+  background-color: #fff8f8;
+  border: 1px solid #ffebeb;
+  width: 90%;
+  height: 80%;
+  margin-bottom: 100px;
+  /* margin-top: -10px; */
+}
+
+.success-message-title {
+  color: #333;
+  font-size: 16px;
+}
+
+.error .success-message-title {
+  color: #d32f2f;
+  font-size: 16px;
+}
+
+/* Animation for the error X */
+@keyframes drawCircle {
+  from {
+    stroke-dasharray: 410;
+    stroke-dashoffset: 410;
+  }
+  to {
+    stroke-dasharray: 410;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes drawX {
+  from {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+  }
+  to {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 0;
+  }
+}
+
+.error .success-circle {
+  stroke-dasharray: 410;
+  stroke-dashoffset: 0;
+  animation: drawCircle 1s ease-out forwards;
+}
+
+.error .success-tick {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 0;
+  animation: drawX 0.5s ease-out 0.5s forwards;
+}

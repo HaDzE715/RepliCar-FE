@@ -1,9 +1,5 @@
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import BrandPage from "./Pages/Brandpage";
 import ProductDetails from "./Components/ProductDetails";
 import HomePage from "./Pages/HomePage";
@@ -29,6 +25,7 @@ import DiscountPage from "./Pages/DiscountPage";
 import ReactPixel from "react-facebook-pixel";
 import ReactGA from "react-ga";
 import PostersPage from "./Pages/PostersPage";
+import PaymentFailedPage from "./Pages/PaymentFailedPage";
 
 const TRACKING_ID = "G-N2GX693398";
 ReactGA.initialize(TRACKING_ID);
@@ -75,6 +72,7 @@ function AppContent() {
           <Route path="/brand/:brandname" element={<BrandPage />} />
           <Route path="/terms" element={<TermsAndConditions />} />
           <Route path="/contact" element={<ContactUs />} />
+          <Route path="/payment-failed" element={<PaymentFailedPage />} />
         </Route>
 
         {/* Separate route for Admin login without Navbar/Footer */}

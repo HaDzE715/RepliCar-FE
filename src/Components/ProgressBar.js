@@ -1,8 +1,12 @@
 import React from "react";
 
-const ProgressBar = ({ currentStep }) => {
+const ProgressBar = ({ currentStep, isPaymentFailed = false }) => {
+  // Define steps based on whether it's a success or failure state
   const steps = [
-    { number: "3", label: "הזמנה בוצעה" },
+    {
+      number: isPaymentFailed ? "✕" : "3",
+      label: isPaymentFailed ? "הזמנה נכשלה" : "הזמנה בוצעה",
+    },
     { number: "2", label: "פרטי תשלום" },
     { number: "1", label: "פרטי לקוח" },
   ];
@@ -16,12 +20,30 @@ const ProgressBar = ({ currentStep }) => {
               style={{
                 ...styles.circle,
                 backgroundColor:
-                  currentStep >= step.number ? "#008000" : "#fff",
-                color: currentStep >= step.number ? "#fff" : "#ccc",
-                borderColor: currentStep >= step.number ? "#008000" : "#ccc",
+                  isPaymentFailed && index === 0
+                    ? "#FF0000"
+                    : currentStep >= step.number
+                    ? "#008000"
+                    : "#fff",
+                color:
+                  isPaymentFailed && index === 0
+                    ? "#fff"
+                    : currentStep >= step.number
+                    ? "#fff"
+                    : "#ccc",
+                borderColor:
+                  isPaymentFailed && index === 0
+                    ? "#FF0000"
+                    : currentStep >= step.number
+                    ? "#008000"
+                    : "#ccc",
                 boxShadow:
                   currentStep === step.number
-                    ? "0 0 10px 5px rgba(0, 128, 0, 0.5)" // Green shadow for current step
+                    ? `0 0 10px 5px ${
+                        isPaymentFailed && index === 0
+                          ? "rgba(255, 0, 0, 0.5)"
+                          : "rgba(0, 128, 0, 0.5)"
+                      }`
                     : "none",
                 transition:
                   "background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease",
@@ -32,7 +54,12 @@ const ProgressBar = ({ currentStep }) => {
             <div
               style={{
                 ...styles.label,
-                color: currentStep >= step.number ? "#008000" : "#ccc",
+                color:
+                  isPaymentFailed && index === 0
+                    ? "#FF0000"
+                    : currentStep >= step.number
+                    ? "#008000"
+                    : "#ccc",
               }}
             >
               {step.label}

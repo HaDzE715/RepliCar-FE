@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../Style/PaymentSuccessPage.css";
 import { useCart } from "../Components/CartContext";
@@ -7,52 +7,139 @@ import ProgressBar from "../Components/ProgressBar";
 import ReactGA from "react-ga";
 
 const PaymentSuccessPage = () => {
-  // if (window.top !== window.self) {
-  //   window.top.location.href = window.location.href;
-  //   // return null;
-  // }
-
   const { cart, dispatch } = useCart();
   const [orderCreated, setOrderCreated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const orderCreationAttempted = useRef(false);
 
-  const orderDetails = JSON.parse(localStorage.getItem("orderDetails")) || {}; // Default to empty object if not found
-  const storedImages = useMemo(() => {
-    return JSON.parse(localStorage.getItem("uploadedImages")) || [];
-  }, []);
-  const uploadedImages = storedImages.map((image) => image.url);
-  const {
-    clientName = "",
-    orderNumber = "",
-    email = "",
-    phone = "",
-    shippingAddress = { streetAddress: "", city: "" },
-    orderNotes = "",
-    totalPrice = 0,
-  } = orderDetails;
+  // Get query parameters once on component mount
+  const urlParams = new URLSearchParams(location.search);
+  const transactionUid = urlParams.get("transaction_uid");
+  const status = urlParams.get("status");
 
-  useEffect(() => {
-    const getQueryParams = (param) => {
-      const value = new URLSearchParams(location.search).get(param);
-      return value;
-    };
+  // Memoize the processOrder function with useCallback
+  const processOrder = useCallback(() => {
+    // Log navigation for debugging
+    console.log("PaymentSuccessPage mounted, URL:", window.location.href);
 
-    const transaction_uid = getQueryParams("transaction_uid");
-    const status = getQueryParams("status");
-
-    // Redirect to homepage if transaction_uid is missing or status is not 'approved'
-    if (!transaction_uid || status !== "approved") {
-      console.warn(
-        "Transaction UID missing or status not approved. Redirecting..."
-      );
-      navigate("/"); // Redirect to homepage
+    // Skip if we've already attempted to create an order
+    if (orderCreationAttempted.current) {
+      console.log("Order creation already attempted, skipping");
       return;
     }
 
-    const createOrder = async () => {
-      if (orderCreated) return;
+    // Mark that we've attempted order creation - this prevents multiple attempts
+    orderCreationAttempted.current = true;
+
+    // Handle iframe case more reliably
+    if (window.top !== window.self) {
       try {
+        console.log("Page loaded in iframe, attempting to break out");
+        // Store transaction info in sessionStorage before breaking out
+        if (transactionUid && status) {
+          sessionStorage.setItem("payment_transaction_uid", transactionUid);
+          sessionStorage.setItem("payment_status", status);
+        }
+        window.top.location.href = window.location.href;
+        return;
+      } catch (e) {
+        console.error("Failed to break out of iframe:", e);
+        // Continue execution if we can't break out
+      }
+    }
+
+    // Check for parameters in URL or fallback to sessionStorage
+    const effectiveTransactionUid =
+      transactionUid || sessionStorage.getItem("payment_transaction_uid");
+    const effectiveStatus = status || sessionStorage.getItem("payment_status");
+
+    console.log(
+      "Transaction UID:",
+      effectiveTransactionUid,
+      "Status:",
+      effectiveStatus
+    );
+
+    // Redirect to homepage if transaction info is missing
+    if (!effectiveTransactionUid || effectiveStatus !== "approved") {
+      console.warn(
+        "Transaction UID missing or status not approved. Redirecting..."
+      );
+      navigate("/");
+      return;
+    }
+
+    // Clear sessionStorage after use
+    sessionStorage.removeItem("payment_transaction_uid");
+    sessionStorage.removeItem("payment_status");
+
+    // Get order details from localStorage
+    let orderDetails;
+    try {
+      orderDetails = JSON.parse(localStorage.getItem("orderDetails")) || {};
+      console.log("Retrieved order details:", orderDetails);
+    } catch (e) {
+      console.error("Error parsing orderDetails:", e);
+      orderDetails = {};
+    }
+
+    // Get uploaded images from localStorage
+    let uploadedImages = [];
+    try {
+      const storedImages =
+        JSON.parse(localStorage.getItem("uploadedImages")) || [];
+      uploadedImages = storedImages.map((image) => image.url);
+      console.log("Retrieved uploaded images:", uploadedImages);
+    } catch (e) {
+      console.error("Error parsing uploadedImages:", e);
+    }
+
+    const {
+      clientName = "",
+      orderNumber = "",
+      email = "",
+      phone = "",
+      shippingAddress = { streetAddress: "", city: "" },
+      orderNotes = "",
+      totalPrice = 0,
+    } = orderDetails;
+
+    // Create order function
+    const createOrder = async () => {
+      // Check if we've already created this order
+      if (orderCreated) {
+        console.log("Order already created, skipping");
+        return;
+      }
+
+      // Check if this order has been processed before (across page reloads)
+      const orderStorageKey = `order_processed_${orderNumber}_${effectiveTransactionUid}`;
+      if (localStorage.getItem(orderStorageKey)) {
+        console.log("Order was already processed previously, skipping");
+        setOrderCreated(true);
+        setIsLoading(false);
+        return;
+      }
+
+      setIsLoading(true);
+
+      try {
+        console.log(
+          "Attempting to create order with transaction_uid:",
+          effectiveTransactionUid
+        );
+
+        // Validate cart before sending
+        if (!cart || cart.length === 0) {
+          console.error("Cart is empty, cannot create order");
+          setError("לא ניתן ליצור הזמנה. סל הקניות ריק");
+          setIsLoading(false);
+          return;
+        }
+
         const response = await axios.post(
           `${process.env.REACT_APP_API_URL}/api/orders`,
           {
@@ -69,62 +156,118 @@ const PaymentSuccessPage = () => {
               city: shippingAddress.city,
             },
             orderNotes,
-            transaction_uid,
+            transaction_uid: effectiveTransactionUid,
             uploadedImages,
           }
         );
-        setOrderCreated(true);
-        console.log("Order created successfully:", response.data);
 
-        // Clear the cart after the order is successfully created
+        console.log("Order created successfully:", response.data);
+        setOrderCreated(true);
+
+        // Mark this order as processed to prevent duplicate creation
+        localStorage.setItem(orderStorageKey, "true");
+
+        // Clear data after successful order
+        localStorage.removeItem("uploadedImages");
+        dispatch({ type: "CLEAR_CART" });
       } catch (error) {
-        console.error(
-          "Error creating order:",
-          error.response?.data || error.message
-        );
+        // Check if error is due to duplicate order
+        if (error.response?.data?.message?.includes("duplicate key error")) {
+          console.log(
+            "This appears to be a duplicate order, marking as created"
+          );
+          setOrderCreated(true);
+          localStorage.setItem(orderStorageKey, "true");
+        } else {
+          console.error(
+            "Error creating order:",
+            error.response?.data || error.message
+          );
+          setError("אירעה שגיאה ביצירת ההזמנה. אנא צור קשר עם שירות הלקוחות");
+        }
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    if (
+    // Check if we have all required data to create an order
+    const hasRequiredData =
       clientName &&
       email &&
       phone &&
-      cart.length > 0 && // Check if the cart has items
+      cart &&
+      cart.length > 0 &&
       shippingAddress.streetAddress &&
       shippingAddress.city &&
-      orderNumber &&
-      !orderCreated
-    ) {
-      console.log(
-        "All required order details present. Proceeding to create order..."
-      );
+      orderNumber;
+
+    if (hasRequiredData) {
+      console.log("All required order details present. Creating order...");
       createOrder();
-      localStorage.removeItem("uploadedImages");
-      dispatch({ type: "CLEAR_CART" });
     } else {
       console.error("Missing required order details. Cannot create order.");
+      // List what's missing for debugging
+      console.error("Missing fields:", {
+        clientName: !clientName,
+        email: !email,
+        phone: !phone,
+        cart: !cart || cart.length === 0,
+        streetAddress: !shippingAddress.streetAddress,
+        city: !shippingAddress.city,
+        orderNumber: !orderNumber,
+      });
+      setError("נתוני הזמנה חסרים. אנא נסה להזמין שוב");
+      setIsLoading(false);
     }
-  }, [
-    dispatch,
-    clientName,
-    email,
-    phone,
-    cart,
-    shippingAddress,
-    shippingAddress.streetAddress,
-    shippingAddress.city,
-    orderNumber,
-    totalPrice,
-    orderNotes,
-    orderCreated,
-    navigate, // Track changes in navigate for redirects
-    location.search, // Track changes in query parameters
-    uploadedImages,
-  ]);
 
-  useEffect(() => {
+    // Track page view
     ReactGA.pageview(window.location.pathname);
-  });
+  }, [cart, dispatch, navigate, orderCreated, status, transactionUid]);
+
+  // Execute the order processing function once on component mount
+  useEffect(() => {
+    processOrder();
+  }, [processOrder]);
+
+  // Handle loading state
+  if (isLoading) {
+    return (
+      <div className="payment-success-container">
+        <ProgressBar currentStep="3" />
+        <div className="success-box loading">
+          <div className="loading-spinner"></div>
+          <p>מעבד את ההזמנה שלך...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Handle error state
+  if (error) {
+    return (
+      <div className="payment-success-container">
+        <ProgressBar currentStep="3" />
+        <div className="success-box error">
+          <div className="error-icon">❌</div>
+          <h2>שגיאה בעיבוד ההזמנה</h2>
+          <p>{error}</p>
+          <button onClick={() => navigate("/")}>חזרה לדף הבית</button>
+        </div>
+      </div>
+    );
+  }
+
+  // Get client name for display
+  const orderDetails = (() => {
+    try {
+      return JSON.parse(localStorage.getItem("orderDetails")) || {};
+    } catch (e) {
+      return {};
+    }
+  })();
+
+  const { clientName = "לקוח יקר", orderNumber = "" } = orderDetails;
+
   return (
     <div className="payment-success-container">
       <ProgressBar currentStep="3" />
