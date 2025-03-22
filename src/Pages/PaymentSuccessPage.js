@@ -7,10 +7,10 @@ import ProgressBar from "../Components/ProgressBar";
 import ReactGA from "react-ga";
 
 const PaymentSuccessPage = () => {
-  if (window.top !== window.self) {
-    window.top.location.href = window.location.href;
-    // return null;
-  }
+  // if (window.top !== window.self) {
+  //   window.top.location.href = window.location.href;
+  //   // return null;
+  // }
 
   const { cart, dispatch } = useCart();
   const [orderCreated, setOrderCreated] = useState(false);
