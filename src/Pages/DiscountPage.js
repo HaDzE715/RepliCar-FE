@@ -39,7 +39,7 @@ style={{
   maxWidth: '800px',
   margin: '0 auto', 
   marginTop: "15%", 
-  marginBottom: "35px",
+  marginBottom: "33px",
   marginRight: "30%", // Use margin instead of padding
   transform: 'rotate(-2deg) scale(1.2)',
   transformOrigin: 'center center'
