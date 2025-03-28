@@ -36,4 +36,8 @@ body {
     max-width: 350px; /* Larger size for desktops */
     height: auto; /* Maintain aspect ratio */
   }
+  .animation-container{
+    margin-bottom: 50px !important;
+    margin-top: 50px !important;
+  }
 }
