@@ -5,6 +5,7 @@ import Product from "../Components/Product";
 import "../Style/DiecastPage.css";
 // import DiecastBanner from "../Pictures/diecast-cat2.jpeg";
 import ReactGA from "react-ga";
+import SEO from "../Components/SEO";
 
 const DiecastPage = () => {
   const [diecast, setDiecast] = useState([]);
@@ -48,6 +49,12 @@ const DiecastPage = () => {
           <p>גלו את האוסף המרהיב שלנו של רכבי דייקאסט.</p>
         </div>
       </section> */}
+      {/* Add SEO component with posters-specific metadata */}
+      <SEO 
+        title="פוסטרים של רכבים | Replicar - רפליקאר"
+        description="פוסטרים איכותיים של רכבי יוקרה וקלאסיקות מהמותגים המובילים. עיצובים מרהיבים שישדרגו כל חלל ויוסיפו אווירה אקסקלוסיבית לבית או למשרד."
+        url="https://replicar.co.il/posters"
+      />
 
       <h1 className="page-title">פוסטרים</h1>
       <div className="diecast-products-container">

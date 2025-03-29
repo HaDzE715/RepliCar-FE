@@ -3,6 +3,7 @@ import Product from "../Components/Product";
 import Skeleton from "@mui/material/Skeleton";
 import "../Style/Productspage.css";
 import ReactGA from "react-ga";
+import SEO from "../Components/SEO";
 
 const ProductsPage = ({ products, openDrawer }) => {
   const [productsPerPage, setProductsPerPage] = useState(9);
@@ -89,6 +90,13 @@ const ProductsPage = ({ products, openDrawer }) => {
 
   return (
     <div className="products-page">
+      {products.length > 0 && !loading && (
+        <SEO
+        title={`${products[0].brand} Diecast Models | Replicar - רפליקאר`}
+        description={`מבחר דגמי ${products[0].brand} איכותיים בקנה מידה מדויק. קולקציית רכבי דייקאסט ממותג ${products[0].brand} בחנות רפליקאר`}
+        url={`https://replicar.co.il/brand/${products[0].brand.toLowerCase()}`}
+      />
+      )}
       {products.length > 0 && !loading && (
         <h1 className="page-title">{products[0].brand} Diecast Models</h1>
       )}

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Skeleton from "@mui/material/Skeleton";
 import ReactGA from "react-ga";
+import SEO from "./SEO";
 
 const BlogDetail = () => {
   const { slug } = useParams();
@@ -41,6 +42,14 @@ const BlogDetail = () => {
   const handleBackClick = () => {
     navigate("/blogs");
   };
+
+    // For SEO purposes, strip HTML tags to create a clean text-only summary
+    const createMetaDescription = (content) => {
+      if (!content) return "";
+      // Remove HTML tags and limit to ~150-160 characters
+      const textContent = content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+      return textContent.substring(0, 160) + (textContent.length > 160 ? '...' : '');
+    };
 
   const styles = {
     container: {
@@ -154,6 +163,13 @@ const BlogDetail = () => {
     <div style={styles.container}>
       {blog && (
         <>
+          {/* Add dynamic SEO with blog-specific metadata */}
+          <SEO 
+            title={`${blog.title} | Replicar - רפליקאר`}
+            description={blog.summary || createMetaDescription(blog.content)}
+            image={blog.image}
+            url={`https://replicar.co.il/blog/${slug}`}
+          />
           <div style={styles.hero}>
             <img src={blog.image} alt={blog.title} style={styles.image} />
           </div>

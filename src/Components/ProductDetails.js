@@ -22,6 +22,7 @@ import ServiceSection from "./ServiceSection";
 import SecureCheckoutSection from "./SecureCheckoutSection";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
+import SEO from "../Components/SEO";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -63,6 +64,14 @@ const ProductDetails = () => {
 
     fetchProduct();
   }, [id]);
+
+  // Extract the plain text description for SEO (removing HTML tags)
+  const getPlainTextDescription = (htmlDescription) => {
+    if (!htmlDescription) return "";
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = htmlDescription;
+    return tempDiv.textContent || tempDiv.innerText || "";
+  };
 
   const updateLocalStorageCart = (updatedCart) => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
@@ -229,11 +238,33 @@ const ProductDetails = () => {
   }
 
   if (!product) {
-    return <p>Product not found</p>;
+    return (
+      <>
+      <SEO 
+        title="מוצר לא נמצא | Replicar - רפליקאר"
+        description="המוצר המבוקש לא נמצא באתר רפליקאר."
+        url={`https://replicar.co.il/product-details/${id}`}
+      />
+
+    <p>Product not found</p>
+    </>
+    );
   }
+
+  // Create a product-specific SEO description
+  const productDescription = getPlainTextDescription(product.description);
+  const seoDescription = `${product.name} - ${product.category === 'Frame' ? 'מסגרת דייקאסט' : product.category === 'Poster' ? 'פוסטר' : 'דגם דייקאסט'} ברמת איכות גבוהה. ${productDescription.slice(0, 120)}`;
+
 
   return (
     <div className="product-details-container">
+      {/* Add dynamic SEO with product-specific metadata */}
+      <SEO 
+        title={`${product.name} | Replicar - רפליקאר`}
+        description={seoDescription}
+        image={product.image}
+        url={`https://replicar.co.il/product-details/${id}`}
+      />
       <div {...swipeHandlers} className="product-details-image-slider">
         {!mainImageLoaded && (
           <Skeleton variant="rectangular" width="100%" height={350} />

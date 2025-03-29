@@ -29,6 +29,7 @@ import PaymentFailedPage from "./Pages/PaymentFailedPage";
 import BlogsPage from "./Pages/BlogsPage";
 import BlogDetail from "./Components/BlogDetail";
 import BlogManagement from "./AdminPages/BlogManagement";
+import SEO from "./Components/SEO";
 
 const TRACKING_ID = "G-N2GX693398";
 ReactGA.initialize(TRACKING_ID);
@@ -54,6 +55,8 @@ function AppContent() {
 
   return (
     <>
+
+      <SEO />
       {/* Conditionally render the popup only if not on admin routes */}
       {/* {!isAdminRoute && <DiscountPopup />} */}
 

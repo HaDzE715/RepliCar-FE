@@ -5,6 +5,7 @@ import Product from "../Components/Product";
 import "../Style/FramesPage.css";
 // import FrameBanner from "../Pictures/Frames5.JPG";
 import ReactGA from "react-ga";
+import SEO from "../Components/SEO";
 
 const FramesPage = () => {
   const [frames, setFrames] = useState([]);
@@ -49,6 +50,11 @@ const FramesPage = () => {
           </div>
         </div>
       </section> */}
+      <SEO 
+        title="מסגרות דייקאסט מעוצבות | Replicar - רפליקאר"
+        description="מסגרות דייקאסט יוקרתיות לאוהבי רכבים וחובבי אספנות. מבחר עיצובים מרהיבים המשלבים דגמי רכב קלאסיים ומודרניים במסגרות איכותיות לקיר."
+        url="https://replicar.co.il/frames"
+      />
       <h1 className="page-title">מסגרות</h1>
       <div className="frames-products-container">
         {loading ? (

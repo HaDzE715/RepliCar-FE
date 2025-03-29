@@ -3,6 +3,7 @@ import axios from "axios";
 import Skeleton from "@mui/material/Skeleton";
 import ReactGA from "react-ga";
 import BlogCard from "../Components/BlogCard";
+import SEO from "../Components/SEO";
 
 const BlogsPage = () => {
   const [blogs, setBlogs] = useState([]);
@@ -72,6 +73,12 @@ const BlogsPage = () => {
 
   return (
     <div style={styles.pageWrapper}>
+    {/* Add SEO component with blog page specific metadata */}
+      <SEO 
+        title="הבלוג | Replicar - רפליקאר"
+        description="הבלוג של רפליקאר – טיפים, מידע וחדשות בנושא דגמי רכבים, אספנות, ועולם הדייקאסט"
+        url="https://replicar.co.il/blogs"
+      />
       <div style={styles.mainContent}>
         <h1 style={styles.pageTitle}>הבלוג שלנו</h1>
         <div style={styles.blogsContainer}>

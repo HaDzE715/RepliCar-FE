@@ -2,6 +2,7 @@ import React from "react";
 import "../Style/AboutUs.css";
 import ReactGA from "react-ga";
 import { useEffect } from "react";
+import SEO from "../Components/SEO";
 
 const AboutUs = () => {
   useEffect(() => {
@@ -9,6 +10,12 @@ const AboutUs = () => {
   });
   return (
     <div className="about-us-container">
+            {/* Add SEO component with About page specific metadata */}
+      <SEO 
+        title="קצת עלינו | Replicar - רפליקאר"
+        description="הכירו את רפליקאר - עסק שנולד מאהבה לרכבי יוקרה ומביא לכם דגמים מדויקים ואיכותיים של מכוניות קלאסיות. גלו את הסיפור שלנו, הערכים שלנו, ואיך אנחנו בוחרים כל דגם בקפידה."
+        url="https://replicar.co.il/about"
+      />
       <h1 className="about-us-title">קצת עלינו</h1>
 
       <section className="about-us-section">

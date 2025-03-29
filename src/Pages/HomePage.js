@@ -15,6 +15,7 @@ import HeroSection from "../Components/HeroSection";
 import CookieConsent from "../Components/CookieConsent";
 import CircularProgress from "@mui/material/CircularProgress";
 import ReactGA from "react-ga";
+import SEO from "../Components/SEO";
 
 const Product = lazy(() => import("../Components/Product")); // Lazy load Product component
 
@@ -170,6 +171,11 @@ const HomePage = () => {
       {/* <div className="redline">
         משלוח חינם לכל רחבי הארץ בתוך 5 עד 7 ימי עסקים בלבד!
       </div> */}
+      <SEO 
+        title="Replicar - רפליקאר | דגמי רכב ומסגרות יוקרה"
+        description="רפליקאר – עידן חדש של עיצוב לחובבי רכב. פוסטרים יוקרתיים, דייקאסט ומסגרות דייקאסט של רכבים בעיצובים מושלמים. גלו את הקולקציה הבלעדית שלנו, המשלבת אמנות רכב עם איכות ועיצוב עכשווי"
+        url="https://replicar.co.il"
+      />
       <HeroSection />
       <div className="content-wrapper" style={{ overflow: "hidden" }}>
         <CookieConsent />

@@ -5,6 +5,7 @@ import Product from "../Components/Product";
 import "../Style/DiecastPage.css";
 // import DiecastBanner from "../Pictures/diecast-cat2.jpeg";
 import ReactGA from "react-ga";
+import SEO from "../Components/SEO";
 
 const DiecastPage = () => {
   const [diecast, setDiecast] = useState([]);
@@ -48,7 +49,11 @@ const DiecastPage = () => {
           <p>גלו את האוסף המרהיב שלנו של רכבי דייקאסט.</p>
         </div>
       </section> */}
-
+      <SEO 
+        title="דגמי רכב דייקאסט | Replicar - רפליקאר"
+        description="גלו את קולקציית רכבי הדייקאסט המדויקים שלנו. דגמים איכותיים בקנה מידה מדויק של מכוניות יוקרה וקלאסיות מהמותגים המובילים בעולם."
+        url="https://replicar.co.il/diecast"
+      />
       <h1 className="page-title">רכבים</h1>
       <div className="diecast-products-container">
         {loading ? (
