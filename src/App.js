@@ -26,6 +26,9 @@ import ReactPixel from "react-facebook-pixel";
 import ReactGA from "react-ga";
 import PostersPage from "./Pages/PostersPage";
 import PaymentFailedPage from "./Pages/PaymentFailedPage";
+import BlogsPage from "./Pages/BlogsPage";
+import BlogDetail from "./Components/BlogDetail";
+import BlogManagement from "./AdminPages/BlogManagement";
 
 const TRACKING_ID = "G-N2GX693398";
 ReactGA.initialize(TRACKING_ID);
@@ -73,6 +76,8 @@ function AppContent() {
           <Route path="/terms" element={<TermsAndConditions />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/payment-failed" element={<PaymentFailedPage />} />
+          <Route path="/blogs" element={<BlogsPage />} />
+          <Route path="/blog/:slug" element={<BlogDetail />} />
         </Route>
 
         {/* Separate route for Admin login without Navbar/Footer */}
@@ -81,6 +86,7 @@ function AppContent() {
         {/* Admin Dashboard Route with nested routes */}
         <Route path="/admin-dashboard" element={<AdminDashboard />}>
           <Route path="products" element={<ProductManagement />} />
+          <Route path="blogs" element={<BlogManagement/>} />
         </Route>
       </Routes>
     </>

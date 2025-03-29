@@ -12,6 +12,7 @@ import SalesChart from "../AdminComponents/SalesChart";
 import { Box, Typography } from "@mui/material";
 // import DailySalesSummary from "../AdminComponents/DailySalesSummary";
 import DailyRevenueDonut from "../AdminComponents/DailyRevenueDonut";
+import { FaBlog } from "react-icons/fa";
 
 const AdminDashboard = () => {
   const [admin, setAdmin] = useState(null);
@@ -101,6 +102,17 @@ const AdminDashboard = () => {
           >
             <FaShoppingCart style={styles.icon} />
             {!isMobile && <span style={styles.navItemText}>Products</span>}
+          </li>
+          <li
+            style={
+              location.pathname === "/admin-dashboard/blogs"
+                ? styles.activeNavItem
+                : styles.navItem
+            }
+            onClick={() => navigate("/admin-dashboard/blogs")}
+          >
+            <FaBlog style={styles.icon} />
+            {!isMobile && <span style={styles.navItemText}>Blog</span>}
           </li>
         </ul>
         <div style={styles.navRight}>

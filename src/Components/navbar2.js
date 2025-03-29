@@ -38,6 +38,7 @@ const pages = [
     ],
   },
   { name: "מבצעי פסח!", link: "/discounts" },
+  { name: "בלוגים", link: "/blogs" },
 ];
 
 function CustomNavbar() {
