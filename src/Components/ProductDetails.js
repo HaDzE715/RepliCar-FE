@@ -90,7 +90,7 @@ const ProductDetails = () => {
   };
 
   const handleBuyNow = () => {
-    if (!selectedVariant && product.variants?.length > 0) {
+    if (!selectedVariant && product.variants?.length > 1) {
       alert("Please select a size before purchasing.");
       return;
     }
@@ -240,26 +240,31 @@ const ProductDetails = () => {
   if (!product) {
     return (
       <>
-      <SEO 
-        title="מוצר לא נמצא | Replicar - רפליקאר"
-        description="המוצר המבוקש לא נמצא באתר רפליקאר."
-        url={`https://replicar.co.il/product-details/${id}`}
-      />
+        <SEO
+          title="מוצר לא נמצא | Replicar - רפליקאר"
+          description="המוצר המבוקש לא נמצא באתר רפליקאר."
+          url={`https://replicar.co.il/product-details/${id}`}
+        />
 
-    <p>Product not found</p>
-    </>
+        <p>Product not found</p>
+      </>
     );
   }
 
   // Create a product-specific SEO description
   const productDescription = getPlainTextDescription(product.description);
-  const seoDescription = `${product.name} - ${product.category === 'Frame' ? 'מסגרת דייקאסט' : product.category === 'Poster' ? 'פוסטר' : 'דגם דייקאסט'} ברמת איכות גבוהה. ${productDescription.slice(0, 120)}`;
-
+  const seoDescription = `${product.name} - ${
+    product.category === "Frame"
+      ? "מסגרת דייקאסט"
+      : product.category === "Poster"
+      ? "פוסטר"
+      : "דגם דייקאסט"
+  } ברמת איכות גבוהה. ${productDescription.slice(0, 120)}`;
 
   return (
     <div className="product-details-container">
       {/* Add dynamic SEO with product-specific metadata */}
-      <SEO 
+      <SEO
         title={`${product.name} | Replicar - רפליקאר`}
         description={seoDescription}
         image={product.image}
@@ -513,27 +518,41 @@ const ProductDetails = () => {
               )}
             </Typography>
 
-            <Select
-              labelId="variant-select-label"
-              id="variant-select"
-              value={selectedVariant?.name || ""} // Use the variant name as the value
-              onChange={handleVariantChange}
-              style={{
-                fontFamily: "Noto Sans Hebrew",
-                direction: "rtl",
-                textAlign: "right",
-              }}
-            >
-              {product.variants.map((variant, index) => (
-                <MenuItem
-                  key={index}
-                  value={variant.name}
-                  style={{ direction: "rtl", textAlign: "right" }}
-                >
-                  {variant.name} - {variant.dimensions} - {variant.price}₪
-                </MenuItem>
-              ))}
-            </Select>
+            {product.variants.length === 1 ? (
+              <Typography
+                sx={{
+                  fontFamily: "Noto Sans Hebrew",
+                  direction: "rtl",
+                  textAlign: "right",
+                  fontWeight: "bold",
+                }}
+              >
+                {product.variants[0].name} - {product.variants[0].dimensions} -{" "}
+                {product.variants[0].price}₪
+              </Typography>
+            ) : (
+              <Select
+                labelId="variant-select-label"
+                id="variant-select"
+                value={selectedVariant?.name || ""} // Use the variant name as the value
+                onChange={handleVariantChange}
+                style={{
+                  fontFamily: "Noto Sans Hebrew",
+                  direction: "rtl",
+                  textAlign: "right",
+                }}
+              >
+                {product.variants.map((variant, index) => (
+                  <MenuItem
+                    key={index}
+                    value={variant.name}
+                    style={{ direction: "rtl", textAlign: "right" }}
+                  >
+                    {variant.name} - {variant.dimensions} - {variant.price}₪
+                  </MenuItem>
+                ))}
+              </Select>
+            )}
           </FormControl>
         )}
         {product.name === "מסגרת בעיצוב אישי" && (
