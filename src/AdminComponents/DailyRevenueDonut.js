@@ -105,9 +105,7 @@ const RotatableCircle = () => {
         height: "100%",
         position: "relative",
         padding: "20px",
-        backgroundColor: "#f9f9f9",
-        borderRadius: "16px",
-        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", // Subtle shadow for elevation
+        borderRadius: "26px",
       }}
     >
       {/* Subtitle */}
@@ -125,7 +123,7 @@ const RotatableCircle = () => {
       >
         Daily Revenue Breakdown for {currentMonthName}
       </Typography>
-  
+
       {/* Donut Circle */}
       <Box
         sx={{
@@ -171,7 +169,7 @@ const RotatableCircle = () => {
           </Typography>
         </Box>
       </Box>
-  
+
       {/* Arrows for Navigation */}
       <Box
         display="flex"
@@ -199,7 +197,7 @@ const RotatableCircle = () => {
           <ArrowForward sx={{ color: "#0077b6" }} />
         </IconButton>
       </Box>
-  
+
       {/* Revenue Display */}
       <Typography
         variant="h4"

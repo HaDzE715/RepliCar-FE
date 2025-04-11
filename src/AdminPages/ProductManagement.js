@@ -452,23 +452,42 @@ const ProductManagement = () => {
                   }
                   modules={{
                     toolbar: [
-                      [{ header: [1, 2, 3, false] }], // Header styles
-                      ["bold", "italic", "underline"], // Text styles
+                      [{ header: [1, 2, 3, 4, 5, 6, false] }], // More header options
+                      ["bold", "italic", "underline", "strike"], // Added strikethrough
+                      [{ color: [] }, { background: [] }], // Text and background colors
+                      [{ align: [] }], // Text alignment options
                       [{ list: "ordered" }, { list: "bullet" }], // Lists
-                      ["link", "image"], // Links and images
+                      [{ indent: "-1" }, { indent: "+1" }], // Indentation
+                      [{ script: "sub" }, { script: "super" }], // Subscript/superscript
+                      ["blockquote", "code-block"], // Block formatting
+                      ["link", "image", "video"], // Added video embedding
                       ["clean"], // Remove formatting
                     ],
+                    clipboard: {
+                      matchVisual: false, // Improves paste experience
+                    },
                   }}
                   formats={[
                     "header",
                     "bold",
                     "italic",
                     "underline",
+                    "strike",
+                    "color",
+                    "background",
+                    "align",
                     "list",
                     "bullet",
+                    "indent",
+                    "script",
+                    "blockquote",
+                    "code-block",
                     "link",
                     "image",
+                    "video",
                   ]}
+                  placeholder="Enter detailed product description here..."
+                  style={{ minHeight: "200px", marginBottom: "20px" }}
                 />
               </Form.Group>
               <Form.Group controlId="formProductImage">

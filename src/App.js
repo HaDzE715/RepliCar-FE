@@ -20,7 +20,7 @@ import AdminDashboard from "./AdminPages/AdminDashboard";
 import ProductManagement from "./AdminPages/ProductManagement";
 import TagManager from "react-gtm-module";
 import { useEffect } from "react";
-// import DiscountPopup from "./Components/DiscountPopup";
+import DiscountPopup from "./Components/DiscountPopup";
 import DiscountPage from "./Pages/DiscountPage";
 import ReactPixel from "react-facebook-pixel";
 import ReactGA from "react-ga";
@@ -55,10 +55,9 @@ function AppContent() {
 
   return (
     <>
-
       <SEO />
       {/* Conditionally render the popup only if not on admin routes */}
-      {/* {!isAdminRoute && <DiscountPopup />} */}
+      <DiscountPopup />
 
       <Routes>
         {/* Wrap pages that need Navbar and Footer with Layout */}
@@ -89,7 +88,7 @@ function AppContent() {
         {/* Admin Dashboard Route with nested routes */}
         <Route path="/admin-dashboard" element={<AdminDashboard />}>
           <Route path="products" element={<ProductManagement />} />
-          <Route path="blogs" element={<BlogManagement/>} />
+          <Route path="blogs" element={<BlogManagement />} />
         </Route>
       </Routes>
     </>

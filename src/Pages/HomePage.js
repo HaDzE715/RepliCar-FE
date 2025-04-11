@@ -5,7 +5,9 @@ import Skeleton from "@mui/material/Skeleton";
 import "../Style/HomePage.css";
 import { useDrawer } from "../Components/DrawerContext";
 import Banner1 from "../Pictures/Banner1.jpeg";
-import Banner2 from "../Pictures/Banner21.jpeg";
+// import Banner2 from "../Pictures/Banner21.jpeg";
+import Banner3 from "../Pictures/M2-Banner.jpeg";
+// import Banner4 from "../Pictures/Ghibli-Banner.jpeg";
 import Diecast from "../Pictures/Porsche.JPG";
 import Frames from "../Pictures/Ferrari.JPG";
 import ServiceSection from "../Components/ServiceSection";
@@ -58,6 +60,7 @@ const HomePage = () => {
   const [loadingDiscountedProducts, setLoadingDiscountedProducts] =
     useState(true);
   const [email, setEmail] = useState("");
+  const [name, setName] = useState(""); // Add this line
   const [newsletterMessage, setNewsletterMessage] = useState("");
   const apiUrl = process.env.REACT_APP_API_URL;
   const { openDrawer } = useDrawer();
@@ -134,9 +137,10 @@ const HomePage = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post(`${apiUrl}/api/subscribe`, { email });
+      await axios.post(`${apiUrl}/api/subscribe`, { email, name });
       setNewsletterMessage("תודה לך על ההרשמה!");
       setEmail("");
+      setName("");
     } catch (error) {
       setNewsletterMessage("Subscription failed. Please try again.");
       console.error("Error subscribing to newsletter:", error);
@@ -171,7 +175,7 @@ const HomePage = () => {
       {/* <div className="redline">
         משלוח חינם לכל רחבי הארץ בתוך 5 עד 7 ימי עסקים בלבד!
       </div> */}
-      <SEO 
+      <SEO
         title="Replicar - רפליקאר | דגמי רכב ומסגרות יוקרה"
         description="רפליקאר – עידן חדש של עיצוב לחובבי רכב. פוסטרים יוקרתיים, דייקאסט ומסגרות דייקאסט של רכבים בעיצובים מושלמים. גלו את הקולקציה הבלעדית שלנו, המשלבת אמנות רכב עם איכות ועיצוב עכשווי"
         url="https://replicar.co.il"
@@ -230,12 +234,112 @@ const HomePage = () => {
           )}
         </section>
 
-        <section className="banner1-section">
+        <section
+          className="banner1-section"
+          style={{ position: "relative", width: "100%" }}
+        >
           <LazyImage
-            src={Banner1}
+            src={Banner3}
             alt="Promotional Banner"
             className="banner1-image"
-            onClick={() => (window.location.href = "/frames")}
+            style={{ width: "100%", height: "auto", display: "block" }}
+          />
+          <button
+            style={{
+              backgroundColor: "#ff6b00",
+              color: "white",
+              padding: "clamp(8px, 2vw, 16px) clamp(16px, 4vw, 32px)",
+              fontSize: "clamp(14px, 1.5vw, 20px)",
+              fontWeight: "bold",
+              border: "none",
+              borderRadius: "clamp(4px, 0.5vw, 8px)",
+              cursor: "pointer",
+              boxShadow: "0 0 15px rgba(255,107,0,0.2)",
+              transition: "all 0.3s ease",
+              direction: "rtl",
+              position: "absolute",
+              bottom: "2vw",
+              marginRight: "55vw",
+              whiteSpace: "nowrap",
+              zIndex: 10,
+              overflow: "hidden",
+              animation: "pulse 2s infinite",
+            }}
+            onMouseOver={(e) => {
+              // Stop the pulsing animation
+              e.currentTarget.style.animation = "none";
+              // Add a background shine effect
+              e.currentTarget.style.backgroundImage =
+                "linear-gradient(90deg, #ff6b00 0%, #ff6b00 40%, #ff8c3f 50%, #ff6b00 60%, #ff6b00 100%)";
+              e.currentTarget.style.backgroundSize = "200% 100%";
+              e.currentTarget.style.backgroundPosition = "100% 0";
+              // Start the shine animation
+              e.currentTarget.style.transition =
+                "all 0.3s ease, background-position 1s";
+              e.currentTarget.style.backgroundPosition = "0% 0";
+              // Scale up slightly
+              e.currentTarget.style.transform = "scale(1.05)";
+              e.currentTarget.style.boxShadow = "0 0 20px rgba(255,107,0,0.4)";
+            }}
+            onMouseOut={(e) => {
+              // Restore the pulsing animation
+              e.currentTarget.style.animation = "pulse 2s infinite";
+              // Reset other styles
+              e.currentTarget.style.backgroundImage = "none";
+              e.currentTarget.style.transform = "scale(1)";
+              e.currentTarget.style.boxShadow = "0 0 15px rgba(255,107,0,0.2)";
+            }}
+            onMouseDown={(e) => {
+              e.currentTarget.style.transform = "scale(0.98)";
+              e.currentTarget.style.boxShadow = "0 0 10px rgba(255,107,0,0.3)";
+            }}
+            onMouseUp={(e) => {
+              e.currentTarget.style.transform = "scale(1.05)";
+              e.currentTarget.style.boxShadow = "0 0 20px rgba(255,107,0,0.4)";
+            }}
+            onClick={() =>
+              (window.location.href =
+                "/product-details/67388e95b3dff873298d63ef")
+            }
+            className="cta-button"
+          >
+            פוסטר מעוצב אישית
+          </button>
+
+          {/* Add the CSS keyframes animation and desktop-only media queries */}
+          <style
+            dangerouslySetInnerHTML={{
+              __html: `
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 15px rgba(255,107,0,0.2);
+          transform: scale(1);
+        }
+        50% {
+          box-shadow: 0 0 25px rgba(255,107,0,0.4);
+          transform: scale(1.03);
+        }
+        100% {
+          box-shadow: 0 0 15px rgba(255,107,0,0.2);
+          transform: scale(1);
+        }
+      }
+      
+      /* Desktop-only media queries - won't affect mobile */
+      @media screen and (min-width: 1366px) and (max-width: 1920px) {
+        .cta-button {
+          bottom: 1vw !important;
+          margin-right: 35vw !important;
+        }
+      }
+      
+      @media screen and (min-width: 1921px) {
+        .cta-button {
+          margin-right: 40vw !important;
+        }
+      }
+    `,
+            }}
           />
         </section>
         <div className="homepage-diecast-category-container">
@@ -286,7 +390,7 @@ const HomePage = () => {
         </div>
         <section className="banner1-section">
           <LazyImage
-            src={Banner2}
+            src={Banner1}
             alt="Promotional Banner"
             className="banner1-image"
             onClick={() => (window.location.href = "/diecast")}
@@ -358,20 +462,34 @@ const HomePage = () => {
               style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}
             >
               {loading ? (
-                <CircularProgress size={22} color="inherit" /> // Use CircularProgress from Material-UI
+                <CircularProgress size={22} color="inherit" />
               ) : (
                 "להירשם"
               )}
             </button>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="הזן את המייל שלך"
-              style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}
-              required
-              className="newsletter-input"
-            />
+            <div className="newsletter-inputs">
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="השם שלך"
+                style={{
+                  fontFamily: "Noto Sans Hebrew",
+                  direction: "rtl",
+                  marginBottom: "10px",
+                }}
+                className="newsletter-input"
+              />
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="הזן את המייל שלך"
+                style={{ fontFamily: "Noto Sans Hebrew", direction: "rtl" }}
+                required
+                className="newsletter-input"
+              />
+            </div>
           </form>
           {newsletterMessage && (
             <p className="newsletter-message">{newsletterMessage}</p>

@@ -6,8 +6,6 @@ import "../Style/ProductDetails.css";
 import SizeTable from "./SizeTable";
 import {
   Button,
-  MenuItem,
-  Select,
   FormControl,
   Typography,
   Box,
@@ -104,12 +102,12 @@ const ProductDetails = () => {
       window.location.href = "/checkout";
     }, 100);
   };
-  const handleVariantChange = (event) => {
-    const selected = product.variants.find(
-      (variant) => variant.name === event.target.value
-    );
-    setSelectedVariant(selected); // Update state with the selected variant
-  };
+  // const handleVariantChange = (event) => {
+  //   const selected = product.variants.find(
+  //     (variant) => variant.name === event.target.value
+  //   );
+  //   setSelectedVariant(selected); // Update state with the selected variant
+  // };
 
   const handleImageChange = (direction) => {
     // Set animation direction for smooth transition
@@ -500,7 +498,7 @@ const ProductDetails = () => {
               textAlign: "right",
             }}
           >
-            <Typography
+            {/* <Typography
               variant="h6"
               component="p"
               sx={{
@@ -516,9 +514,9 @@ const ProductDetails = () => {
               ) : (
                 "בחר גודל מסגרת"
               )}
-            </Typography>
+            </Typography> */}
 
-            {product.variants.length === 1 ? (
+            {/* {product.variants.length === 1 ? (
               <Typography
                 sx={{
                   fontFamily: "Noto Sans Hebrew",
@@ -552,7 +550,7 @@ const ProductDetails = () => {
                   </MenuItem>
                 ))}
               </Select>
-            )}
+            )} */}
           </FormControl>
         )}
         {product.name === "מסגרת בעיצוב אישי" && (
@@ -577,7 +575,7 @@ const ProductDetails = () => {
                 marginBottom: 2,
               }}
             >
-              2️⃣ - העלה תמונות של הרכב 🚗 שברצונך שנעצב עבורך 🎨!
+              1️⃣ - העלה תמונות של הרכב 🚗 שברצונך שנעצב עבורך 🎨!
             </Typography>
             {isUploading ? (
               <DotLottieReact
@@ -665,7 +663,7 @@ const ProductDetails = () => {
                 marginBottom: 3,
               }}
             >
-              3️⃣ - לאחר לחיצה על{" "}
+              2️⃣ - לאחר לחיצה על{" "}
               <span style={{ color: "green", fontWeight: "bold" }}>
                 קנה עכשיו
               </span>{" "}
