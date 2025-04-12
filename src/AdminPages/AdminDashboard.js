@@ -16,17 +16,55 @@ import { FaBlog } from "react-icons/fa";
 
 const AdminDashboard = () => {
   const [admin, setAdmin] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const location = useLocation(); // Get current path
   const navigate = useNavigate(); // For navigating between routes
   const [isMobile, setIsMobile] = useState(false);
   const isDashboard = location.pathname === "/admin-dashboard";
 
   useEffect(() => {
-    const storedAdmin = localStorage.getItem("admin");
-    if (storedAdmin) {
-      setAdmin(JSON.parse(storedAdmin));
-    }
-  }, []);
+    const verifyAdminAuth = async () => {
+      try {
+        // Get admin data from localStorage
+        const storedAdmin = localStorage.getItem("admin");
+
+        if (!storedAdmin) {
+          // No stored admin, redirect to login
+          navigate("/admin");
+          return;
+        }
+
+        const adminData = JSON.parse(storedAdmin);
+
+        // Verify the token with server
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/admin/verify-auth`,
+          {
+            headers: {
+              Authorization: `Bearer ${adminData.token}`,
+            },
+          }
+        );
+
+        if (response.data.authenticated) {
+          // Token is valid, keep admin data
+          setAdmin(adminData);
+        } else {
+          // Invalid token, redirect to login
+          localStorage.removeItem("admin");
+          navigate("/admin");
+        }
+      } catch (error) {
+        console.error("Authentication verification failed", error);
+        localStorage.removeItem("admin");
+        navigate("/admin");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    verifyAdminAuth();
+  }, [navigate]);
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768); // Set mobile if screen width <= 768px
@@ -58,6 +96,20 @@ const AdminDashboard = () => {
       console.log("Error during logout:", err);
     }
   };
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <div style={styles.container}>
