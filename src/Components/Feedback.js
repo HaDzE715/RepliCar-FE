@@ -244,13 +244,15 @@ const FeedbackSlider = () => {
           />
           <TestimonialText>"{feedback.text}"</TestimonialText>
 
-          <CustomerImage>
-            <img
-              src={require(`../assets/images/${feedback.image}`)}
-              alt={`תמונת לקוח - ${feedback.name}`}
-              loading="lazy"
-            />
-          </CustomerImage>
+          {feedback.image ? (
+            <CustomerImage>
+              <img
+                src={require(`../assets/images/${feedback.image}`)}
+                alt={`תמונת לקוח - ${feedback.name}`}
+                loading="lazy"
+              />
+            </CustomerImage>
+          ) : null}
 
           <CustomerName>{feedback.name}</CustomerName>
         </TestimonialCard>
