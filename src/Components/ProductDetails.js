@@ -16,11 +16,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useCart } from "../Components/CartContext";
 import { useSwipeable } from "react-swipeable";
-import ServiceSection from "./ServiceSection";
 import SecureCheckoutSection from "./SecureCheckoutSection";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import SEO from "../Components/SEO";
+import Feedback from "./Feedback";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -675,8 +675,7 @@ const ProductDetails = () => {
             </Typography>
           </Box>
         )}
-
-        <SecureCheckoutSection />
+        <Feedback />
         <h3
           style={{
             fontFamily: "Noto Sans Hebrew",
@@ -696,7 +695,7 @@ const ProductDetails = () => {
           }}
           dangerouslySetInnerHTML={{ __html: product.description }}
         ></div>
-        <ServiceSection />
+        <SecureCheckoutSection />
         {product.category === "Diecast" && <SizeTable />}
       </div>
     </div>

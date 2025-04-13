@@ -1,0 +1,26 @@
+{
+  "feedbacks": [
+    {
+      "id": 1,
+      "name": "שירן י.",
+      "rating": 5,
+      "text": "היי, הגיע עכשיו התמונה. חייבת להגיד שזה עלה למעל הציפיות שלי!! זה יצא מושלם ברמות🙏🏻❤️ תודה רבה וחג שמח🌸",
+      "image": "Shiran.jpg"
+    },
+    {
+      "id": 2,
+      "name": "ליאור א.",
+      "rating": 5,
+      "text": "שמעעע זה מטורף, אמת חשבתי בכלל יהיה קטן, אבל זה בדיוק!",
+      "image": "Lior.jpg"
+    },
+    {
+      "id": 3,
+      "name": "כפיר ר.",
+      "rating": 5,
+      "text": "המוצר ברמה מאוד גבוהה, איכותי, יוקרתי, וכיף מאוד להסתכל על זה",
+      "image": "Kfir.jpg"
+    }
+  ],
+  "heading": "כבר השארתם אותנו ללא מילים..."
+}
