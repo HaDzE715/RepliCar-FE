@@ -18,6 +18,7 @@ import CookieConsent from "../Components/CookieConsent";
 import CircularProgress from "@mui/material/CircularProgress";
 import ReactGA from "react-ga";
 import SEO from "../Components/SEO";
+import Feedback from "../Components/Feedback";
 
 const Product = lazy(() => import("../Components/Product")); // Lazy load Product component
 
@@ -365,6 +366,7 @@ const HomePage = () => {
               </button>
             </div>
           </section>
+          <Feedback />
           <section className="homepage-diecast-category-box">
             <div className="homepage-category-box-content">
               <img
