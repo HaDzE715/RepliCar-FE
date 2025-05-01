@@ -213,45 +213,7 @@ export default function ContactMeForm() {
             borderBottomRightRadius: "0",
             direction: "rtl",
           }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              margin: "8px 15px",
-              color: "#ffffff",
-            }}
-          >
-            <span style={{ marginLeft: "8px", fontSize: "18px" }}>📧</span>
-            <span
-              style={{
-                fontFamily: "Noto Sans Hebrew, sans-serif",
-                fontSize: "0.9rem",
-              }}
-            >
-              info@replicar.co.il
-            </span>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              margin: "8px 15px",
-              color: "#ffffff",
-            }}
-          >
-            <span style={{ marginLeft: "8px", fontSize: "18px" }}>📞</span>
-            <span
-              style={{
-                fontFamily: "Noto Sans Hebrew, sans-serif",
-                fontSize: "0.9rem",
-              }}
-            >
-              03-1234567
-            </span>
-          </div>
-        </div>
+        ></div>
       </div>
 
       {/* Contact Form Section */}
