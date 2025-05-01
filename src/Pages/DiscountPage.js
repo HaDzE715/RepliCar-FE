@@ -49,7 +49,6 @@ const DiscountPage = () => {
           width: "100%",
           maxWidth: "800px",
           margin: "0 auto",
-          marginTop: "40px",
           marginBottom: "40px",
           position: "relative",
           overflow: "hidden",

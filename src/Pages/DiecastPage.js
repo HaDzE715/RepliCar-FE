@@ -49,7 +49,6 @@ const DiecastPage = () => {
           width: "100%",
           maxWidth: "1000px",
           margin: "0 auto 40px auto",
-          marginTop: "30px",
           borderRadius: "12px",
           overflow: "hidden",
           boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)",
