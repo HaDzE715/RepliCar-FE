@@ -37,7 +37,7 @@ const pages = [
       { name: "רכבים", link: "/diecast" },
     ],
   },
-  { name: "מבצעי פסח!", link: "/discounts" },
+  { name: "מבצעים!", link: "/discounts" },
   { name: "בלוגים", link: "/blogs" },
 ];
 
@@ -307,7 +307,7 @@ function CustomNavbar() {
                         borderBottom: "2px solid #ffd700",
                         backgroundColor: "rgba(255, 255, 255, 0.05)",
                       },
-                      ...(page.name === "מבצעי פסח!" && {
+                      ...(page.name === "מבצעים!" && {
                         color: "#ff3d3d",
                         fontWeight: "bold",
                         position: "relative",
@@ -447,7 +447,7 @@ function CustomNavbar() {
                     "&:hover": {
                       backgroundColor: "rgba(255,255,255,0.05)",
                     },
-                    ...(page.name === "מבצעי פסח!" && {
+                    ...(page.name === "מבצעים!" && {
                       color: "#ff3d3d",
                       position: "relative",
                       "&::after": {
@@ -472,7 +472,7 @@ function CustomNavbar() {
                         fontFamily: "Noto Sans Hebrew",
                         fontWeight: "medium",
                         color:
-                          page.name === "מבצעי פסח!" ? "#ff3d3d" : "#c0c0c0",
+                          page.name === "מבצעים!" ? "#ff3d3d" : "#c0c0c0",
                       },
                     }}
                   />
