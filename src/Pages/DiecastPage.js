@@ -166,7 +166,7 @@ const DiecastPage = () => {
               }}
             />
             <DotLottieReact
-              src="https://lottie.host/aafb2d91-f7fd-4871-a2db-3efca6654e85/e5CEPPdkuB.lottie"
+              src="https://lottie.host/8e0660eb-2b61-46de-8937-357df2ccb71f/LR9FnbiJMI.lottie"
               loop
               autoplay
               style={{
